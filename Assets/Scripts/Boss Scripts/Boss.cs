@@ -1,0 +1,75 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Boss : MonoBehaviour
+{
+    public Transform player;
+    public bool isFlipped = false;
+    Animator bossAnimator;
+    public float bossHealth = 30f;
+    public PolygonCollider2D myCollider;
+    public Rigidbody2D myRigidbody;
+    public GameObject key;
+    playerMovement playerMovement;
+    void Start() 
+    {
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
+        key.SetActive(false);
+        myRigidbody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<PolygonCollider2D>();
+        bossAnimator = GetComponent<Animator>();
+    }
+      
+    void Update() 
+    {
+        if(!playerMovement.hasKey && !playerMovement.isStopped)
+        {
+           key.transform.Rotate(new Vector3(0,2,0));
+        }
+        else
+        {
+            return;
+        }
+        
+    }
+    public void LookAtPlayer()
+    {
+        Vector3 flipped = transform.localScale;
+        flipped.z*=-1f;
+
+        if(transform.position.x > player.position.x && isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f,180f,0f);
+            isFlipped = false;
+        }
+        else if(transform.position.x < player.position.x && !isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f,180f,0f);
+            isFlipped = true;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.tag=="Bullet")
+        {
+            bossHealth--;
+            bossAnimator.SetBool("Hit",true);
+            Invoke("returnToNormalState",0.2f);
+        }
+        if(bossHealth<=0)
+        {
+            myCollider.enabled = false;
+            myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+            bossAnimator.SetTrigger("Death");
+            key.SetActive(true);
+        }
+    }
+    void returnToNormalState()
+    {
+        bossAnimator.SetBool("Hit",false);
+    }
+    
+}
