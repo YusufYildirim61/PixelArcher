@@ -11,14 +11,13 @@ public class CannonBullet : MonoBehaviour
     
     void Start()
     {
+      
         cannonTrap = FindObjectOfType<CannonTrap>();
         xSpeed = cannonTrap.transform.localScale.x * canonBulletSpeed;
         transform.localScale = new Vector2((Mathf.Sign(xSpeed)) * transform.localScale.x, transform.localScale.y);
         myRigidbody = GetComponent<Rigidbody2D>();
-        myRigidbody.velocity = new Vector2(xSpeed,0f);
-        cannonTrap = FindObjectOfType<CannonTrap>();
-        xSpeed = cannonTrap.transform.localScale.x * canonBulletSpeed;
-        transform.localScale = new Vector2((Mathf.Sign(xSpeed)) * transform.localScale.x, transform.localScale.y);
+        myRigidbody.velocity = Mathf.Sign(xSpeed)*transform.right*canonBulletSpeed;
+        
     }
     
     // Update is called once per frame
