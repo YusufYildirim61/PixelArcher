@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundManagerScript : MonoBehaviour
 {
     public static AudioClip cursorSFX, errorSFX, confirmSFX, ammoPickUpSFX, beetleDeathSFX, checkpointSFX, coinPickupSFX, enemyHitSFX,enemyDeathSFX,
-    deathSFX,arrowShotSFX,jumpSFX,bossDamagedSFX,bossDeathSFX;
+    deathSFX,arrowShotSFX,jumpSFX,bossDamagedSFX,bossDeathSFX,gateSFX;
     static AudioSource audioSrc;
     void Start()
     {
@@ -21,7 +21,9 @@ public class SoundManagerScript : MonoBehaviour
         deathSFX = Resources.Load<AudioClip>("deathSFX");
         arrowShotSFX = Resources.Load<AudioClip>("shoot");
         jumpSFX = Resources.Load<AudioClip>("Jump_9_Sound_effects_Pack_2");
-
+        bossDamagedSFX = Resources.Load<AudioClip>("hit35");
+        bossDeathSFX = Resources.Load<AudioClip>("bossDeath");
+        gateSFX = Resources.Load<AudioClip>("gateOpen");
 
         audioSrc = GetComponent<AudioSource>();
     }
@@ -72,7 +74,16 @@ public class SoundManagerScript : MonoBehaviour
                 break;
             case "jump":
                 audioSrc.PlayOneShot(jumpSFX);
-                break;                   
+                break;
+            case "bossHit":
+                audioSrc.PlayOneShot(bossDamagedSFX);
+                break;
+            case "bossDeath":
+                audioSrc.PlayOneShot(bossDeathSFX);
+                break;
+            case "gateOpen":
+                audioSrc.PlayOneShot(gateSFX);
+                break;         
         }
         }
         

@@ -27,6 +27,7 @@ public class DoorScript : MonoBehaviour
     {
         if(other.collider==playerMovement.myBodyCollider && playerMovement.hasKey)
         {
+            SoundManagerScript.PlaySound("gateOpen");
             doorCollider.enabled = false;
             doorRB.constraints = RigidbodyConstraints2D.FreezeAll;
             doorAnimator.SetTrigger("OpenDoor");

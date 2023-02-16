@@ -61,7 +61,8 @@ public class playerMovement : MonoBehaviour
     private RuntimeAnimatorController defaultSkin;
     
     [Header("Audio")]
-    AudioSource levelMusic;
+    AudioSource footsteps;
+
     
     public bool isInBossLevel = false;
     bool isBouncing = false;
@@ -70,9 +71,9 @@ public class playerMovement : MonoBehaviour
 
     void Start()
     {
-        levelMusic = FindObjectOfType<AudioManager>().levelMusic;
         
-
+        
+        footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
         Application.targetFrameRate = 60;
         totalAmmo = FindObjectOfType<GameSession>().ammo;
@@ -115,14 +116,13 @@ public class playerMovement : MonoBehaviour
         
         
         
-        
+        playFootsteps();
         moveCharacter();
         moveUpandDown();
         Die();
         
         //Run();
        //FlipSprite();
-       //playFootsteps();
        //climbLadder();
         
     }
@@ -151,6 +151,7 @@ public class playerMovement : MonoBehaviour
         }
         if(moveRight)
         {
+            
             myBodyCollider.sharedMaterial = frictionless;
             myFeetCollider.sharedMaterial = frictionless;
             myRigidbody.velocity = new Vector2(runSpeed,myRigidbody.velocity.y);
@@ -250,11 +251,13 @@ public class playerMovement : MonoBehaviour
     public void MoveLeft()
     {
         moveLeft = true;
+ 
     }
 
     public void MoveRight()
     {
-        moveRight = true;   
+        moveRight = true;
+          
     }
     public void MoveUp()
     { 
@@ -478,12 +481,26 @@ public class playerMovement : MonoBehaviour
         }
         if(other.tag == "Key")
         {
+            SoundManagerScript.PlaySound("confirm");
             hasKey = true;
             Destroy(other.gameObject);
             
         }
         
         
+    }
+    void playFootsteps()
+    {
+         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+
+         if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerHasHorizontalSpeed && !footsteps.isPlaying)
+        {
+            footsteps.Play();
+        }
+        else if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || !playerHasHorizontalSpeed)
+        {
+            footsteps.Stop();
+        }
     }
     /*
     void FlipSprite() // Karakterin bastığın yöne göre dönmesi

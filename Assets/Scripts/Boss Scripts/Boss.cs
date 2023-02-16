@@ -55,16 +55,19 @@ public class Boss : MonoBehaviour
     {
         if(other.tag=="Bullet")
         {
+            SoundManagerScript.PlaySound("bossHit");
             bossHealth--;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(bossHealth<=0)
         {
+            SoundManagerScript.PlaySound("bossDeath");
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             bossAnimator.SetTrigger("Death");
             key.SetActive(true);
+            FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
         }
     }
     void returnToNormalState()
