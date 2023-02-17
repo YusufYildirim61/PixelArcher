@@ -140,6 +140,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(4);
         Time.timeScale = 1;
     }
+    public void openLevelFive()
+    {
+        SoundManagerScript.PlaySound("cursor");
+        SceneManager.LoadScene(5);
+        Time.timeScale = 1;
+    }
     
     public void deletePrefs()
     {
