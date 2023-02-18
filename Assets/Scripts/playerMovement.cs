@@ -116,7 +116,7 @@ public class playerMovement : MonoBehaviour
         
         
         
-        playFootsteps();
+        //playFootsteps();
         moveCharacter();
         moveUpandDown();
         Die();
