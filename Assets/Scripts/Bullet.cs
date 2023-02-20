@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     
     [SerializeField] AudioClip beetleDeathSFX;
     Rigidbody2D myRigidbody;
+    BoxCollider2D myboxCollider;
     playerMovement player;
      float xSpeed;
     EnemyMovement enemyMovement;
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         
-        
+        myboxCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<playerMovement>();
         levelComplete = FindObjectOfType<LevelComplete>();
@@ -36,7 +37,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         myRigidbody.velocity = new Vector2(xSpeed,0f);
-        
+        destroyArrow();
     }
 
     void OnTriggerEnter2D(Collider2D other) 
@@ -56,6 +57,13 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
       }
       
+    }
+    void destroyArrow()
+    {
+      if(myboxCollider.IsTouchingLayers(LayerMask.GetMask("Ground","Hazards,Bouncing")))
+      {
+        Destroy(gameObject);
+      }
     }
     
     

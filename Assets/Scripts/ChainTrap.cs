@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChainTrap : MonoBehaviour
 {
+    public float speed = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,6 @@ public class ChainTrap : MonoBehaviour
         {
             return;
         }
-        transform.Rotate(new Vector3(0,0,2));
+        transform.Rotate(new Vector3(0,0,speed));
     }
 }
