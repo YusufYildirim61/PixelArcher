@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8093522096303084470}
   - component: {fileID: 8093522096303084471}
   - component: {fileID: 8093522096303084469}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: chainedTrap
   m_TagString: ChainTrap
   m_Icon: {fileID: 0}
@@ -199,3 +199,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497d72471df285a43a12710e649dafae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2

@@ -9,9 +9,10 @@ public class BeetleMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     
     public float beetleHealth = 1f;
+    BoxCollider2D myboxCollider;
     void Start()
     {   
-        
+        myboxCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -19,6 +20,7 @@ public class BeetleMovement : MonoBehaviour
     void Update()
     {
         myRigidbody.velocity = new Vector2(0,moveSpeed);
+        FlipEnemy();
        
     }
     void OnTriggerEnter2D(Collider2D other) 
@@ -39,9 +41,10 @@ public class BeetleMovement : MonoBehaviour
     {
         if(other.tag=="Platform")
         {
-            moveSpeed = -moveSpeed;
-            FlipEnemyFacing();
+            //moveSpeed *= -1f;
+            //FlipEnemyFacing();
         }
+        
         
                 
     }
@@ -50,5 +53,12 @@ public class BeetleMovement : MonoBehaviour
         transform.localScale = new Vector2(1,-(Mathf.Sign(myRigidbody.velocity.y)));
     }
     
-
+    void FlipEnemy()
+    {
+      if(myboxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+      {
+            moveSpeed *= -1f;
+            FlipEnemyFacing();
+      }
+    }
 }

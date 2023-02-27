@@ -160,8 +160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  enemyDeathSFX: {fileID: 8300000, guid: 3208b71ad5c1fec41ab172e0a5459cc6, type: 3}
-  enemyHitSFX: {fileID: 8300000, guid: 1054170ae8b1e04419c5eb064465bbb6, type: 3}
   enemyHealth: 2
 --- !u!61 &6577524551928174261
 BoxCollider2D:
@@ -176,7 +174,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3584423, y: -0.5754145}
+  m_Offset: {x: 0.44586897, y: -0.5754145}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -187,7 +185,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0423069, y: 0.3948629}
+  m_Size: {x: 0.030863762, y: 0.3948629}
   m_EdgeRadius: 0
 --- !u!1 &9013565819612372399
 GameObject:

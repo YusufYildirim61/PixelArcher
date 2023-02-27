@@ -12,8 +12,10 @@ public class EnemyMovement : MonoBehaviour
     Animator myAnimator;
     
     SpriteRenderer mySpriteRenderer;
+     
     void Start()
     {
+        
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
@@ -58,6 +60,7 @@ public class EnemyMovement : MonoBehaviour
         
                 
     }
+    
 
     void FlipEnemyFacing()
     {

@@ -71,8 +71,6 @@ public class playerMovement : MonoBehaviour
 
     void Start()
     {
-        
-        
         footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
         Application.targetFrameRate = 60;
@@ -81,17 +79,13 @@ public class playerMovement : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         myBodyCollider = GetComponent<CapsuleCollider2D>();
         myFeetCollider = GetComponent<BoxCollider2D>();
-        
         gravityAtStart = myRigidbody.gravityScale;
         myImpulseSource = GetComponent<CinemachineImpulseSource>();
-        
         respawnPoint = transform.position;
-
         climbUpandDown.SetActive(false);
         //FindObjectOfType<GameSession>().ammo =  PlayerPrefs.GetInt("ammo",FindObjectOfType<GameSession>().ammo); // Ammo kaydetme
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("SavedScene",currentSceneIndex);
-        //levelCompleteScreen.SetActive(false);
         if(PlayerPrefs.GetInt("SelectedSkin")== 0)
         {
             defaultSkin = myAnimator.runtimeAnimatorController;
@@ -113,14 +107,10 @@ public class playerMovement : MonoBehaviour
         {
             return;
         }
-        
-        
-        
         //playFootsteps();
         moveCharacter();
         moveUpandDown();
         Die();
-        
         //Run();
        //FlipSprite();
        //climbLadder();
@@ -233,7 +223,6 @@ public class playerMovement : MonoBehaviour
     {
         if(isLevelFinished)
         {
-            
             myRigidbody.velocity = new Vector2(runSpeed,myRigidbody.velocity.y);
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x)> Mathf.Epsilon;
             transform.localScale = new Vector2(1,1);
@@ -251,13 +240,11 @@ public class playerMovement : MonoBehaviour
     public void MoveLeft()
     {
         moveLeft = true;
- 
     }
 
     public void MoveRight()
     {
-        moveRight = true;
-          
+        moveRight = true;    
     }
     public void MoveUp()
     { 
@@ -303,8 +290,7 @@ public class playerMovement : MonoBehaviour
      
     
     public void fireButton()
-    {
-        
+    { 
         if(!isAlive || myAnimator.GetBool("isClimbing") || isStopped)
         {
             return;
@@ -328,18 +314,11 @@ public class playerMovement : MonoBehaviour
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
                 Instantiate(bullet, gun.position,transform.rotation);
-            }
-            
-            
-            
+            }           
         }
-    
     }
-    
     public void jumpButton()
     {   
-        
-   
             if(!isAlive || isLevelFinished)
             {
                 return;
@@ -350,8 +329,7 @@ public class playerMovement : MonoBehaviour
                 return; // Yere inmeden zıplamayı engelleme
             }
             SoundManagerScript.PlaySound("jump");
-            myRigidbody.velocity += new Vector2(0f,jumpSpeed);
-                
+            myRigidbody.velocity += new Vector2(0f,jumpSpeed);        
     }
  
     public void Die() 

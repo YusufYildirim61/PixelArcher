@@ -41,7 +41,7 @@ public class SkinManager : MonoBehaviour
         if(selectedSkin == 1 && isSkin1Sold == 0)
         {
             coinImage.enabled = true;
-            skinCostText.text = "30 X";
+            skinCostText.text = "50 X";
             saveButton.interactable = false;
             lockedButton.SetActive(true);
         }
@@ -104,11 +104,11 @@ public class SkinManager : MonoBehaviour
     {
         if(selectedSkin ==1)
         {
-            if(totalMoney>=30)
+            if(totalMoney>=50)
             {
                 
                 SoundManagerScript.PlaySound("confirm");
-                totalMoney -=30;
+                totalMoney -=50;
                 PlayerPrefs.SetInt("IsSkin1Sold",1);
                 PlayerPrefs.SetInt("SelectedSkin",selectedSkin);
                 PlayerPrefs.SetInt("TotalMoney",totalMoney);
