@@ -65,7 +65,7 @@ public class playerMovement : MonoBehaviour
 
     
     public bool isInBossLevel = false;
-    bool isBouncing = false;
+    
     public float bounceSpeed = 6f;
     public  bool hasKey = false;
 
@@ -370,7 +370,7 @@ public class playerMovement : MonoBehaviour
             SoundManagerScript.PlaySound("death");
             //isTouchedHazards = true;
             myRigidbody.velocity += Vector2.up * bounceSpeed;
-            isBouncing = true;
+            
             Invoke("damagedByHazards",0.2f);
         }
         if(isTouchedHazards)
@@ -382,7 +382,7 @@ public class playerMovement : MonoBehaviour
             SoundManagerScript.PlaySound("death");
             //isTouchedHazards = true;
             myRigidbody.velocity += Vector2.up * bounceSpeed;
-            isBouncing = true;
+            
             
         }
        } 
@@ -406,7 +406,7 @@ public class playerMovement : MonoBehaviour
             SoundManagerScript.PlaySound("death");
             //isTouchedHazards = true;
             myRigidbody.velocity = deathKick;
-            isBouncing = true;
+            
             FindObjectOfType<Boss>().myCollider.enabled = false;
             FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
             Invoke("StopBounce", 1.5f);
@@ -416,7 +416,7 @@ public class playerMovement : MonoBehaviour
     }
     void StopBounce()
     {
-        isBouncing = false;
+        
         //isTouchedHazards = false;
         FindObjectOfType<Boss>().myCollider.enabled =true;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.None;
@@ -440,7 +440,7 @@ public class playerMovement : MonoBehaviour
         SoundManagerScript.PlaySound("death");
         //isTouchedHazards = true;
         myRigidbody.velocity = deathKick;
-        isBouncing = true;
+        
         FindObjectOfType<Boss>().myCollider.enabled = false;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         Invoke("StopBounce", 1.5f);

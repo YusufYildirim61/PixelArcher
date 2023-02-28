@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class WhiteSkeleton : MonoBehaviour
 {
+    [Header("Values")]
     [SerializeField] private float speed;
-    
-    [SerializeField] Vector3[] positions;
-    Animator myAnimator;
     private int index;
     public bool isFlipped = false;
+    [SerializeField] public int health;
+    
+    [Header("Components")]
+    Animator myAnimator;
     public Transform player;
-    [SerializeField] private int health;
     public PolygonCollider2D myCollider;
     public Rigidbody2D myRigidbody;
+    private Vector3 respawnPoint;
 
     [Header("Attack")]
     public Vector3 attackOffset;
     [SerializeField] private float attackRange;
     public LayerMask attackMask;
+    
+
+    public float walkRange = 5f;
     void Start()
     {
+        respawnPoint = transform.position;
         myCollider = GetComponent<PolygonCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
@@ -28,38 +34,40 @@ public class WhiteSkeleton : MonoBehaviour
 
     
     void Update()
-    {
-        
-        Attack();   
-        if(Vector2.Distance(player.position, myRigidbody.position)<=attackRange)
+    {   
+        Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
+        Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
+        //myRigidbody.MovePosition(newPosition);
+        if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
         {
-            
-            transform.position = Vector2.MoveTowards(transform.position,positions[index],Time.deltaTime*0);
-            myAnimator.SetTrigger("Attack");
-            //myRigidbody.velocity = new Vector2(0,0);
+           Debug.Log("asda");
+           myAnimator.SetBool("Walk",true);
+           myRigidbody.MovePosition(newPosition);
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position,positions[index],Time.deltaTime*speed);
-            myAnimator.ResetTrigger("Attack");
-            //myRigidbody.velocity = new Vector2(speed,0);
-        }
-        
-
-        if(transform.position == positions[index])
-        {
-            if(index == positions.Length -1)
-            {
-                index = 0;
-            }
-            else
-            {
-                index++;
-            }
+            myAnimator.SetBool("Walk",false);
         }
     }
 
-    
+    public void LookAtPlayer()
+    {
+        Vector3 flipped = transform.localScale;
+        flipped.z*=-1f;
+
+        if(transform.position.x > player.position.x && isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f,180f,0f);
+            isFlipped = false;
+        }
+        else if(transform.position.x < player.position.x && !isFlipped)
+        {
+            transform.localScale = flipped;
+            transform.Rotate(0f,180f,0f);
+            isFlipped = true;
+        }
+    }
     void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag=="Bullet")
@@ -71,12 +79,11 @@ public class WhiteSkeleton : MonoBehaviour
         }
         if(health<=0)
         {
+            FindObjectOfType<LevelComplete>().creatureKilled(200);
             SoundManagerScript.PlaySound("bossDeath");
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             myAnimator.SetTrigger("Death");
-            
-            FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
         }
     }
     void returnToNormalState()
@@ -93,7 +100,9 @@ public class WhiteSkeleton : MonoBehaviour
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
       if(colInfo != null)
       {
-          colInfo.GetComponent<playerMovement>().Die();
+
+        colInfo.GetComponent<playerMovement>().isTouchedHazards = true;
+        Invoke("backtoSpawnPoint",0.8f);
       }
     }
     void OnDrawGizmosSelected()
@@ -103,5 +112,9 @@ public class WhiteSkeleton : MonoBehaviour
     	pos += transform.up * attackOffset.y;
 
     	Gizmos.DrawWireSphere(pos, attackRange);
+    }
+    void backtoSpawnPoint()
+    {
+        transform.position = respawnPoint;
     }
 }
