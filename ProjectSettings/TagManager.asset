@@ -17,6 +17,7 @@ TagManager:
   - ChainTrap
   - Boss
   - Key
+  - Fan
   layers:
   - Default
   - TransparentFX
@@ -80,4 +81,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3955395029
+    locked: 0
+  - name: Doors
+    uniqueID: 1425742879
     locked: 0

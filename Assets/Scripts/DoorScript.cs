@@ -9,6 +9,7 @@ public class DoorScript : MonoBehaviour
     Animator doorAnimator;
     Rigidbody2D doorRB;
     BoxCollider2D doorCollider;
+    public GameObject key;
     void Start()
     {
         doorRB = GetComponent<Rigidbody2D>();
@@ -20,7 +21,14 @@ public class DoorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!playerMovement.hasKey && !playerMovement.isStopped)
+        {
+           key.transform.Rotate(new Vector3(0,2,0));
+        }
+        else
+        {
+            return;
+        }
     }
     
     void OnCollisionEnter2D(Collision2D other) 

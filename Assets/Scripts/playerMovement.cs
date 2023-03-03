@@ -338,24 +338,29 @@ public class playerMovement : MonoBehaviour
        {
         if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies","Hazards")))
         {
+            
+            myBodyCollider.enabled = false;
+            myFeetCollider.enabled = false;
             FindObjectOfType<LevelComplete>().timesDied(10);
             isAlive = false;
             myAnimator.SetBool("Die",true);
             myRigidbody.velocity = deathKick;
             SoundManagerScript.PlaySound("death");
             myImpulseSource.GenerateImpulse(1);
-            Invoke("Respawn",0.4f);
+            Invoke("Respawn",0.5f);
 
         }
         if(isTouchedHazards)
         {
+            myBodyCollider.enabled = false;
+            myFeetCollider.enabled = false;
             FindObjectOfType<LevelComplete>().timesDied(10);
             isAlive = false;
             myAnimator.SetBool("Die",true);
             myRigidbody.velocity = deathKick;
             SoundManagerScript.PlaySound("death");
             myImpulseSource.GenerateImpulse(1);
-            Invoke("Respawn",0.4f);
+            Invoke("Respawn",0.5f);
             
         }
        }
@@ -426,6 +431,8 @@ public class playerMovement : MonoBehaviour
     public void Respawn()
     {
         myRigidbody.velocity = new Vector2(0,0); 
+        myBodyCollider.enabled = true;
+        myFeetCollider.enabled = true;
         transform.position = respawnPoint;
         myAnimator.SetBool("Die",false);
         isAlive = true;
@@ -464,6 +471,7 @@ public class playerMovement : MonoBehaviour
             Destroy(other.gameObject);
             
         }
+        
         
         
     }
