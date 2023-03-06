@@ -230,6 +230,9 @@ MonoBehaviour:
   bullet: {fileID: 7398551593197507331, guid: 2f4e6a0c4e7f27d4c9ffbee4eba21a82, type: 3}
   bullet2: {fileID: 3704507515061187042, guid: 9a895c025f1f24c469bc67dce6017915, type: 3}
   bullet3: {fileID: 6895247651495793928, guid: ed239943fb2b48844b8503fe0c8f7c29, type: 3}
+  poisonArrow: {fileID: 1999811444775440804, guid: f1bfeaa64b15c7c47a9b4be90c1f031d, type: 3}
+  iceArrow: {fileID: 6615609714158121919, guid: 4bd6eec78e7e5e04791556fa1d793197, type: 3}
+  strongArrow: {fileID: 7040918457673153173, guid: cef235809244a1844b8d54a8f02bb710, type: 3}
   gun: {fileID: 4019669804128995638}
   myBodyCollider: {fileID: 0}
   isAlive: 1

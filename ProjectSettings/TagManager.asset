@@ -18,6 +18,7 @@ TagManager:
   - Boss
   - Key
   - Fan
+  - Shop
   layers:
   - Default
   - TransparentFX
