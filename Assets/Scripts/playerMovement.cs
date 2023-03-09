@@ -51,8 +51,9 @@ public class playerMovement : MonoBehaviour
     
     
     [Header("UI")]
-    [SerializeField] GameObject ShootandJump;
+    [SerializeField] public GameObject ShootandJump;
     [SerializeField] GameObject climbUpandDown;
+    [SerializeField] public GameObject buyButton;
 
     [SerializeField] GameObject platformTilemap;
     [Header("Materials")]
@@ -74,10 +75,11 @@ public class playerMovement : MonoBehaviour
     
     public float bounceSpeed = 6f;
     public  bool hasKey = false;
+    public bool isPressedBuy = false;
 
     void Start()
     {
-        
+        gameSession = FindObjectOfType<GameSession>();
         footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
         Application.targetFrameRate = 60;
@@ -89,10 +91,11 @@ public class playerMovement : MonoBehaviour
         gravityAtStart = myRigidbody.gravityScale;
         myImpulseSource = GetComponent<CinemachineImpulseSource>();
         respawnPoint = transform.position;
+        buyButton.SetActive(false);
         climbUpandDown.SetActive(false);
         FindObjectOfType<GameSession>().poisonAmmo =  PlayerPrefs.GetInt("poisonAmmo",FindObjectOfType<GameSession>().poisonAmmo); // Ammo kaydetme
         FindObjectOfType<GameSession>().iceAmmo =  PlayerPrefs.GetInt("iceAmmo",FindObjectOfType<GameSession>().iceAmmo);
-        FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
+        //FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("SavedScene",currentSceneIndex);
 
@@ -305,11 +308,11 @@ public class playerMovement : MonoBehaviour
         {
             return;
         }
-        if(FindObjectOfType<GameSession>().ammo>0 && FindObjectOfType<GameSession>().isOnDefaultArrow)
+        if(gameSession.ammo>0 && gameSession.isOnDefaultArrow)
         {   
             if(tripleArrow)
             {
-                FindObjectOfType<GameSession>().removeAmmo();
+                gameSession.removeAmmo();
                 //PlayerPrefs.SetInt("ammo",FindObjectOfType<GameSession>().ammo);
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
@@ -320,7 +323,7 @@ public class playerMovement : MonoBehaviour
             
             else
             {
-                FindObjectOfType<GameSession>().removeAmmo();
+                gameSession.removeAmmo();
                 //PlayerPrefs.SetInt("ammo",FindObjectOfType<GameSession>().ammo);
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
@@ -328,26 +331,26 @@ public class playerMovement : MonoBehaviour
             }
             
         }
-        if(FindObjectOfType<GameSession>().poisonAmmo>0 && FindObjectOfType<GameSession>().isOnPoisonArrow)
+        if(gameSession.poisonAmmo>0 && gameSession.isOnPoisonArrow)
         {
-                FindObjectOfType<GameSession>().removePoisonAmmo();
-                PlayerPrefs.SetInt("poisonAmmo",FindObjectOfType<GameSession>().poisonAmmo);
+                gameSession.removePoisonAmmo();
+                PlayerPrefs.SetInt("poisonAmmo",gameSession.poisonAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
                 Instantiate(poisonArrow, gun.position,transform.rotation);
         }
-        if(FindObjectOfType<GameSession>().iceAmmo>0 && FindObjectOfType<GameSession>().isOnIceArrow)
+        if(gameSession.iceAmmo>0 && gameSession.isOnIceArrow)
         {
-                FindObjectOfType<GameSession>().removeIceAmmo();
-                PlayerPrefs.SetInt("iceAmmo",FindObjectOfType<GameSession>().iceAmmo);
+                gameSession.removeIceAmmo();
+                PlayerPrefs.SetInt("iceAmmo",gameSession.iceAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
                 Instantiate(iceArrow, gun.position,transform.rotation);
         }
-        if(FindObjectOfType<GameSession>().strongAmmo>0 && FindObjectOfType<GameSession>().isOnStrongArrow)
+        if(gameSession.strongAmmo>0 && gameSession.isOnStrongArrow)
         {
-                FindObjectOfType<GameSession>().removeStrongAmmo();
-                PlayerPrefs.SetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
+                gameSession.removeStrongAmmo();
+                PlayerPrefs.SetInt("strongAmmo",gameSession.strongAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
                 Instantiate(strongArrow, gun.position,transform.rotation);
@@ -512,8 +515,24 @@ public class playerMovement : MonoBehaviour
         if(other.tag == "Shop")
         {
             FindObjectOfType<GameSession>().totalMoney.SetActive(true);
+            
         }    
     }
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.tag == "Shop")
+        {
+            FindObjectOfType<GameSession>().totalMoney.SetActive(false);
+            
+        } 
+    }
+    public void buyAmmoPacks()
+    {
+        isPressedBuy = true;
+    }
+    
+
+
     void playFootsteps()
     {
          bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;

@@ -22,11 +22,19 @@ public class WhiteSkeleton_Walk : StateMachineBehaviour
      
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     { 
-        whiteSkeleton.LookAtPlayer();
-        if(Vector2.Distance(player.position, rb.position)<=attackRange)
+        if(whiteSkeleton.isFrozen)
         {
-            animator.SetTrigger("Attack");
+            return;
         }
+        else
+        {
+            whiteSkeleton.LookAtPlayer();
+            if(Vector2.Distance(player.position, rb.position)<=attackRange)
+            {
+                animator.SetTrigger("Attack");
+            }
+        }
+        
     }
 
     

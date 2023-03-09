@@ -24,7 +24,7 @@ public class SkinManager : MonoBehaviour
     {
         
         lockedButton.SetActive(true);
-        totalMoney = PlayerPrefs.GetInt("TotalMoney");
+        //totalMoney = PlayerPrefs.GetInt("TotalMoney");
         
         
     }

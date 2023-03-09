@@ -22,15 +22,24 @@ public class Goo_Walk : StateMachineBehaviour
     
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        goo.LookAtPlayer();
-        if(Vector2.Distance(player.position, rb.position)<=attackRange)
+        if(goo.isFrozen)
         {
-            animator.SetTrigger("Attack");
+            return;
         }
-        if(goo.health<=0)
+        else
         {
-            animator.SetTrigger("Death");
+            goo.LookAtPlayer();
+            if(Vector2.Distance(player.position, rb.position)<=attackRange)
+            {
+                animator.SetTrigger("Attack");
+            }
+            if(goo.health<=0)
+            {
+                animator.SetTrigger("Death");
+                return;
+            }
         }
+        
     }
 
     

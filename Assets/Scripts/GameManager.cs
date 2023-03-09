@@ -10,15 +10,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI moneyText;
     void Start()
     {
-        money = PlayerPrefs.GetInt("TotalMoney");
-        moneyText.text = money.ToString() +" X";
+        //money = PlayerPrefs.GetInt("TotalMoney");
+        //moneyText.text = money.ToString() +" X";
     }
     
 
     // Update is called once per frame
     void Update()
     {
-        
+       money = PlayerPrefs.GetInt("TotalMoney");
+       moneyText.text = money.ToString() +" X";
     }
     public void deleteMoney()
     {

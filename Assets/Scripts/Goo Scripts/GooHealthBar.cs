@@ -17,5 +17,10 @@ public class GooHealthBar : MonoBehaviour
     {
         healthBar.x = goo.health * 0.8f;
         transform.localScale = healthBar;
+        if(healthBar.x<=0)
+        {
+            healthBar.x = 0;
+            transform.localScale = healthBar;
+        }
     }
 }

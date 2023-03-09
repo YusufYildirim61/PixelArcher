@@ -18,11 +18,13 @@ public class IdleGoo : MonoBehaviour
     public LayerMask attackMask;
 
     public float walkRange = 5f;
+    GameSession gameSession;
+    bool isFrozen = false;
     
     
     void Start()
     {
-        
+        gameSession = FindObjectOfType<GameSession>();
         myCollider = GetComponent<PolygonCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
@@ -31,19 +33,41 @@ public class IdleGoo : MonoBehaviour
     
     void Update()
     {
-        
+        if(isFrozen)
+        {
+            return;
+        }
+        else
+        {
             Invoke("attack",0.4f);
+        }
+            
         
     }
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet")
+        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
             SoundManagerScript.PlaySound("bossHit");
             health--;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
+        }
+        if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
+        {
+            SoundManagerScript.PlaySound("bossHit");
+            health-=2;
+            myAnimator.SetBool("Hit",true);
+            Invoke("returnToNormalState",0.2f);
+        }
+        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        {
+            isFrozen = true;
+            SoundManagerScript.PlaySound("bossHit");
+            myAnimator.SetBool("Freeze",true);
+            Invoke("unFreezeIdleGoo",1f);
+            
         }
         if(health<=0)
         {
@@ -58,6 +82,11 @@ public class IdleGoo : MonoBehaviour
     void returnToNormalState()
     {
         myAnimator.SetBool("Hit",false);
+    }
+    void unFreezeIdleGoo()
+    {
+        myAnimator.SetBool("Freeze",false);
+        isFrozen = false;
     }
 
     public void Attack()

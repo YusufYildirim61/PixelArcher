@@ -21,5 +21,10 @@ public class enemyHealthBar : MonoBehaviour
     {
         healthBar.x = enemyMovement.enemyHealth * 0.4f;
         transform.localScale = healthBar;
+        if(healthBar.x<=0)
+        {
+            healthBar.x = 0;
+            transform.localScale = healthBar;
+        }
     }
 }

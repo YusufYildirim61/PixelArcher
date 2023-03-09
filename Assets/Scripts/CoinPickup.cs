@@ -14,7 +14,7 @@ public class CoinPickup : MonoBehaviour
         if(other.tag=="Player" && !wasCollected && FindObjectOfType<playerMovement>().isAlive==true)
         {
             FindObjectOfType<GameManager>().money += totalMoneyIncreaseValue;
-            //PlayerPrefs.SetInt("TotalMoney",FindObjectOfType<GameManager>().money); 
+            PlayerPrefs.SetInt("TotalMoney",FindObjectOfType<GameManager>().money); 
             wasCollected = true;
             //FindObjectOfType<GameSession>().AddToScore(pointsForCoinPickup);
             FindObjectOfType<LevelComplete>().AddCoinToScore(pointsForCoinPickup);

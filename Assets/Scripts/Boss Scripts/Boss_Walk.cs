@@ -22,16 +22,24 @@ public class Boss_Walk : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        boss.LookAtPlayer();
-
-        Vector2 target = new Vector2(player.position.x, rb.position.y);
-        Vector2 newPosition =Vector2.MoveTowards(rb.position, target, speed*Time.fixedDeltaTime);
-        rb.MovePosition(newPosition);
-
-        if(Vector2.Distance(player.position, rb.position)<=attackRange)
+        if(boss.isFrozen)
         {
-            animator.SetTrigger("Attack");
+            return;
         }
+        else
+        {
+            boss.LookAtPlayer();
+
+            Vector2 target = new Vector2(player.position.x, rb.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(rb.position, target, speed*Time.fixedDeltaTime);
+            rb.MovePosition(newPosition);
+
+            if(Vector2.Distance(player.position, rb.position)<=attackRange)
+            {
+                animator.SetTrigger("Attack");
+            }
+        }
+        
         
         
     }

@@ -10,26 +10,48 @@ public class BeetleMovement : MonoBehaviour
     
     public float beetleHealth = 1f;
     BoxCollider2D myboxCollider;
+    bool isFrozen = false;
+    GameSession gameSession;
+    Animator myAnimator;
     void Start()
     {   
+        gameSession = FindObjectOfType<GameSession>();
         myboxCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
     }
 
     
     void Update()
     {
-        myRigidbody.velocity = new Vector2(0,moveSpeed);
-        FlipEnemy();
+        if(isFrozen)
+        {
+            return;
+        }
+        else
+        {
+            myRigidbody.velocity = new Vector2(0,moveSpeed);
+            FlipEnemy();
+        }
+        
        
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet")
+        if(other.tag=="Bullet" && (gameSession.isOnDefaultArrow || gameSession.isOnStrongArrow || gameSession.isOnPoisonArrow))
         {
             beetleHealth -=1;
             
-        }    
+        }
+        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        {
+            SoundManagerScript.PlaySound("bossHit");
+            myAnimator.SetBool("Freeze",true);
+            myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
+            isFrozen = true;
+            Invoke("unFreezeBeetle",1f);
+            
+        }       
         if(beetleHealth<=0)
         {
             FindObjectOfType<LevelComplete>().creatureKilled(50);
@@ -37,16 +59,22 @@ public class BeetleMovement : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void unFreezeBeetle()
+    {
+        myAnimator.SetBool("Freeze",false);
+        isFrozen = false;
+        myRigidbody.constraints = RigidbodyConstraints2D.None;
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+    }
     void OnTriggerExit2D(Collider2D other) 
     {
         if(other.tag=="Platform")
         {
             //moveSpeed *= -1f;
             //FlipEnemyFacing();
-        }
-        
-        
-                
+        }        
     }
     void FlipEnemyFacing()
     {

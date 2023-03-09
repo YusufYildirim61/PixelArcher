@@ -18,5 +18,6 @@ public class BeetleHealthBar : MonoBehaviour
     {
         healthBar.x = beetleMovement.beetleHealth * 0.4f;
         transform.localScale = healthBar;
+        
     }
 }

@@ -20,12 +20,14 @@ public class Goo : MonoBehaviour
     public Vector3 attackOffset;
     [SerializeField] private float attackRange;
     public LayerMask attackMask;
+    GameSession gameSession;
     
-
+    public bool isFrozen = false;
     public float walkRange = 5f;
     // Start is called before the first frame update
     void Start()
     {
+        gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
         myCollider = GetComponent<PolygonCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -35,26 +37,31 @@ public class Goo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health<=0)
-        {
-            return;
-        }
-        else
-        {
-            Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
-            Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
-            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
-            {
             
-            myAnimator.SetBool("Walk",true);
-            myRigidbody.MovePosition(newPosition);
+
+            
+            if(isFrozen)
+            {
+                return;
             }
             else
             {
-                myAnimator.SetBool("Walk",false);
+                Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
+                Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
+                if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+                {
+                
+                    myAnimator.SetBool("Walk",true);
+                    myRigidbody.MovePosition(newPosition);
+                }
+                else
+                {
+                    myAnimator.SetBool("Walk",false);
+                }
             }
+            
         
-        }
+        
         
         
         
@@ -79,15 +86,30 @@ public class Goo : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet")
+        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
             SoundManagerScript.PlaySound("bossHit");
             health--;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
+        if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
+        {
+            SoundManagerScript.PlaySound("bossHit");
+            health-=2;
+            myAnimator.SetBool("Hit",true);
+            Invoke("returnToNormalState",0.2f);
+        }
+        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        {
+            SoundManagerScript.PlaySound("bossHit");
+            myAnimator.SetBool("Freeze",true);
+            isFrozen = true;
+            Invoke("unFreezeGoo",1f);
+        }
         if(health<=0)
         {
+            
             FindObjectOfType<LevelComplete>().creatureKilled(200);
             SoundManagerScript.PlaySound("bossDeath");
             myCollider.enabled = false;
@@ -98,6 +120,12 @@ public class Goo : MonoBehaviour
     void returnToNormalState()
     {
         myAnimator.SetBool("Hit",false);
+        
+    }
+    void unFreezeGoo()
+    {
+        myAnimator.SetBool("Freeze",false);
+        isFrozen = false;
     }
 
     public void Attack()

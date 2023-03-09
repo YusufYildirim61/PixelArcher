@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
      float xSpeed;
     EnemyMovement enemyMovement;
     LevelComplete levelComplete;
+    GameSession gameSession;
     
     public GameObject enemyBlood;
     
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour
    
     void Start()
     {
-        
+        gameSession = FindObjectOfType<GameSession>();
         myboxCollider = GetComponent<BoxCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<playerMovement>();
@@ -44,7 +45,6 @@ public class Bullet : MonoBehaviour
     {
       if(other.tag=="Enemy" && other.isTrigger.Equals(false))
       {
-        Instantiate(enemyBlood, transform.position,Quaternion.identity);
         Destroy(gameObject);
       }  
       if(other.tag=="Beetle" && other.isTrigger.Equals(false))

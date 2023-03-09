@@ -17,5 +17,10 @@ public class IdleGooHealthBar : MonoBehaviour
     {
         healthBar.x = idleGoo.health * 0.8f;
         transform.localScale = healthBar;
+        if(healthBar.x<=0)
+        {
+            healthBar.x = 0;
+            transform.localScale = healthBar;
+        }
     }
 }

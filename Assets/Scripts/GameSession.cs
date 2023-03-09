@@ -37,6 +37,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] public TextMeshProUGUI totalMoneyText;
 
     [SerializeField] GameObject pauseButton;
+    
     //[SerializeField] TextMeshProUGUI scoreText;
     
     
@@ -85,6 +86,7 @@ public class GameSession : MonoBehaviour
     }
      void Update() 
     {
+        PlayerPrefs.GetInt("TotalMoney");
         totalMoneyText.text = FindObjectOfType<GameManager>().moneyText.text;
         poisonAmmoText.text = poisonAmmo.ToString();
         iceAmmoText.text = iceAmmo.ToString();

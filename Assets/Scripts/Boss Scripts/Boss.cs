@@ -12,8 +12,11 @@ public class Boss : MonoBehaviour
     public Rigidbody2D myRigidbody;
     public GameObject key;
     playerMovement playerMovement;
+    GameSession gameSession;
+    public bool isFrozen = false;
     void Start() 
     {
+        gameSession = FindObjectOfType<GameSession>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
         key.SetActive(false);
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -53,12 +56,26 @@ public class Boss : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet")
+        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
             SoundManagerScript.PlaySound("bossHit");
             bossHealth--;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
+        }
+        if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
+        {
+            SoundManagerScript.PlaySound("bossHit");
+            bossHealth-=2;
+            bossAnimator.SetBool("Hit",true);
+            Invoke("returnToNormalState",0.2f);
+        }
+        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        {
+            isFrozen = true;
+            SoundManagerScript.PlaySound("bossHit");
+            bossAnimator.SetBool("Freeze",true);
+            Invoke("unFreezeBoss",1f);
         }
         if(bossHealth<=0)
         {
@@ -73,6 +90,11 @@ public class Boss : MonoBehaviour
     void returnToNormalState()
     {
         bossAnimator.SetBool("Hit",false);
+    }
+    void unFreezeBoss()
+    {
+        bossAnimator.SetBool("Freeze",false);
+        isFrozen = false;
     }
     
 }

@@ -19,5 +19,10 @@ public class BossHealthBar : MonoBehaviour
     {
         healthBar.x = boss.bossHealth * 0.04f;
         transform.localScale = healthBar;
+        if(healthBar.x<=0)
+        {
+            healthBar.x = 0;
+            transform.localScale = healthBar;
+        }
     }
 }
