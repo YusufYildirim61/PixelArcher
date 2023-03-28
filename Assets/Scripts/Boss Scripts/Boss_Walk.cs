@@ -26,6 +26,19 @@ public class Boss_Walk : StateMachineBehaviour
         {
             return;
         }
+        if(boss.isPoisoned)
+        {
+            boss.LookAtPlayer();
+
+            Vector2 target = new Vector2(player.position.x, rb.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(rb.position, target, speed*0.5f*Time.fixedDeltaTime);
+            rb.MovePosition(newPosition);
+
+            if(Vector2.Distance(player.position, rb.position)<=attackRange)
+            {
+                animator.SetTrigger("Attack");
+            }
+        }
         else
         {
             boss.LookAtPlayer();

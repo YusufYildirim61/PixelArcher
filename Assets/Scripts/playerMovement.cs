@@ -65,6 +65,9 @@ public class playerMovement : MonoBehaviour
     [Header("SKINS")]
     [SerializeField] private AnimatorOverrideController blondeSkin;
     [SerializeField] private AnimatorOverrideController blackHairSkin;
+    [SerializeField] private AnimatorOverrideController greyHairSkin;
+    [SerializeField] private AnimatorOverrideController santaSkin;
+    [SerializeField] private AnimatorOverrideController hatterSkin;
     private RuntimeAnimatorController defaultSkin;
     
     [Header("Audio")]
@@ -79,6 +82,7 @@ public class playerMovement : MonoBehaviour
 
     void Start()
     {
+
         gameSession = FindObjectOfType<GameSession>();
         footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
@@ -110,6 +114,18 @@ public class playerMovement : MonoBehaviour
         else if(PlayerPrefs.GetInt("SelectedSkin")== 2)
         {
             myAnimator.runtimeAnimatorController = blackHairSkin as RuntimeAnimatorController;
+        }
+        else if(PlayerPrefs.GetInt("SelectedSkin")== 3)
+        {
+            myAnimator.runtimeAnimatorController = greyHairSkin as RuntimeAnimatorController;
+        }
+        else if(PlayerPrefs.GetInt("SelectedSkin")== 4)
+        {
+            myAnimator.runtimeAnimatorController = santaSkin as RuntimeAnimatorController;
+        }
+        else if(PlayerPrefs.GetInt("SelectedSkin")== 5)
+        {
+            myAnimator.runtimeAnimatorController = hatterSkin as RuntimeAnimatorController;
         }
         
     }

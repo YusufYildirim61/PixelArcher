@@ -14,8 +14,15 @@ public class Boss : MonoBehaviour
     playerMovement playerMovement;
     GameSession gameSession;
     public bool isFrozen = false;
+    public bool isPoisoned = false;
+    int poisonDmgCount;
+    bool poisonEffect = true;
+    private Camera mainCamera;
+    bool isInCameraRange = false;
+    
     void Start() 
     {
+        mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
         key.SetActive(false);
@@ -26,10 +33,34 @@ public class Boss : MonoBehaviour
       
     void Update() 
     {
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
+        if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
+        {
+            isInCameraRange = true;
+        }
+        else
+        {
+            isInCameraRange = false;
+        }
         if(!playerMovement.hasKey && !playerMovement.isStopped)
         {
            key.transform.Rotate(new Vector3(0,2,0));
         }
+        if(isPoisoned)
+        {
+            
+            StartCoroutine("poisonDamage");
+            if(bossHealth<=0)
+            {
+                StopCoroutine("poisonDamage");
+            }
+            if(poisonDmgCount==3)
+            {
+                isPoisoned = false;
+                poisonDmgCount = 0;
+            }
+        }
+        
         else
         {
             return;
@@ -58,14 +89,20 @@ public class Boss : MonoBehaviour
     {
         if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             bossHealth--;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             bossHealth-=2;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
@@ -73,19 +110,66 @@ public class Boss : MonoBehaviour
         if(other.tag=="Bullet" && gameSession.isOnIceArrow)
         {
             isFrozen = true;
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             bossAnimator.SetBool("Freeze",true);
             Invoke("unFreezeBoss",1f);
         }
+        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        {
+           if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
+           isPoisoned = true; 
+        }
         if(bossHealth<=0)
         {
-            SoundManagerScript.PlaySound("bossDeath");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossDeath");
+            }
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             bossAnimator.SetTrigger("Death");
             key.SetActive(true);
             FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
         }
+    }
+    IEnumerator poisonDamage()
+    {
+
+        if(poisonEffect)
+        {
+            poisonDmgCount++;
+            bossHealth-=0.5f;
+            poisonEffect = false;
+            bossAnimator.SetBool("Poison",true);
+            Invoke("stopPoisonEffect",0.2f);
+            if(bossHealth<=0)
+            {
+                stopPoisonEffect();
+                if(isInCameraRange)
+                {
+                    SoundManagerScript.PlaySound("bossDeath");
+                }
+                myCollider.enabled = false;
+                myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+                bossAnimator.SetTrigger("Death");
+                key.SetActive(true);
+                FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+            }
+            yield return new WaitForSeconds(0.8f);
+            poisonEffect = true;
+             
+        }
+  
+    }
+    void stopPoisonEffect()
+    {
+        bossAnimator.SetBool("Poison",false);  
     }
     void returnToNormalState()
     {

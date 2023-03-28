@@ -7,7 +7,7 @@ public class Goo : MonoBehaviour
     [Header("Values")]
     [SerializeField] private float speed;
     public bool isFlipped = false;
-    [SerializeField] public int health;
+    [SerializeField] public float health;
     
     [Header("Components")]
     Animator myAnimator;
@@ -23,10 +23,15 @@ public class Goo : MonoBehaviour
     GameSession gameSession;
     
     public bool isFrozen = false;
+    bool isPoisoned = false;
+    int poisonDmgCount;
+    bool poisonEffect = true;
     public float walkRange = 5f;
-    // Start is called before the first frame update
+    private Camera mainCamera;
+    bool isInCameraRange = false;
     void Start()
     {
+        mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
         myCollider = GetComponent<PolygonCollider2D>();
@@ -37,34 +42,59 @@ public class Goo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            
-
-            
-            if(isFrozen)
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
+        if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
+        {
+            isInCameraRange = true;
+        }
+        else
+        {
+            isInCameraRange = false;
+        }
+        if(isFrozen)
+        {
+            return;
+        }
+        if(isPoisoned)
+        {
+            Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*0.5f*Time.fixedDeltaTime);
+            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
             {
-                return;
+            
+                myAnimator.SetBool("Walk",true);
+                myRigidbody.MovePosition(newPosition);
             }
             else
             {
-                Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
-                Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
-                if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
-                {
-                
-                    myAnimator.SetBool("Walk",true);
-                    myRigidbody.MovePosition(newPosition);
-                }
-                else
-                {
-                    myAnimator.SetBool("Walk",false);
-                }
+                myAnimator.SetBool("Walk",false);
             }
+            StartCoroutine("poisonDamage");
+            if(health<=0)
+            {
+                StopCoroutine("poisonDamage");
+            }
+            if(poisonDmgCount==3)
+            {
+                isPoisoned = false;
+                poisonDmgCount = 0;
+            }
+        }  
+        else
+        {
+            Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
+            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            {
             
-        
-        
-        
-        
-        
+                myAnimator.SetBool("Walk",true);
+                myRigidbody.MovePosition(newPosition);
+            }
+            else
+            {
+                myAnimator.SetBool("Walk",false);
+            }
+        } 
     }
     public void LookAtPlayer()
     {
@@ -88,34 +118,84 @@ public class Goo : MonoBehaviour
     {
         if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             health--;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             health-=2;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="Bullet" && gameSession.isOnIceArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
-            myAnimator.SetBool("Freeze",true);
             isFrozen = true;
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
+            myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeGoo",1f);
+        }
+        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        {
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
+            isPoisoned = true; 
         }
         if(health<=0)
         {
-            
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossDeath");
+            }
             FindObjectOfType<LevelComplete>().creatureKilled(200);
-            SoundManagerScript.PlaySound("bossDeath");
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             
         }
+    }
+    IEnumerator poisonDamage()
+    {
+
+        if(poisonEffect)
+        {
+            poisonDmgCount++;
+            health-=0.5f;
+            poisonEffect = false;
+            myAnimator.SetBool("Poison",true);
+            Invoke("stopPoisonEffect",0.2f);
+            if(health<=0)
+            {
+                stopPoisonEffect();
+                if(isInCameraRange)
+                {
+                    SoundManagerScript.PlaySound("bossDeath");
+                }
+                FindObjectOfType<LevelComplete>().creatureKilled(200);
+                myCollider.enabled = false;
+                myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+            }
+            yield return new WaitForSeconds(0.8f);
+            poisonEffect = true;
+             
+        }
+  
+    }
+    void stopPoisonEffect()
+    {
+        myAnimator.SetBool("Poison",false);  
     }
     void returnToNormalState()
     {

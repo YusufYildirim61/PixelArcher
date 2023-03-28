@@ -244,14 +244,19 @@ MonoBehaviour:
   isTouchedHazards: 0
   ShootandJump: {fileID: 0}
   climbUpandDown: {fileID: 0}
+  buyButton: {fileID: 0}
   platformTilemap: {fileID: 0}
   frictionless: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
   friction: {fileID: 6200000, guid: 4e9f92b8d8924bc4e8c4a8aa364ceaa8, type: 2}
   blondeSkin: {fileID: 22100000, guid: 95ad76f7ca1871944b1ccb8a7e6f1b4d, type: 2}
   blackHairSkin: {fileID: 22100000, guid: 3cf95c876780d6c48bb602c64d3aec35, type: 2}
+  greyHairSkin: {fileID: 22100000, guid: f00036ec088eec3479eb211008a354fa, type: 2}
+  santaSkin: {fileID: 22100000, guid: d09264e53622c9442a7158540ca851aa, type: 2}
+  hatterSkin: {fileID: 22100000, guid: ef3ec87ddbb2ddb4ea15c770e1505b71, type: 2}
   isInBossLevel: 0
   bounceSpeed: 6
   hasKey: 0
+  isPressedBuy: 0
 --- !u!61 &4801094090449144721
 BoxCollider2D:
   m_ObjectHideFlags: 0

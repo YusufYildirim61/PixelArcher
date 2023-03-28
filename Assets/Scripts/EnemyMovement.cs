@@ -14,9 +14,17 @@ public class EnemyMovement : MonoBehaviour
     SpriteRenderer mySpriteRenderer;
     GameSession gameSession;
     bool isFrozen;
+    bool isPoisoned = false;
     public GameObject enemyBlood;
+    int poisonDmgCount;
+    bool poisonEffect = true;
+    private Camera mainCamera;
+    bool isInCameraRange = false;
+
+    
     void Start()
     {
+        mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
@@ -27,9 +35,38 @@ public class EnemyMovement : MonoBehaviour
     
     void Update()
     {
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
+        if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
+        {
+            isInCameraRange = true;
+        }
+        else
+        {
+            isInCameraRange = false;
+        }
         if(isFrozen)
         {
             return;
+        }
+        if(enemyHealth<=0)
+        {
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("enemyDeath"); 
+            }
+            FindObjectOfType<LevelComplete>().creatureKilled(100);
+            Destroy(gameObject);
+        }
+        if(isPoisoned)
+        {
+            myRigidbody.velocity = new Vector2(moveSpeed*0.5f,0);
+            StartCoroutine("poisonDamage");
+            if(poisonDmgCount==3)
+            {
+                
+                isPoisoned = false;
+                poisonDmgCount = 0;
+            }
         }
         else
         {
@@ -47,8 +84,12 @@ public class EnemyMovement : MonoBehaviour
             enemyHealth -=1;
             if(enemyHealth==1)
             {
+                if(isInCameraRange)
+                {
+                    SoundManagerScript.PlaySound("enemyHit");
+                }
                 Invoke("turntoNormalColor",0.3f);
-                SoundManagerScript.PlaySound("enemyHit");
+                
             }    
         }
         if(other.tag == "Bullet" && gameSession.isOnStrongArrow)
@@ -58,19 +99,46 @@ public class EnemyMovement : MonoBehaviour
         }
         if(other.tag == "Bullet" && gameSession.isOnIceArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("enemyHit");
+            }
             myAnimator.SetBool("Freeze",true);
             myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
             isFrozen = true;
             Invoke("unFreezeEnemy",1f);
-        }    
-        if(enemyHealth<=0)
-        {
-            FindObjectOfType<LevelComplete>().creatureKilled(100);
-            SoundManagerScript.PlaySound("enemyDeath");
-            Destroy(gameObject);
         }
+        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        {
+           if(isInCameraRange)
+           {
+               SoundManagerScript.PlaySound("enemyHit");
+           }
+           isPoisoned = true; 
+        }
+            
+        
     }
+    IEnumerator poisonDamage()
+    {
+        if(poisonEffect)
+        {
+            poisonDmgCount++;
+            enemyHealth-=0.5f;
+            poisonEffect = false;
+            myAnimator.SetBool("Poison",true);
+            Invoke("stopPoisonEffect",0.2f);
+            yield return new WaitForSeconds(0.8f);
+            poisonEffect = true;
+             
+        }   
+    }
+    
+    void stopPoisonEffect()
+    {
+        myAnimator.SetBool("Poison",false);  
+    }
+
     void unFreezeEnemy()
     {
         myAnimator.SetBool("Freeze",false);

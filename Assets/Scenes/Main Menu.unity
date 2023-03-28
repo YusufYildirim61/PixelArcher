@@ -13650,6 +13650,9 @@ MonoBehaviour:
   - {fileID: 1219590238, guid: 85ad7d98734bcde4eb172e13d1182129, type: 3}
   - {fileID: -1328758271, guid: 732860b4a815a684e85cd4d45a78d682, type: 3}
   - {fileID: -457114231, guid: b5a3ff9fa2a14ad44ab48b1765a6a767, type: 3}
+  - {fileID: -1434066453, guid: 702e67991e81dd84eb956563ec0475a4, type: 3}
+  - {fileID: -67528387, guid: c748ed61fe77f4b49bc182288030865a, type: 3}
+  - {fileID: 733914028, guid: e48024698d008c74bb34ef9920747aa3, type: 3}
   playerSkin: {fileID: 1786302147}
   skinCostText: {fileID: 1638656693}
   saveButton: {fileID: 1386003565}

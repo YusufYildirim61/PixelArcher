@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GreyHairController
+  m_Controller: {fileID: 9100000, guid: b8eac721c949625468d94b1ffc6821d4, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5e9b2d25bffc2b34d92cba252d283bc7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 421855669ab79884dab50624f6b29c3c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: eee7bab1d704faa4bb62f8541ee75abc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 88566ce662b11bf4aaf564d631d51a11, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4694500f5cb559246b0cbeae5c64f185, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1fd20afbd07b7c84cbf95a1d2c941507, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 580316d9402cdcf4888b703468408a82, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1fd0452602ec4e44c95f390747f73ef5, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6467c2c260f7b31479922e3c63a53dcd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 584472ec02a229342b6b9d9cf4d014d5, type: 2}

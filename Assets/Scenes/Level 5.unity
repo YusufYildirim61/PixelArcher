@@ -644,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.978424
+      value: -10.937653
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -66524,6 +66524,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 1255931522331286276, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255931522331286276, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255931522331286276, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1472043252395461636, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: levelCompleteScreen
       value: 
@@ -66614,6 +66626,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+--- !u!1 &884639174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5617420023881689048, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+  m_PrefabInstance: {fileID: 884639173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &884639175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884639174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 812500300}
+          m_TargetAssemblyTypeName: playerMovement, Assembly-CSharp
+          m_MethodName: buyAmmoPacks
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &908905654
 GameObject:
   m_ObjectHideFlags: 0
@@ -67366,7 +67412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3968736874753717816, guid: d17b6ba7deba7704cbbc5a23557657f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -169.6
+      value: -163.63
       objectReference: {fileID: 0}
     - target: {fileID: 3968736874753717816, guid: d17b6ba7deba7704cbbc5a23557657f3, type: 3}
       propertyPath: m_LocalPosition.y

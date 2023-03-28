@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -768,8 +768,8 @@ TextureImporter:
       characterSkin3_46: -1315595747
       characterSkin3_8: -1973046695
       characterSkin3_6: 1792401020
-      characterSkin3_21: 15255954
       characterSkin3_7: 2085852869
+      characterSkin3_21: 15255954
       characterSkin3_41: -1028463889
       characterSkin3_11: -1366330188
       characterSkin3_40: -1086801816

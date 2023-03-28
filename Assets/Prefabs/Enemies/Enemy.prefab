@@ -162,6 +162,7 @@ MonoBehaviour:
   moveSpeed: 5
   enemyHealth: 2
   enemyBlood: {fileID: 5852186731067216300, guid: 05bd8c1f6d6d092468a037fef6e46533, type: 3}
+  startTimeBetween: 1
 --- !u!61 &6577524551928174261
 BoxCollider2D:
   m_ObjectHideFlags: 0

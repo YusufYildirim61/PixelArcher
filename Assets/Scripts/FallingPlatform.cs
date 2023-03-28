@@ -22,9 +22,7 @@ public class FallingPlatform : MonoBehaviour
     {
         if(other.collider==playerMovement.myBodyCollider)
         {
-            
-            Invoke("destroyPlatform",1.5f);
-            
+            Invoke("destroyPlatform",1.5f);   
         }
         
     }

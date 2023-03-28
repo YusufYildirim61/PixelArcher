@@ -8,7 +8,7 @@ public class WhiteSkeleton : MonoBehaviour
     [SerializeField] private float speed;
     private int index;
     public bool isFlipped = false;
-    [SerializeField] public int health;
+    [SerializeField] public float health;
     
     [Header("Components")]
     Animator myAnimator;
@@ -24,9 +24,15 @@ public class WhiteSkeleton : MonoBehaviour
     
     GameSession gameSession;
     public bool isFrozen = false;
+    bool isPoisoned = false;
+    int poisonDmgCount;
+    bool poisonEffect = true;
     public float walkRange = 5f;
+    private Camera mainCamera;
+    bool isInCameraRange = false;
     void Start()
     {
+        mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
         myCollider = GetComponent<PolygonCollider2D>();
@@ -37,10 +43,44 @@ public class WhiteSkeleton : MonoBehaviour
     
     void Update()
     {   
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(transform.position);
+        if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)
+        {
+            isInCameraRange = true;
+        }
+        else
+        {
+            isInCameraRange = false;
+        }
         if(isFrozen)
         {
             return;
         }
+        if(isPoisoned)
+        {
+            Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*0.5f*Time.fixedDeltaTime);
+            //myRigidbody.MovePosition(newPosition);
+            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            {
+                myAnimator.SetBool("Walk",true);
+                myRigidbody.MovePosition(newPosition);
+            }
+            else
+            {
+                myAnimator.SetBool("Walk",false);
+            }
+            StartCoroutine("poisonDamage");
+            if(health<=0)
+            {
+                StopCoroutine("poisonDamage");
+            }
+            if(poisonDmgCount==3)
+            {
+                isPoisoned = false;
+                poisonDmgCount = 0;
+            }
+        }  
         else
         {
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
@@ -48,9 +88,9 @@ public class WhiteSkeleton : MonoBehaviour
             //myRigidbody.MovePosition(newPosition);
             if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
             {
-            Debug.Log("asda");
-            myAnimator.SetBool("Walk",true);
-            myRigidbody.MovePosition(newPosition);
+                Debug.Log("asda");
+                myAnimator.SetBool("Walk",true);
+                myRigidbody.MovePosition(newPosition);
             }
             else
             {
@@ -82,33 +122,85 @@ public class WhiteSkeleton : MonoBehaviour
     {
         if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             health--;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             health-=2;
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="Bullet" && gameSession.isOnIceArrow)
         {
-            SoundManagerScript.PlaySound("bossHit");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             isFrozen = true;
             myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeWhiteSkeleton",1f);
         }
+        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        {
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
+           isPoisoned = true; 
+        }
         if(health<=0)
         {
             FindObjectOfType<LevelComplete>().creatureKilled(200);
-            SoundManagerScript.PlaySound("bossDeath");
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossDeath");
+            }
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             myAnimator.SetTrigger("Death");
         }
+    }
+    IEnumerator poisonDamage()
+    {
+
+        if(poisonEffect)
+        {
+            poisonDmgCount++;
+            health-=0.5f;
+            poisonEffect = false;
+            myAnimator.SetBool("Poison",true);
+            Invoke("stopPoisonEffect",0.2f);
+            if(health<=0)
+            {
+                stopPoisonEffect();
+                FindObjectOfType<LevelComplete>().creatureKilled(200);
+                if(isInCameraRange)
+                {
+                    SoundManagerScript.PlaySound("bossDeath");
+                }
+                myCollider.enabled = false;
+                myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+                myAnimator.SetTrigger("Death");
+            }
+            yield return new WaitForSeconds(0.8f);
+            poisonEffect = true;
+             
+        }
+  
+    }
+    void stopPoisonEffect()
+    {
+        myAnimator.SetBool("Poison",false);  
     }
     void returnToNormalState()
     {

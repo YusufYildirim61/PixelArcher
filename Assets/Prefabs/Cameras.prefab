@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4223469001211333685}
   - component: {fileID: 4223469001211333683}
   - component: {fileID: 4223469001211333682}
+  - component: {fileID: 3208309677615919316}
   m_Layer: 0
   m_Name: 'Idle Camera '
   m_TagString: Untagged
@@ -89,6 +90,30 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!167 &3208309677615919316
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223469001211333684}
+  m_Enabled: 1
+  m_MinDistance: 4
+  m_MaxDistance: 6.4
+  m_ReverbPreset: 1
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_Reflections: -2602
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 200
+  m_ReverbDelay: 0.011
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &4223469001244143087
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +357,7 @@ GameObject:
   - component: {fileID: 4223469001489507113}
   - component: {fileID: 4223469001489507112}
   - component: {fileID: 4223469001489507126}
+  - component: {fileID: 2824309917651549382}
   m_Layer: 0
   m_Name: Run Camera
   m_TagString: Untagged
@@ -410,6 +436,30 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!167 &2824309917651549382
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223469001489507115}
+  m_Enabled: 1
+  m_MinDistance: 4
+  m_MaxDistance: 6.4
+  m_ReverbPreset: 1
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_Reflections: -2602
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 200
+  m_ReverbDelay: 0.011
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &4223469001719509168
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +739,7 @@ GameObject:
   - component: {fileID: 4223469002802507705}
   - component: {fileID: 4223469002802507707}
   - component: {fileID: 4223469002802507591}
+  - component: {fileID: 2339975142260826357}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -796,6 +847,30 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!167 &2339975142260826357
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223469002802507706}
+  m_Enabled: 1
+  m_MinDistance: 3.96
+  m_MaxDistance: 6.39
+  m_ReverbPreset: 9
+  m_Room: -1000
+  m_RoomHF: 0
+  m_DecayTime: 2.91
+  m_DecayHFRatio: 1.3
+  m_Reflections: -602
+  m_ReflectionsDelay: 0.015
+  m_Reverb: -302
+  m_ReverbDelay: 0.022
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &4223469003101154071
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +882,7 @@ GameObject:
   - component: {fileID: 4223469003101154068}
   - component: {fileID: 4223469003101154066}
   - component: {fileID: 4223469003101154069}
+  - component: {fileID: 5250330533350591311}
   m_Layer: 0
   m_Name: 'Climb Camera  '
   m_TagString: Untagged
@@ -885,3 +961,27 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!167 &5250330533350591311
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4223469003101154071}
+  m_Enabled: 1
+  m_MinDistance: 4
+  m_MaxDistance: 6.4
+  m_ReverbPreset: 1
+  m_Room: -1000
+  m_RoomHF: -100
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_Reflections: -2602
+  m_ReflectionsDelay: 0.007
+  m_Reverb: 200
+  m_ReverbDelay: 0.011
+  m_HFReference: 5000
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
