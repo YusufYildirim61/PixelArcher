@@ -21,6 +21,8 @@ public class SkinManager : MonoBehaviour
     int isSkin3Sold;
     int isSkin4Sold;
     int isSkin5Sold;
+    int isSkin6Sold;
+    int isSkin7Sold;
     
    
     void Start() 
@@ -112,11 +114,41 @@ public class SkinManager : MonoBehaviour
             saveButton.interactable = true;
             lockedButton.SetActive(false);
         }
+        if(selectedSkin == 6 && isSkin6Sold == 0)
+        {
+            coinImage.enabled = true;
+            skinCostText.text = "300 X";
+            saveButton.interactable = false;
+            lockedButton.SetActive(true);
+        }
+        else if(selectedSkin == 6 && isSkin6Sold==1)
+        {
+            coinImage.enabled = false;
+            skinCostText.text = "";
+            saveButton.interactable = true;
+            lockedButton.SetActive(false);
+        }
+        if(selectedSkin == 7 && isSkin7Sold == 0)
+        {
+            coinImage.enabled = true;
+            skinCostText.text = "400 X";
+            saveButton.interactable = false;
+            lockedButton.SetActive(true);
+        }
+        else if(selectedSkin == 7 && isSkin7Sold==1)
+        {
+            coinImage.enabled = false;
+            skinCostText.text = "";
+            saveButton.interactable = true;
+            lockedButton.SetActive(false);
+        }
         isSkin1Sold = PlayerPrefs.GetInt("IsSkin1Sold");
         isSkin2Sold = PlayerPrefs.GetInt("IsSkin2Sold");
         isSkin3Sold = PlayerPrefs.GetInt("isSkin3Sold");
         isSkin4Sold = PlayerPrefs.GetInt("isSkin4Sold");
         isSkin5Sold = PlayerPrefs.GetInt("isSkin5Sold");
+        isSkin6Sold = PlayerPrefs.GetInt("isSkin6Sold");
+        isSkin7Sold = PlayerPrefs.GetInt("isSkin7Sold");
         totalMoney = PlayerPrefs.GetInt("TotalMoney");
         
     }
@@ -237,6 +269,40 @@ public class SkinManager : MonoBehaviour
                 SoundManagerScript.PlaySound("error");
             }
         }
+        if(selectedSkin==6)
+        {
+            if(totalMoney>=300)
+            {
+                SoundManagerScript.PlaySound("confirm");
+                totalMoney -=300;
+                PlayerPrefs.SetInt("IsSkin6Sold",1);
+                PlayerPrefs.SetInt("SelectedSkin",selectedSkin);
+                PlayerPrefs.SetInt("TotalMoney",totalMoney);
+                FindObjectOfType<GameManager>().moneyText.text = totalMoney.ToString() +" X";
+                //SceneManager.LoadScene(0);
+            }
+            else
+            {   
+                SoundManagerScript.PlaySound("error");
+            }
+        }
+        if(selectedSkin==7)
+        {
+            if(totalMoney>=400)
+            {
+                SoundManagerScript.PlaySound("confirm");
+                totalMoney -=400;
+                PlayerPrefs.SetInt("IsSkin7Sold",1);
+                PlayerPrefs.SetInt("SelectedSkin",selectedSkin);
+                PlayerPrefs.SetInt("TotalMoney",totalMoney);
+                FindObjectOfType<GameManager>().moneyText.text = totalMoney.ToString() +" X";
+                //SceneManager.LoadScene(0);
+            }
+            else
+            {   
+                SoundManagerScript.PlaySound("error");
+            }
+        }
             
         
         
@@ -276,6 +342,18 @@ public class SkinManager : MonoBehaviour
             SceneManager.LoadScene(0);
         }
         if(selectedSkin==5)
+        {
+            SoundManagerScript.PlaySound("cursor");
+            PlayerPrefs.SetInt("SelectedSkin",selectedSkin);
+            SceneManager.LoadScene(0);
+        }
+        if(selectedSkin==6)
+        {
+            SoundManagerScript.PlaySound("cursor");
+            PlayerPrefs.SetInt("SelectedSkin",selectedSkin);
+            SceneManager.LoadScene(0);
+        }
+        if(selectedSkin==7)
         {
             SoundManagerScript.PlaySound("cursor");
             PlayerPrefs.SetInt("SelectedSkin",selectedSkin);

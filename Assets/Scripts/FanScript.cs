@@ -25,6 +25,7 @@ public class FanScript : MonoBehaviour
         other.attachedRigidbody.AddForce(Vector2.up*fanSpeed*Time.deltaTime);
      }
      
+     
  
  }
 }

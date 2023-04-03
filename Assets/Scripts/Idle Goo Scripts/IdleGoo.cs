@@ -8,7 +8,6 @@ public class IdleGoo : MonoBehaviour
 
     [Header("Components")]
     Animator myAnimator;
-    public Transform player;
     public PolygonCollider2D myCollider;
     public Rigidbody2D myRigidbody;
     

@@ -644,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.937653
+      value: -11.100754
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -67905,7 +67905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 654164952336579244, guid: 51df7f4a5b9e89a42a9b112a300360db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 654164952423809047, guid: 51df7f4a5b9e89a42a9b112a300360db, type: 3}
       propertyPath: m_VerticalAlignment
@@ -84622,7 +84622,7 @@ PrefabInstance:
       objectReference: {fileID: 1723089102}
     - target: {fileID: 7258436859928527960, guid: 1a05fbf684684ae41a0f57117aa3aff3, type: 3}
       propertyPath: nextSceneLoad
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7258436859928527960, guid: 1a05fbf684684ae41a0f57117aa3aff3, type: 3}
       propertyPath: levelCompleteScreen

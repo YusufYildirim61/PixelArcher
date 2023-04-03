@@ -253,6 +253,8 @@ MonoBehaviour:
   greyHairSkin: {fileID: 22100000, guid: f00036ec088eec3479eb211008a354fa, type: 2}
   santaSkin: {fileID: 22100000, guid: d09264e53622c9442a7158540ca851aa, type: 2}
   hatterSkin: {fileID: 22100000, guid: ef3ec87ddbb2ddb4ea15c770e1505b71, type: 2}
+  pirateSkin: {fileID: 22100000, guid: 20b1de892b84c8c4fba2e812a38a2cc9, type: 2}
+  robinSkin: {fileID: 22100000, guid: 3fae2d7503ce2f94fbd4daee268db3f8, type: 2}
   isInBossLevel: 0
   bounceSpeed: 6
   hasKey: 0

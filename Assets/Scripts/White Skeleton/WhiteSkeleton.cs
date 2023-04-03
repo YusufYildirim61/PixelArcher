@@ -13,7 +13,7 @@ public class WhiteSkeleton : MonoBehaviour
     [Header("Components")]
     Animator myAnimator;
     public Transform player;
-    public PolygonCollider2D myCollider;
+    public CapsuleCollider2D myCollider;
     public Rigidbody2D myRigidbody;
     private Vector3 respawnPoint;
 
@@ -35,7 +35,7 @@ public class WhiteSkeleton : MonoBehaviour
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
-        myCollider = GetComponent<PolygonCollider2D>();
+        myCollider = GetComponent<CapsuleCollider2D>();
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
     }
@@ -80,7 +80,8 @@ public class WhiteSkeleton : MonoBehaviour
                 isPoisoned = false;
                 poisonDmgCount = 0;
             }
-        }  
+        }
+         
         else
         {
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
@@ -88,7 +89,14 @@ public class WhiteSkeleton : MonoBehaviour
             //myRigidbody.MovePosition(newPosition);
             if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
             {
-                Debug.Log("asda");
+                
+                if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+                {
+                    
+                    myAnimator.SetBool("Walk",true);
+                    myRigidbody.MovePosition(newPosition);
+                    
+                }
                 myAnimator.SetBool("Walk",true);
                 myRigidbody.MovePosition(newPosition);
             }

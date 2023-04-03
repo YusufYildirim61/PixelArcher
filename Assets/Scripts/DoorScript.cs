@@ -21,14 +21,7 @@ public class DoorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!playerMovement.hasKey && !playerMovement.isStopped)
-        {
-           key.transform.Rotate(new Vector3(0,2,0));
-        }
-        else
-        {
-            return;
-        }
+        
     }
     
     void OnCollisionEnter2D(Collision2D other) 
@@ -39,6 +32,7 @@ public class DoorScript : MonoBehaviour
             doorCollider.enabled = false;
             doorRB.constraints = RigidbodyConstraints2D.FreezeAll;
             doorAnimator.SetTrigger("OpenDoor");
+            playerMovement.hasKey = false;
             //Destroy(gameObject);
         }
     }

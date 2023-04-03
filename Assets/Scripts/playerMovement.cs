@@ -68,6 +68,8 @@ public class playerMovement : MonoBehaviour
     [SerializeField] private AnimatorOverrideController greyHairSkin;
     [SerializeField] private AnimatorOverrideController santaSkin;
     [SerializeField] private AnimatorOverrideController hatterSkin;
+    [SerializeField] private AnimatorOverrideController pirateSkin;
+    [SerializeField] private AnimatorOverrideController robinSkin;
     private RuntimeAnimatorController defaultSkin;
     
     [Header("Audio")]
@@ -126,6 +128,14 @@ public class playerMovement : MonoBehaviour
         else if(PlayerPrefs.GetInt("SelectedSkin")== 5)
         {
             myAnimator.runtimeAnimatorController = hatterSkin as RuntimeAnimatorController;
+        }
+        else if(PlayerPrefs.GetInt("SelectedSkin")== 6)
+        {
+            myAnimator.runtimeAnimatorController = pirateSkin as RuntimeAnimatorController;
+        }
+        else if(PlayerPrefs.GetInt("SelectedSkin")== 7)
+        {
+            myAnimator.runtimeAnimatorController = robinSkin as RuntimeAnimatorController;
         }
         
     }

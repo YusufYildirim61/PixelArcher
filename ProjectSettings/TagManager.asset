@@ -19,6 +19,7 @@ TagManager:
   - Key
   - Fan
   - Shop
+  - Box
   layers:
   - Default
   - TransparentFX
