@@ -222,6 +222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fanSpeed: 1000
+  isTurnedRight: 0
+  isTurnedLeft: 0
+  isTurnedUp: 1
+  isTurnedDown: 0
 --- !u!212 &8077540489127998920
 SpriteRenderer:
   m_ObjectHideFlags: 0

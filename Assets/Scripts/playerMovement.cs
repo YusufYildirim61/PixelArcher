@@ -34,7 +34,7 @@ public class playerMovement : MonoBehaviour
     Rigidbody2D myRigidbody;
     Animator myAnimator;
     public CapsuleCollider2D myBodyCollider;
-    BoxCollider2D myFeetCollider;
+    public BoxCollider2D myFeetCollider;
     
     float gravityAtStart;
     public bool isAlive = true;

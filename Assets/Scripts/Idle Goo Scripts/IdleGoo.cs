@@ -16,7 +16,7 @@ public class IdleGoo : MonoBehaviour
     [SerializeField] private float attackRange;
     public LayerMask attackMask;
 
-    public float walkRange = 5f;
+    
     GameSession gameSession;
     bool isFrozen = false;
     bool isPoisoned = false;

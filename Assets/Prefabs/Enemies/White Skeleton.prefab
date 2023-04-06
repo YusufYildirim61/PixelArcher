@@ -142,19 +142,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81b3f31bd755a84a9eb852069fc4f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 2.5
   isFlipped: 1
   health: 5
   player: {fileID: 0}
   myCollider: {fileID: 0}
   myRigidbody: {fileID: 0}
   attackOffset: {x: 1.27, y: -0.8, z: 0}
-  attackRange: 0.78
+  attackRangeRadius: 0.78
   attackMask:
     serializedVersion: 2
     m_Bits: 256
   isFrozen: 0
-  walkRange: 6
 --- !u!70 &6722690064385163056
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -168,8 +167,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1453247, y: -0.57746506}
-  m_Size: {x: 0.35977173, y: 1.8375359}
+  m_Offset: {x: 0.4014969, y: -0.57438946}
+  m_Size: {x: 0.247818, y: 1.843687}
   m_Direction: 0
 --- !u!1 &6997973651240319497
 GameObject:
@@ -197,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6997973651240319497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5441, y: 0.5575, z: 0}
+  m_LocalPosition: {x: 0.45, y: 0.5575, z: 0}
   m_LocalScale: {x: 3.6613612, y: 1.2498274, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -26,11 +26,14 @@ public class Goo : MonoBehaviour
     bool isPoisoned = false;
     int poisonDmgCount;
     bool poisonEffect = true;
-    public float walkRange = 5f;
+    
     private Camera mainCamera;
     bool isInCameraRange = false;
+
+    FightAreaTrigger fightAreaTrigger;
     void Start()
     {
+        fightAreaTrigger = GetComponentInParent<FightAreaTrigger>();
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
@@ -59,7 +62,7 @@ public class Goo : MonoBehaviour
         {
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
             Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*0.5f*Time.fixedDeltaTime);
-            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            if(/*Mathf.Abs(player.position.x-myRigidbody.position.x)<=walkRange  &&*/ fightAreaTrigger.isInFightArea)
             {
             
                 myAnimator.SetBool("Walk",true);
@@ -84,7 +87,7 @@ public class Goo : MonoBehaviour
         {
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
             Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
-            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            if(/*Mathf.Abs(player.position.x-myRigidbody.position.x)<=walkRange  &&*/ fightAreaTrigger.isInFightArea)
             {
             
                 myAnimator.SetBool("Walk",true);

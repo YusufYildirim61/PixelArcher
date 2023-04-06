@@ -19,7 +19,7 @@ public class WhiteSkeleton : MonoBehaviour
 
     [Header("Attack")]
     public Vector3 attackOffset;
-    [SerializeField] private float attackRange;
+    [SerializeField] private float attackRangeRadius;
     public LayerMask attackMask;
     
     GameSession gameSession;
@@ -27,11 +27,14 @@ public class WhiteSkeleton : MonoBehaviour
     bool isPoisoned = false;
     int poisonDmgCount;
     bool poisonEffect = true;
-    public float walkRange = 5f;
+    
+    
     private Camera mainCamera;
     bool isInCameraRange = false;
+    FightAreaTrigger fightAreaTrigger;
     void Start()
     {
+        fightAreaTrigger = GetComponentInParent<FightAreaTrigger>();
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         respawnPoint = transform.position;
@@ -61,7 +64,7 @@ public class WhiteSkeleton : MonoBehaviour
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
             Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*0.5f*Time.fixedDeltaTime);
             //myRigidbody.MovePosition(newPosition);
-            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            if(/*Mathf.Abs(player.position.x-myRigidbody.position.x)<=walkRange && Mathf.Abs(player.position.y-myRigidbody.position.y)<=heightRange &&*/ fightAreaTrigger.isInFightArea)
             {
                 myAnimator.SetBool("Walk",true);
                 myRigidbody.MovePosition(newPosition);
@@ -87,16 +90,10 @@ public class WhiteSkeleton : MonoBehaviour
             Vector2 target = new Vector2(player.position.x, myRigidbody.position.y);
             Vector2 newPosition =Vector2.MoveTowards(myRigidbody.position, target, speed*Time.fixedDeltaTime);
             //myRigidbody.MovePosition(newPosition);
-            if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
+            if(/*Mathf.Abs(player.position.x-myRigidbody.position.x)<=walkRange && Mathf.Abs(player.position.y-myRigidbody.position.y)<=heightRange &&*/ fightAreaTrigger.isInFightArea)
             {
                 
-                if(Vector2.Distance(player.position, myRigidbody.position)<=walkRange)
-                {
-                    
-                    myAnimator.SetBool("Walk",true);
-                    myRigidbody.MovePosition(newPosition);
-                    
-                }
+                
                 myAnimator.SetBool("Walk",true);
                 myRigidbody.MovePosition(newPosition);
             }
@@ -226,7 +223,7 @@ public class WhiteSkeleton : MonoBehaviour
       pos+= transform.right*attackOffset.x;
       pos+=transform.up* attackOffset.y;
 
-      Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
+      Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRangeRadius,attackMask);
       if(colInfo != null)
       {
 
@@ -240,7 +237,7 @@ public class WhiteSkeleton : MonoBehaviour
     	pos += transform.right * attackOffset.x;
     	pos += transform.up * attackOffset.y;
 
-    	Gizmos.DrawWireSphere(pos, attackRange);
+    	Gizmos.DrawWireSphere(pos, attackRangeRadius);
     }
     void backtoSpawnPoint()
     {

@@ -18,23 +18,25 @@ public class FallingPlatform : MonoBehaviour
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
     }
 
-    void OnCollisionEnter2D(Collision2D other) 
+    void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.collider==playerMovement.myBodyCollider)
+        if(other.tag =="Player")
         {
-            Invoke("destroyPlatform",1.5f);   
+            Invoke("destroyPlatform",0.8f);   
         }
         
+    }
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.tag == "Player")
+        {
+            Invoke("rebuildPlatform",1.5f);
+        }
     }
     
     void Update()
     {
-        timer += Time.deltaTime;
-        if(timer>delay)
-        {
-            rebuildPlatform();
-            timer -=delay;
-        }
+        
     }
     void destroyPlatform()
     {
@@ -43,8 +45,9 @@ public class FallingPlatform : MonoBehaviour
     }
     void rebuildPlatform()
     {
-        myboxCollider.enabled = true;
+        
         myAnimator.SetBool("isTouched",false);
+        myboxCollider.enabled = true;
     }
     
 }
