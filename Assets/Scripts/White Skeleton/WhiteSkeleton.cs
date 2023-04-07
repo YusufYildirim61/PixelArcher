@@ -32,8 +32,10 @@ public class WhiteSkeleton : MonoBehaviour
     private Camera mainCamera;
     bool isInCameraRange = false;
     FightAreaTrigger fightAreaTrigger;
+    playerMovement playerMovement;
     void Start()
     {
+        playerMovement = FindObjectOfType<playerMovement>();
         fightAreaTrigger = GetComponentInParent<FightAreaTrigger>();
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
@@ -125,6 +127,7 @@ public class WhiteSkeleton : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
+        
         if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
         {
             if(isInCameraRange)
@@ -173,6 +176,13 @@ public class WhiteSkeleton : MonoBehaviour
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             myAnimator.SetTrigger("Death");
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.collider == playerMovement.myBodyCollider)
+        {
+            Invoke("backtoSpawnPoint",0.8f);
         }
     }
     IEnumerator poisonDamage()
@@ -239,7 +249,7 @@ public class WhiteSkeleton : MonoBehaviour
 
     	Gizmos.DrawWireSphere(pos, attackRangeRadius);
     }
-    void backtoSpawnPoint()
+    public void backtoSpawnPoint()
     {
         transform.position = respawnPoint;
     }
