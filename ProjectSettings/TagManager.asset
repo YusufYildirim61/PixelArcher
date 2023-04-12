@@ -20,6 +20,7 @@ TagManager:
   - Fan
   - Shop
   - Box
+  - ContPlatform
   layers:
   - Default
   - TransparentFX

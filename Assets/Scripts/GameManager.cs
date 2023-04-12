@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
        money = PlayerPrefs.GetInt("TotalMoney");
-       moneyText.text = money.ToString() +" X";
+       moneyText.text = money.ToString() +" X <sprite=0>";
     }
     public void deleteMoney()
     {

@@ -235,6 +235,7 @@ MonoBehaviour:
   strongArrow: {fileID: 7040918457673153173, guid: cef235809244a1844b8d54a8f02bb710, type: 3}
   gun: {fileID: 4019669804128995638}
   myBodyCollider: {fileID: 0}
+  myFeetCollider: {fileID: 0}
   isAlive: 1
   isStopped: 0
   respawnPoint: {x: 0, y: 0, z: 0}
@@ -242,9 +243,11 @@ MonoBehaviour:
   levelCompleteScreen: {fileID: 0}
   tripleArrow: 0
   isTouchedHazards: 0
+  LeftRight: {fileID: 0}
   ShootandJump: {fileID: 0}
   climbUpandDown: {fileID: 0}
   buyButton: {fileID: 0}
+  platformController: {fileID: 0}
   platformTilemap: {fileID: 0}
   frictionless: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
   friction: {fileID: 6200000, guid: 4e9f92b8d8924bc4e8c4a8aa364ceaa8, type: 2}

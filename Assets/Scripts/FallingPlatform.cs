@@ -9,7 +9,7 @@ public class FallingPlatform : MonoBehaviour
     playerMovement playerMovement;
     Rigidbody2D rb;
     float timer;
-    [SerializeField] float delay =1f;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

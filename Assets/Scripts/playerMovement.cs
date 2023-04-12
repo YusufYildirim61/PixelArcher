@@ -31,19 +31,19 @@ public class playerMovement : MonoBehaviour
     
 
     Vector2 moveInput;
-    Rigidbody2D myRigidbody;
+    public Rigidbody2D myRigidbody;
     Animator myAnimator;
     public CapsuleCollider2D myBodyCollider;
     public BoxCollider2D myFeetCollider;
     
-    float gravityAtStart;
+    public float gravityAtStart;
     public bool isAlive = true;
     public bool isStopped = false;
     GameSession gameSession;
     int totalAmmo;
     public Vector3 respawnPoint;
     public bool isLevelFinished = false;
-    private bool moveLeft, moveRight, moveUp, moveDown = false;
+    public bool moveLeft, moveRight, moveUp, moveDown = false;
     public GameObject levelCompleteScreen;
     private int currentSceneIndex;
     public bool tripleArrow;
@@ -51,9 +51,11 @@ public class playerMovement : MonoBehaviour
     
     
     [Header("UI")]
+    [SerializeField] public GameObject LeftRight;
     [SerializeField] public GameObject ShootandJump;
     [SerializeField] GameObject climbUpandDown;
     [SerializeField] public GameObject buyButton;
+    [SerializeField] public GameObject platformController;
 
     [SerializeField] GameObject platformTilemap;
     [Header("Materials")]
@@ -84,7 +86,7 @@ public class playerMovement : MonoBehaviour
 
     void Start()
     {
-
+        
         gameSession = FindObjectOfType<GameSession>();
         footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
@@ -97,8 +99,10 @@ public class playerMovement : MonoBehaviour
         gravityAtStart = myRigidbody.gravityScale;
         myImpulseSource = GetComponent<CinemachineImpulseSource>();
         respawnPoint = transform.position;
+        LeftRight.SetActive(true);
         buyButton.SetActive(false);
         climbUpandDown.SetActive(false);
+        platformController.SetActive(false);
         FindObjectOfType<GameSession>().poisonAmmo =  PlayerPrefs.GetInt("poisonAmmo",FindObjectOfType<GameSession>().poisonAmmo); // Ammo kaydetme
         FindObjectOfType<GameSession>().iceAmmo =  PlayerPrefs.GetInt("iceAmmo",FindObjectOfType<GameSession>().iceAmmo);
         //FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
@@ -297,7 +301,7 @@ public class playerMovement : MonoBehaviour
     
     public void StopMovingLeft()
     {
-         myBodyCollider.sharedMaterial = friction;
+        myBodyCollider.sharedMaterial = friction;
         myFeetCollider.sharedMaterial = friction;
         moveLeft = false;
         moveRight = false;
@@ -505,6 +509,11 @@ public class playerMovement : MonoBehaviour
         myAnimator.SetBool("Die",false);
         isAlive = true;
         isTouchedHazards = false;
+        moveLeft = false;
+        moveRight = false;
+        moveUp = false;
+        moveDown = false;
+        myAnimator.SetBool("isRunning",false);
          
     }
     public void DamagedbyBoss()
@@ -540,8 +549,7 @@ public class playerMovement : MonoBehaviour
         }
         if(other.tag == "Shop")
         {
-            FindObjectOfType<GameSession>().totalMoney.SetActive(true);
-            
+            FindObjectOfType<GameSession>().totalMoney.SetActive(true);   
         }    
     }
     void OnTriggerExit2D(Collider2D other) 

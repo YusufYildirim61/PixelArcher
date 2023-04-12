@@ -317,6 +317,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: LeftRight
+      value: 
+      objectReference: {fileID: 388492268}
+    - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: buyButton
       value: 
       objectReference: {fileID: 186969262}
@@ -360,6 +364,10 @@ PrefabInstance:
       propertyPath: moveLeftandRight
       value: 
       objectReference: {fileID: 388492268}
+    - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: platformController
+      value: 
+      objectReference: {fileID: 1879676559}
     - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: levelCompleteScreen
       value: 
@@ -644,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11.100754
+      value: -11.019196
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -66606,7 +66614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5382126182872878800, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6699103146904298782, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: m_RootOrder
@@ -66614,11 +66622,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6829747615015650578, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 8059734771941038267, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8686786558083289187, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
       propertyPath: m_RootOrder
@@ -68471,6 +68479,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 522e6e64c148b064d8d5ff6e86af089b, type: 3}
+--- !u!1 &1879676559 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8200168695868404109, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+  m_PrefabInstance: {fileID: 884639173}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1920220489
 GameObject:
   m_ObjectHideFlags: 0

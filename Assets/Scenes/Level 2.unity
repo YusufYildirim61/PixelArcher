@@ -326,6 +326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f186d6cbb6ee18648915e140ffa532df, type: 3}
+--- !u!1 &75183167 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8077871169416785014, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+  m_PrefabInstance: {fileID: 200673126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &78643706
 GameObject:
   m_ObjectHideFlags: 0
@@ -87191,6 +87196,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5687916533513815054, guid: 9a9aebb3dcedf8645b81c68b5ed7a59a, type: 3}
   m_PrefabInstance: {fileID: 287505812}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1058617754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7202487707939543042, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+  m_PrefabInstance: {fileID: 200673126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1063723694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87839,6 +87849,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5687916533513815054, guid: 9a9aebb3dcedf8645b81c68b5ed7a59a, type: 3}
   m_PrefabInstance: {fileID: 1475232019}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1326658119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8200168695868404109, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+  m_PrefabInstance: {fileID: 200673126}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1351972516
 PrefabInstance:
@@ -123288,7 +123303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507705, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: orthographic size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4223469003101154066, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_Follow
@@ -123320,6 +123335,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
     - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: LeftRight
+      value: 
+      objectReference: {fileID: 1058617754}
+    - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: buyButton
+      value: 
+      objectReference: {fileID: 75183167}
+    - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: ShootandJump
       value: 
       objectReference: {fileID: 301499460}
@@ -123331,6 +123354,10 @@ PrefabInstance:
       propertyPath: platformTilemap
       value: 
       objectReference: {fileID: 1977411604}
+    - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: platformController
+      value: 
+      objectReference: {fileID: 1326658119}
     - target: {fileID: 3994914269326740538, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: levelCompleteScreen
       value: 
