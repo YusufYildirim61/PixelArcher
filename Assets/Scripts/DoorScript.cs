@@ -6,16 +6,20 @@ public class DoorScript : MonoBehaviour
 {
     // Start is called before the first frame update
     playerMovement playerMovement;
-    Animator doorAnimator;
-    Rigidbody2D doorRB;
-    BoxCollider2D doorCollider;
+    ControllablePlatform controllablePlatform;
+     Animator doorAnimator;
+     Rigidbody2D doorRB;
+     BoxCollider2D doorCollider;
     public GameObject key;
+    
     void Start()
     {
+        controllablePlatform = FindObjectOfType<ControllablePlatform>();
         doorRB = GetComponent<Rigidbody2D>();
         doorCollider = GetComponent<BoxCollider2D>();
         doorAnimator = GetComponent<Animator>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
+        
     }
 
     // Update is called once per frame
@@ -26,7 +30,7 @@ public class DoorScript : MonoBehaviour
     
     void OnCollisionEnter2D(Collision2D other) 
     {
-        if(other.collider==playerMovement.myBodyCollider && playerMovement.hasKey)
+        if((other.collider==playerMovement.myBodyCollider || other.collider==controllablePlatform.myCollider) && playerMovement.hasKey)
         {
             SoundManagerScript.PlaySound("gateOpen");
             doorCollider.enabled = false;
@@ -35,5 +39,7 @@ public class DoorScript : MonoBehaviour
             playerMovement.hasKey = false;
             //Destroy(gameObject);
         }
+        
     }
+    
 }

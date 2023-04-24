@@ -37,13 +37,13 @@ public class GameSession : MonoBehaviour
     [SerializeField] public TextMeshProUGUI totalMoneyText;
 
     [SerializeField] GameObject pauseButton;
-    
+    public GameObject getInButton;
     //[SerializeField] TextMeshProUGUI scoreText;
     
     
     playerMovement playerMovement;
     
-    
+    ControllablePlatform controllablePlatform;
     
     void Awake() 
     {
@@ -65,6 +65,7 @@ public class GameSession : MonoBehaviour
 
     void Start()
     {
+        getInButton.SetActive(false);
         totalMoney.SetActive(false);
         isOnDefaultArrow = true;
         poisonArrowButton.SetActive(false);

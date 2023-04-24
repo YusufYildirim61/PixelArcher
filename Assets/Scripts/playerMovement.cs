@@ -84,6 +84,7 @@ public class playerMovement : MonoBehaviour
     public  bool hasKey = false;
     public bool isPressedBuy = false;
 
+
     void Start()
     {
         
@@ -159,7 +160,20 @@ public class playerMovement : MonoBehaviour
        //climbLadder();
         
     }
-    
+    void FixedUpdate() 
+    {   /*
+        if(isOnContPlatform)
+        {
+           //moveLeft = false;
+           //moveRight = false;
+           //moveUp = false;
+           //moveDown = false;
+           //
+           //Vector2 velocity = ControllablePlatform.GetVelocity();
+           //myRigidbody.velocity += new Vector2(velocity.x, velocity.y);
+        }
+        */
+    }
     
     void moveCharacter()
     {
@@ -184,7 +198,7 @@ public class playerMovement : MonoBehaviour
         }
         if(moveRight)
         {
-            
+             
             myBodyCollider.sharedMaterial = frictionless;
             myFeetCollider.sharedMaterial = frictionless;
             myRigidbody.velocity = new Vector2(runSpeed,myRigidbody.velocity.y);
@@ -550,7 +564,8 @@ public class playerMovement : MonoBehaviour
         if(other.tag == "Shop")
         {
             FindObjectOfType<GameSession>().totalMoney.SetActive(true);   
-        }    
+        }
+    
     }
     void OnTriggerExit2D(Collider2D other) 
     {

@@ -158,6 +158,12 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(7);
         Time.timeScale = 1;
     }
+    public void openLevelEight()
+    {
+        SoundManagerScript.PlaySound("cursor");
+        SceneManager.LoadScene(8);
+        Time.timeScale = 1;
+    }
     public void deletePrefs()
     {
         PlayerPrefs.DeleteAll();

@@ -10,60 +10,113 @@ public class ControllablePlatform : MonoBehaviour
     bool movePlatformLeft,movePlatformRight,movePlatformUp,movePlatformDown;
     playerMovement player;
     [SerializeField] float ControlSpeed = 5f;
-    bool isPlayerOnTop = false;
+    bool isPlayerOnTop;
+    GameSession gameSession;
+    public PolygonCollider2D myCollider;
+    bool isPressedGetIn = false;
+    
     void Start()
     {
+        gameSession = FindObjectOfType<GameSession>();
+        gameSession.getInButton.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<PolygonCollider2D>();
         player = FindObjectOfType<playerMovement>();
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        
     }
 
-    
     void Update()
     {
+        Invoke("respawnPlatform",0.4f);
         
         if(isPlayerOnTop)
-        { 
+        {
             movePlatform();
+            if(player.myRigidbody.velocity == new Vector2(0,0) && !isPressedGetIn)
+            {
+                gameSession.getInButton.SetActive(true);
+            }
+            else
+            {
+                gameSession.getInButton.SetActive(false);
+            }
+        }
+        
+        
             
+    }
+     public void pressGetIn()
+    {
+        if(isPlayerOnTop && player.myRigidbody.velocity == new Vector2(0,0))
+        {
+            gameSession.getInButton.SetActive(false);
+            isPressedGetIn = true;
+            player.transform.position = transform.position + new Vector3(0.16f,0.8f,0);
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            player.transform.SetParent(transform);
+            player.platformController.SetActive(true);
+            player.LeftRight.SetActive(false);
+
         }
         else
         {
-            //player.transform.SetParent(null);
-        }
-    }
-    void OnCollisionEnter2D(Collision2D other) 
-    {   
-        if(other.collider ==player.myBodyCollider)
-        {
-            isPlayerOnTop = true;
-            other.transform.SetParent(transform);
-            if(other.collider == player.myBodyCollider && player.isAlive)
-            {
-                player.myRigidbody.gravityScale = 0;
-                //player.LeftRight.SetActive(false);
-                //player.platformController.SetActive(true);
-            }
+            
         }
         
     }
-    void OnCollisionExit2D(Collision2D other) 
+    
+    
+    
+    void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.collider ==player.myBodyCollider)
-        {
-            isPlayerOnTop = false;
-            movePlatformLeft = false;
-            movePlatformRight = false;
-            movePlatformUp = false;
-            movePlatformDown = false;
-            //other.transform.SetParent(null);
-            if(other.collider == player.myBodyCollider && player.isAlive)
-            {
-                player.myRigidbody.gravityScale = player.gravityAtStart;
-                //player.platformController.SetActive(false);
-                //player.LeftRight.SetActive(true);
-                rb.velocity = new Vector2(0,0);
-            }
-        }
+         if(other.GetComponent<BoxCollider2D>() == player.myFeetCollider)
+         {
+            
+            isPlayerOnTop = true;
+            
+             //player.myRigidbody.bodyType = RigidbodyType2D.Kinematic;
+             
+             
+             //other.transform.SetParent(transform);
+             
+             //rb.constraints = RigidbodyConstraints2D.None;
+             //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+             //player.platformController.SetActive(true);
+             //player.LeftRight.SetActive(false);
+             //rb.constraints = RigidbodyConstraints2D.None;
+             //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+         }
+        
+        
+    }
+    
+    void OnTriggerExit2D(Collider2D other) 
+    {
+         if(other.GetComponent<BoxCollider2D>() == player.myFeetCollider && isPlayerOnTop)
+         {
+             //other.transform.SetParent(null);
+             //player.myRigidbody.bodyType = RigidbodyType2D.Dynamic;
+             isPressedGetIn = false;
+             isPlayerOnTop = false;
+             gameSession.getInButton.SetActive(false);
+             player.transform.SetParent(null);
+             player.platformController.SetActive(false); 
+             player.LeftRight.SetActive(true);
+             rb.constraints = RigidbodyConstraints2D.FreezeAll;
+             
+             movePlatformLeft = false;
+             movePlatformRight = false;
+             movePlatformUp = false;
+             movePlatformDown = false;
+             
+             //rb.constraints = RigidbodyConstraints2D.FreezeAll;
+             //player.platformController.SetActive(false);
+             //player.LeftRight.SetActive(true);
+             //rb.constraints = RigidbodyConstraints2D.FreezeAll;
+             //player.myRigidbody.bodyType = RigidbodyType2D.Dynamic;
+         }
         
     }
     void movePlatform()
@@ -71,22 +124,23 @@ public class ControllablePlatform : MonoBehaviour
         if(movePlatformLeft)
         {
             rb.velocity = new Vector2(-ControlSpeed,0);
+            //player.myRigidbody.velocity = new Vector2(0,0);
         }
         if(movePlatformRight)
         {
             rb.velocity = new Vector2(ControlSpeed,0);
+            //player.myRigidbody.velocity = new Vector2(0,0);
         }
         if(movePlatformUp)
         {
-            //player.transform.SetParent(transform);
-            player.myRigidbody.velocity = new Vector2(0,0);
+            
             rb.constraints =  RigidbodyConstraints2D.None;
             rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
             rb.velocity = new Vector2(rb.velocity.x,ControlSpeed);
         }
         if(movePlatformDown)
         {
-            player.transform.SetParent(transform);
+            
             player.myRigidbody.velocity = new Vector2(0,-ControlSpeed);
             rb.constraints =  RigidbodyConstraints2D.None;
             rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
@@ -123,7 +177,7 @@ public class ControllablePlatform : MonoBehaviour
     public void stopMovingUp()
     {
         //player.transform.SetParent(transform);
-        player.myRigidbody.velocity = new Vector2(0,0);
+        player.myRigidbody.velocity = new Vector2(0,-ControlSpeed);
         movePlatformUp = false;
         rb.velocity = new Vector2(rb.velocity.x,0);
         rb.constraints =  RigidbodyConstraints2D.FreezePositionY;
@@ -134,29 +188,18 @@ public class ControllablePlatform : MonoBehaviour
     {
         //player.transform.SetParent(transform);
         movePlatformDown = false;
-        player.myRigidbody.velocity = new Vector2(0,0);
+        
         rb.velocity = new Vector2(rb.velocity.x,0);
         rb.constraints =  RigidbodyConstraints2D.FreezePositionY;
         rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
     }
-    void OnTriggerStay2D(Collider2D other) 
+    
+    void respawnPlatform()
     {
-        if(other.GetComponent<BoxCollider2D>() == player.myFeetCollider)
+        if(player.isAlive == false)
         {
-            player.moveLeft = false;
-            player.moveRight = false;
-            player.moveUp = false;
-            player.moveDown = false;
-            player.platformController.SetActive(true);
-            player.LeftRight.SetActive(false);
-        }
-    }
-    void OnTriggerExit2D(Collider2D other) 
-    {
-        if(other.GetComponent<BoxCollider2D>() == player.myFeetCollider)
-        {
-            player.platformController.SetActive(false);
-            player.LeftRight.SetActive(true);
+            player.transform.SetParent(null);
+            transform.position = player.respawnPoint + new Vector3(2,-0.2f,0);
         }
     }
 }
