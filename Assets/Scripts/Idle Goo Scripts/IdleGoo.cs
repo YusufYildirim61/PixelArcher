@@ -72,7 +72,7 @@ public class IdleGoo : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
+        if(other.tag=="Bullet")
         {
             if(isInCameraRange)
             {
@@ -82,7 +82,7 @@ public class IdleGoo : MonoBehaviour
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
-        if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
+        if(other.tag=="StrongBullet")
         {
             if(isInCameraRange)
             {
@@ -92,7 +92,7 @@ public class IdleGoo : MonoBehaviour
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
-        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        if(other.tag=="IceBullet")
         {
             isFrozen = true;
             if(isInCameraRange)
@@ -103,7 +103,7 @@ public class IdleGoo : MonoBehaviour
             Invoke("unFreezeIdleGoo",1f);
             
         }
-        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        if(other.tag == "PoisonBullet")
         {
             if(isInCameraRange)
             {

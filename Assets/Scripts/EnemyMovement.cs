@@ -77,7 +77,7 @@ public class EnemyMovement : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
+        if(other.tag=="Bullet")
         {
             Instantiate(enemyBlood, transform.position,Quaternion.identity);
             mySpriteRenderer.color = Color.red;
@@ -92,12 +92,12 @@ public class EnemyMovement : MonoBehaviour
                 
             }    
         }
-        if(other.tag == "Bullet" && gameSession.isOnStrongArrow)
+        if(other.tag == "StrongBullet")
         {
             enemyHealth-=2;
             Instantiate(enemyBlood, transform.position,Quaternion.identity);
         }
-        if(other.tag == "Bullet" && gameSession.isOnIceArrow)
+        if(other.tag == "IceBullet")
         {
             if(isInCameraRange)
             {
@@ -108,7 +108,7 @@ public class EnemyMovement : MonoBehaviour
             isFrozen = true;
             Invoke("unFreezeEnemy",1f);
         }
-        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        if(other.tag == "PoisonBullet")
         {
            if(isInCameraRange)
            {

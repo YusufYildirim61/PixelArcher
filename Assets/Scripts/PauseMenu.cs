@@ -23,7 +23,7 @@ public class PauseMenu : MonoBehaviour
         audioMuted = PlayerPrefs.GetInt("isAudioMuted");
         PauseGame();
     }
-
+    
     void PauseGame()
     {
         if(Input.GetKeyDown(KeyCode.Escape))

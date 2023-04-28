@@ -74,12 +74,12 @@ public class BeetleMovement : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet" && (gameSession.isOnDefaultArrow || gameSession.isOnStrongArrow))
+        if(other.tag=="Bullet" || other.tag =="StrongBullet")
         {
             beetleHealth -=1;
             
         }
-        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        if(other.tag=="IceBullet")
         {
             if(isInCameraRange)
             {
@@ -91,7 +91,7 @@ public class BeetleMovement : MonoBehaviour
             Invoke("unFreezeBeetle",1f);
             
         }
-        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        if(other.tag == "PoisonBullet")
         {
           if(isInCameraRange)
             {

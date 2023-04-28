@@ -128,7 +128,7 @@ public class WhiteSkeleton : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) 
     {
         
-        if(other.tag=="Bullet" && gameSession.isOnDefaultArrow)
+        if(other.tag=="Bullet")
         {
             if(isInCameraRange)
             {
@@ -138,7 +138,7 @@ public class WhiteSkeleton : MonoBehaviour
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
-        if(other.tag=="Bullet" && gameSession.isOnStrongArrow)
+        if(other.tag=="StrongBullet")
         {
             if(isInCameraRange)
             {
@@ -148,7 +148,7 @@ public class WhiteSkeleton : MonoBehaviour
             myAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
-        if(other.tag=="Bullet" && gameSession.isOnIceArrow)
+        if(other.tag=="IceBullet")
         {
             if(isInCameraRange)
             {
@@ -158,7 +158,7 @@ public class WhiteSkeleton : MonoBehaviour
             myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeWhiteSkeleton",1f);
         }
-        if(other.tag == "Bullet" && gameSession.isOnPoisonArrow)
+        if(other.tag == "PoisonBullet")
         {
             if(isInCameraRange)
             {

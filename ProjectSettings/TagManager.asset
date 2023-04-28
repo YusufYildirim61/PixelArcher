@@ -21,6 +21,9 @@ TagManager:
   - Shop
   - Box
   - ContPlatform
+  - IceBullet
+  - PoisonBullet
+  - StrongBullet
   layers:
   - Default
   - TransparentFX

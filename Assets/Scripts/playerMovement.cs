@@ -79,6 +79,7 @@ public class playerMovement : MonoBehaviour
 
     
     public bool isInBossLevel = false;
+    public bool isInSecondBossLevel = false;
     
     public float bounceSpeed = 6f;
     public  bool hasKey = false;
@@ -156,24 +157,11 @@ public class playerMovement : MonoBehaviour
         moveUpandDown();
         Die();
         //Run();
-       //FlipSprite();
-       //climbLadder();
+        //FlipSprite();
+        //climbLadder();
         
     }
-    void FixedUpdate() 
-    {   /*
-        if(isOnContPlatform)
-        {
-           //moveLeft = false;
-           //moveRight = false;
-           //moveUp = false;
-           //moveDown = false;
-           //
-           //Vector2 velocity = ControllablePlatform.GetVelocity();
-           //myRigidbody.velocity += new Vector2(velocity.x, velocity.y);
-        }
-        */
-    }
+    
     
     void moveCharacter()
     {
@@ -420,7 +408,7 @@ public class playerMovement : MonoBehaviour
  
     public void Die() 
     {
-       if(!isInBossLevel)
+       if(!isInBossLevel && !isInSecondBossLevel)
        {
         if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies","Hazards")))
         {
@@ -459,7 +447,7 @@ public class playerMovement : MonoBehaviour
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
-            //isTouchedHazards = true;
+            
             myRigidbody.velocity += Vector2.up * bounceSpeed;
             
             Invoke("damagedByHazards",0.2f);
@@ -471,12 +459,35 @@ public class playerMovement : MonoBehaviour
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
-            //isTouchedHazards = true;
+            
             myRigidbody.velocity += Vector2.up * bounceSpeed;
             
             
         }
-       } 
+       }
+       if(isInSecondBossLevel)
+       {
+        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        {
+            myBodyCollider.enabled = false;
+            FindObjectOfType<bossLevelManager>().removeHealth(1);
+            FindObjectOfType<bossLevelManager>().restartLevel();
+            FindObjectOfType<LevelComplete>().timesDied(10);
+            SoundManagerScript.PlaySound("death");
+            myRigidbody.velocity += Vector2.up * bounceSpeed;
+            
+            Invoke("damagedByHazards",0.2f);
+        }
+        if(isTouchedHazards)
+        {
+            isTouchedHazards = false;
+            FindObjectOfType<bossLevelManager>().removeHealth(1);
+            FindObjectOfType<bossLevelManager>().restartLevel();
+            FindObjectOfType<LevelComplete>().timesDied(10);
+            SoundManagerScript.PlaySound("death");
+            myRigidbody.velocity += Vector2.up * bounceSpeed;
+        }
+       }  
        
     }
     public void dieAndReload()
@@ -489,19 +500,48 @@ public class playerMovement : MonoBehaviour
     {
         if(isInBossLevel)
         {
-            if(collision.collider == FindObjectOfType<Boss>().myCollider )
-        { 
+            if(collision.collider == FindObjectOfType<Boss>().myCollider)
+            { 
             FindObjectOfType<bossLevelManager>().removeHealth(1);
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
-            //isTouchedHazards = true;
             myRigidbody.velocity = deathKick;
             
             FindObjectOfType<Boss>().myCollider.enabled = false;
             FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
             Invoke("StopBounce", 1.5f);
+            }
         }
+        if(isInSecondBossLevel)
+        {
+            if(collision.collider == FindObjectOfType<FireBoss>().fireBossCollider)
+            {
+                myAnimator.SetBool("Hit",true);
+                FindObjectOfType<bossLevelManager>().removeHealth(1);
+                FindObjectOfType<bossLevelManager>().restartLevel();
+                FindObjectOfType<LevelComplete>().timesDied(10);
+                SoundManagerScript.PlaySound("death");
+                myRigidbody.velocity = deathKick;
+                
+                FindObjectOfType<FireBoss>().fireBossCollider.enabled = false;
+                FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                Invoke("fireAndIceStopBounce", 1.5f);
+            }
+            if(collision.collider == FindObjectOfType<IceBoss>().iceBossCollider)
+            {
+                myAnimator.SetBool("Hit",true);
+                FindObjectOfType<bossLevelManager>().removeHealth(1);
+                FindObjectOfType<bossLevelManager>().restartLevel();
+                FindObjectOfType<LevelComplete>().timesDied(10);
+                SoundManagerScript.PlaySound("death");
+                
+                myRigidbody.velocity = deathKick;
+                
+                FindObjectOfType<IceBoss>().iceBossCollider.enabled = false;
+                FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                Invoke("fireAndIceStopBounce", 1.5f);
+            }
         }
         
     }
@@ -513,6 +553,37 @@ public class playerMovement : MonoBehaviour
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.None;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
+    void fireAndIceStopBounce()
+    {
+        myAnimator.SetBool("Hit",false);
+        FindObjectOfType<FireBoss>().fireBossCollider.enabled =true;
+        FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.None;
+        FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        FindObjectOfType<IceBoss>().iceBossCollider.enabled =true;
+        FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.None;
+        FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
+    }
+    /*
+    void fireBossStopBounce()
+    {
+        
+        //isTouchedHazards = false;
+        FindObjectOfType<FireBoss>().fireBossCollider.enabled =true;
+        FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.None;
+        FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    void iceBossStopBounce()
+    {
+        
+        //isTouchedHazards = false;
+        FindObjectOfType<IceBoss>().iceBossCollider.enabled =true;
+        FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.None;
+        FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+    */
 
     public void Respawn()
     {
@@ -530,7 +601,7 @@ public class playerMovement : MonoBehaviour
         myAnimator.SetBool("isRunning",false);
          
     }
-    public void DamagedbyBoss()
+    public void DamagedbyBoss() // Result of Getting Hit By Boss Attack
     {
         FindObjectOfType<bossLevelManager>().removeHealth(1);
         FindObjectOfType<bossLevelManager>().restartLevel();
@@ -542,6 +613,22 @@ public class playerMovement : MonoBehaviour
         FindObjectOfType<Boss>().myCollider.enabled = false;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         Invoke("StopBounce", 1.5f);
+    
+    }
+    public void DamagedbySecondBoss() // Result of Getting Hit By Boss Attack
+    {
+        FindObjectOfType<bossLevelManager>().removeHealth(1);
+        FindObjectOfType<bossLevelManager>().restartLevel();
+        FindObjectOfType<LevelComplete>().timesDied(10);
+        SoundManagerScript.PlaySound("death");
+        //isTouchedHazards = true;
+        myRigidbody.velocity = deathKick;
+        myAnimator.SetBool("Hit",true);
+        FindObjectOfType<IceBoss>().iceBossCollider.enabled = false;
+        FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        FindObjectOfType<FireBoss>().fireBossCollider.enabled = false;
+        FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        Invoke("fireAndIceStopBounce", 1.5f);
     
     }
     void damagedByHazards()
