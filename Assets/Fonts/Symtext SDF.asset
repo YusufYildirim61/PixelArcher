@@ -2494,7 +2494,7 @@ Material:
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0
-    - _GlowOffset: 0.08
+    - _GlowOffset: 1
     - _GlowOuter: 0.134
     - _GlowPower: 0.797
     - _GradientScale: 6
@@ -2508,7 +2508,7 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
-    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioB: 0.5970752
     - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1

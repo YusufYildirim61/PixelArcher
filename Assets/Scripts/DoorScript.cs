@@ -41,5 +41,12 @@ public class DoorScript : MonoBehaviour
         }
         
     }
+    public void openGates()
+    {
+        SoundManagerScript.PlaySound("confirm");
+        doorCollider.enabled = false;
+        doorRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        doorAnimator.SetTrigger("OpenDoor");
+    }
     
 }

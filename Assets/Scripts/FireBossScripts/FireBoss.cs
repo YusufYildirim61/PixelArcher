@@ -215,7 +215,11 @@ public class FireBoss : MonoBehaviour
         Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
         if(colInfo != null)
         {
-            colInfo.GetComponent<playerMovement>().DamagedbySecondBoss();
+            if(!playerMovement.isDamaged)
+            {
+                colInfo.GetComponent<playerMovement>().DamagedbySecondBoss();
+            }
+            
         }
     }
     void OnDrawGizmosSelected()

@@ -31,7 +31,18 @@ public class poisonAmmoPack : MonoBehaviour
         //set the object's Y to the new calculated Y
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true && poisonPrice==0)
+        {
+            SoundManagerScript.PlaySound("ammoPickUp");
+            wasCollectedAmmo = true;
+            FindObjectOfType<GameSession>().AddPoisonAmmo(addedAmmo);
+            //PlayerPrefs.SetInt("poisonAmmo",FindObjectOfType<GameSession>().poisonAmmo);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerStay2D(Collider2D other) 
     {
         if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true)

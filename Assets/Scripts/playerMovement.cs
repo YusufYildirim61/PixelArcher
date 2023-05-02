@@ -77,13 +77,15 @@ public class playerMovement : MonoBehaviour
     [Header("Audio")]
     AudioSource footsteps;
 
-    
+    [Header("Boss Level Settings")]
     public bool isInBossLevel = false;
     public bool isInSecondBossLevel = false;
-    
+    public bool isDamaged = false;
     public float bounceSpeed = 6f;
     public  bool hasKey = false;
     public bool isPressedBuy = false;
+    bool playerHasSpeed;
+    bool isShooting = false;
 
 
     void Start()
@@ -152,9 +154,12 @@ public class playerMovement : MonoBehaviour
         {
             return;
         }
+        
+
         //playFootsteps();
         moveCharacter();
         moveUpandDown();
+        hitStates();
         Die();
         //Run();
         //FlipSprite();
@@ -162,7 +167,34 @@ public class playerMovement : MonoBehaviour
         
     }
     
-    
+    void hitStates()
+    {
+        playerHasSpeed =  Mathf.Abs(myRigidbody.velocity.x)> Mathf.Epsilon;
+        if(playerHasSpeed && isDamaged && !isShooting)
+        {
+            myAnimator.SetBool("RunHit",true);
+            myAnimator.SetBool("Hit",false);
+            myAnimator.SetBool("ShootHit",false);
+        }
+        else if(!playerHasSpeed && isDamaged && !isShooting)
+        {
+            myAnimator.SetBool("Hit",true);
+            myAnimator.SetBool("RunHit",false);
+            myAnimator.SetBool("ShootHit",false);
+        }
+        else if(isShooting && isDamaged)
+        {
+            myAnimator.SetBool("ShootHit",true);
+            myAnimator.SetBool("RunHit",false);
+            myAnimator.SetBool("Hit",false);
+        }
+        else
+        {
+            myAnimator.SetBool("Hit",false);
+            myAnimator.SetBool("RunHit",false);
+            myAnimator.SetBool("ShootHit",false);
+        }
+    }
     void moveCharacter()
     {
         
@@ -340,56 +372,75 @@ public class playerMovement : MonoBehaviour
         {
             return;
         }
-        if(gameSession.ammo>0 && gameSession.isOnDefaultArrow)
+        if(gameSession.ammo>0 && gameSession.isOnDefaultArrow && !isShooting)
         {   
+           
             if(tripleArrow)
             {
                 gameSession.removeAmmo();
+                myAnimator.SetTrigger("isShooting");
                 //PlayerPrefs.SetInt("ammo",FindObjectOfType<GameSession>().ammo);
                 SoundManagerScript.PlaySound("arrowShot");
-                myAnimator.SetTrigger("isShooting");
                 Instantiate(bullet, gun.position,transform.rotation);
                 Instantiate(bullet2, gun.position,transform.rotation);
                 Instantiate(bullet3, gun.position,transform.rotation);
+                isShooting = true;
             }
             
             else
             {
                 gameSession.removeAmmo();
                 //PlayerPrefs.SetInt("ammo",FindObjectOfType<GameSession>().ammo);
-                SoundManagerScript.PlaySound("arrowShot");
                 myAnimator.SetTrigger("isShooting");
+                SoundManagerScript.PlaySound("arrowShot");
                 Instantiate(bullet, gun.position,transform.rotation);
+                isShooting = true;
             }
-            
+            Invoke("rateOfFire",0.5f);
         }
-        if(gameSession.poisonAmmo>0 && gameSession.isOnPoisonArrow)
+        if(gameSession.poisonAmmo>0 && gameSession.isOnPoisonArrow && !isShooting)
         {
                 gameSession.removePoisonAmmo();
+                myAnimator.SetTrigger("isShooting");
                 PlayerPrefs.SetInt("poisonAmmo",gameSession.poisonAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
-                myAnimator.SetTrigger("isShooting");
                 Instantiate(poisonArrow, gun.position,transform.rotation);
+                isShooting = true;
+                Invoke("rateOfFire",0.5f);
+                
         }
-        if(gameSession.iceAmmo>0 && gameSession.isOnIceArrow)
+        if(gameSession.iceAmmo>0 && gameSession.isOnIceArrow && !isShooting)
         {
                 gameSession.removeIceAmmo();
+                myAnimator.SetTrigger("isShooting");
                 PlayerPrefs.SetInt("iceAmmo",gameSession.iceAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
-                myAnimator.SetTrigger("isShooting");
                 Instantiate(iceArrow, gun.position,transform.rotation);
+                isShooting = true;
+                Invoke("rateOfFire",0.5f);
         }
-        if(gameSession.strongAmmo>0 && gameSession.isOnStrongArrow)
+        if(gameSession.strongAmmo>0 && gameSession.isOnStrongArrow && !isShooting)
         {
                 gameSession.removeStrongAmmo();
+                if(isDamaged)
+                {
+                    myAnimator.SetBool("ShootHit",true);
+                }
+                else
+                {
+                    myAnimator.SetTrigger("isShooting");
+                    myAnimator.SetBool("ShootHit",false);
+                }
                 PlayerPrefs.SetInt("strongAmmo",gameSession.strongAmmo);
                 SoundManagerScript.PlaySound("arrowShot");
-                myAnimator.SetTrigger("isShooting");
                 Instantiate(strongArrow, gun.position,transform.rotation);
+                isShooting = true;
+                Invoke("rateOfFire",0.5f);
         }     
-        
-            
-        
+    }
+    void rateOfFire()
+    {
+        isShooting = false;
     }
     public void jumpButton()
     {   
@@ -440,26 +491,27 @@ public class playerMovement : MonoBehaviour
        }
        if(isInBossLevel)
        {
-        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")) && !isDamaged)
         {
+            
             myBodyCollider.enabled = false;
             FindObjectOfType<bossLevelManager>().removeHealth(1);
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
-            
+            isDamaged = true;
             myRigidbody.velocity += Vector2.up * bounceSpeed;
             
             Invoke("damagedByHazards",0.2f);
         }
-        if(isTouchedHazards)
+        if(isTouchedHazards && !isDamaged)
         {
+            
             isTouchedHazards = false;
             FindObjectOfType<bossLevelManager>().removeHealth(1);
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
-            
             myRigidbody.velocity += Vector2.up * bounceSpeed;
             
             
@@ -467,19 +519,21 @@ public class playerMovement : MonoBehaviour
        }
        if(isInSecondBossLevel)
        {
-        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")))
+        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Hazards")) && !isDamaged)
         {
+            
             myBodyCollider.enabled = false;
             FindObjectOfType<bossLevelManager>().removeHealth(1);
             FindObjectOfType<bossLevelManager>().restartLevel();
             FindObjectOfType<LevelComplete>().timesDied(10);
             SoundManagerScript.PlaySound("death");
             myRigidbody.velocity += Vector2.up * bounceSpeed;
-            
+            isDamaged = true;
             Invoke("damagedByHazards",0.2f);
         }
-        if(isTouchedHazards)
+        if(isTouchedHazards && !isDamaged)
         {
+            
             isTouchedHazards = false;
             FindObjectOfType<bossLevelManager>().removeHealth(1);
             FindObjectOfType<bossLevelManager>().restartLevel();
@@ -500,37 +554,43 @@ public class playerMovement : MonoBehaviour
     {
         if(isInBossLevel)
         {
-            if(collision.collider == FindObjectOfType<Boss>().myCollider)
+            if(collision.collider == FindObjectOfType<Boss>().myCollider && !isDamaged)
             { 
-            FindObjectOfType<bossLevelManager>().removeHealth(1);
-            FindObjectOfType<bossLevelManager>().restartLevel();
-            FindObjectOfType<LevelComplete>().timesDied(10);
-            SoundManagerScript.PlaySound("death");
-            myRigidbody.velocity = deathKick;
-            
-            FindObjectOfType<Boss>().myCollider.enabled = false;
-            FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
-            Invoke("StopBounce", 1.5f);
-            }
-        }
-        if(isInSecondBossLevel)
-        {
-            if(collision.collider == FindObjectOfType<FireBoss>().fireBossCollider)
-            {
-                myAnimator.SetBool("Hit",true);
+                isDamaged = true;
+                
                 FindObjectOfType<bossLevelManager>().removeHealth(1);
                 FindObjectOfType<bossLevelManager>().restartLevel();
                 FindObjectOfType<LevelComplete>().timesDied(10);
                 SoundManagerScript.PlaySound("death");
                 myRigidbody.velocity = deathKick;
                 
+                FindObjectOfType<Boss>().myCollider.enabled = false;
+                FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                Invoke("StopBounce", 1.5f);
+            }
+        }
+        if(isInSecondBossLevel)
+        {
+            if(collision.collider == FindObjectOfType<FireBoss>().fireBossCollider && !isDamaged)
+            {
+                isDamaged = true;
+                
+                FindObjectOfType<bossLevelManager>().removeHealth(1);
+                FindObjectOfType<bossLevelManager>().restartLevel();
+                FindObjectOfType<LevelComplete>().timesDied(10);
+                SoundManagerScript.PlaySound("death");
+                myRigidbody.velocity = deathKick;
+                
+                FindObjectOfType<IceBoss>().iceBossCollider.enabled = false;
+                FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
                 FindObjectOfType<FireBoss>().fireBossCollider.enabled = false;
                 FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
                 Invoke("fireAndIceStopBounce", 1.5f);
             }
-            if(collision.collider == FindObjectOfType<IceBoss>().iceBossCollider)
+            if(collision.collider == FindObjectOfType<IceBoss>().iceBossCollider && !isDamaged)
             {
-                myAnimator.SetBool("Hit",true);
+                isDamaged = true;
+                
                 FindObjectOfType<bossLevelManager>().removeHealth(1);
                 FindObjectOfType<bossLevelManager>().restartLevel();
                 FindObjectOfType<LevelComplete>().timesDied(10);
@@ -540,30 +600,43 @@ public class playerMovement : MonoBehaviour
                 
                 FindObjectOfType<IceBoss>().iceBossCollider.enabled = false;
                 FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+                FindObjectOfType<FireBoss>().fireBossCollider.enabled = false;
+                FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
                 Invoke("fireAndIceStopBounce", 1.5f);
             }
         }
         
     }
+    void damagedByHazards()
+    {
+        myBodyCollider.enabled = true;
+        isDamaged = false;
+        myAnimator.SetBool("Hit",false);
+        myAnimator.SetBool("RunHit",false);
+        myAnimator.SetBool("ShootHit",false);
+    }
     void StopBounce()
     {
-        
-        //isTouchedHazards = false;
+        myAnimator.SetBool("Hit",false);
+        myAnimator.SetBool("RunHit",false);
+        myAnimator.SetBool("ShootHit",false);
         FindObjectOfType<Boss>().myCollider.enabled =true;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.None;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isDamaged = false;
     }
     void fireAndIceStopBounce()
     {
         myAnimator.SetBool("Hit",false);
+        myAnimator.SetBool("RunHit",false);
+        myAnimator.SetBool("ShootHit",false);
         FindObjectOfType<FireBoss>().fireBossCollider.enabled =true;
         FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.None;
         FindObjectOfType<FireBoss>().fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-
         FindObjectOfType<IceBoss>().iceBossCollider.enabled =true;
         FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.None;
         FindObjectOfType<IceBoss>().iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-
+        isDamaged = false;
 
     }
     /*
@@ -607,9 +680,8 @@ public class playerMovement : MonoBehaviour
         FindObjectOfType<bossLevelManager>().restartLevel();
         FindObjectOfType<LevelComplete>().timesDied(10);
         SoundManagerScript.PlaySound("death");
-        //isTouchedHazards = true;
         myRigidbody.velocity = deathKick;
-        
+        isDamaged = true;
         FindObjectOfType<Boss>().myCollider.enabled = false;
         FindObjectOfType<Boss>().myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         Invoke("StopBounce", 1.5f);
@@ -617,11 +689,12 @@ public class playerMovement : MonoBehaviour
     }
     public void DamagedbySecondBoss() // Result of Getting Hit By Boss Attack
     {
+
         FindObjectOfType<bossLevelManager>().removeHealth(1);
         FindObjectOfType<bossLevelManager>().restartLevel();
         FindObjectOfType<LevelComplete>().timesDied(10);
         SoundManagerScript.PlaySound("death");
-        //isTouchedHazards = true;
+        isDamaged = true;
         myRigidbody.velocity = deathKick;
         myAnimator.SetBool("Hit",true);
         FindObjectOfType<IceBoss>().iceBossCollider.enabled = false;
@@ -631,10 +704,7 @@ public class playerMovement : MonoBehaviour
         Invoke("fireAndIceStopBounce", 1.5f);
     
     }
-    void damagedByHazards()
-    {
-        myBodyCollider.enabled = true;
-    }
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Fireball")

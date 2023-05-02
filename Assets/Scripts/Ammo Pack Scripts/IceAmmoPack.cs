@@ -32,6 +32,18 @@ public class IceAmmoPack : MonoBehaviour
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true && icePrice==0)
+        {
+            SoundManagerScript.PlaySound("ammoPickUp");
+            wasCollectedAmmo = true;
+            FindObjectOfType<GameSession>().AddIceAmmo(addedAmmo);
+            //PlayerPrefs.SetInt("iceAmmo",FindObjectOfType<GameSession>().iceAmmo);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerStay2D(Collider2D other) 
     {
         if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true)

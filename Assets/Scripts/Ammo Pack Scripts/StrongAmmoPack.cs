@@ -34,7 +34,18 @@ public class StrongAmmoPack : MonoBehaviour
         
         
     }
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true && StrongPrice==0)
+        {
+            SoundManagerScript.PlaySound("ammoPickUp");
+            wasCollectedAmmo = true;
+            FindObjectOfType<GameSession>().AddStrongAmmo(addedAmmo);
+            //PlayerPrefs.SetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+    }
     void OnTriggerStay2D(Collider2D other) 
     {
         if(other.tag=="Player" &&  !wasCollectedAmmo && playerMovement.isAlive==true)

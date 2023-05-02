@@ -6,7 +6,8 @@ public class Teleporter : MonoBehaviour
 {
     playerMovement player;
     public GameObject teleporter2;
-    public bool spawnDirection;
+    public bool spawnToRightSide;
+    public float spawnDistance = 2f;
     void Start()
     {
         player = FindObjectOfType<playerMovement>();
@@ -22,13 +23,13 @@ public class Teleporter : MonoBehaviour
     {
         if(other.tag=="Player")
         {
-            if(spawnDirection)
+            if(spawnToRightSide)
             {
-                player.transform.position = teleporter2.transform.position + new Vector3(2,0,0);
+                player.transform.position = teleporter2.transform.position + new Vector3(spawnDistance,0,0);
             }
             else
             {
-                player.transform.position = teleporter2.transform.position + new Vector3(-2,0,0);
+                player.transform.position = teleporter2.transform.position + new Vector3(-spawnDistance,0,0);
             }
             
         }
