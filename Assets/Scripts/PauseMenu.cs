@@ -21,7 +21,7 @@ public class PauseMenu : MonoBehaviour
     {
         musicMuted = PlayerPrefs.GetInt("isMusicMuted");
         audioMuted = PlayerPrefs.GetInt("isAudioMuted");
-        PauseGame();
+        //PauseGame();
     }
     
     void PauseGame()

@@ -198,8 +198,12 @@ public class ControllablePlatform : MonoBehaviour
     {
         if(player.isAlive == false)
         {
-            player.transform.SetParent(null);
-            transform.position = player.respawnPoint + new Vector3(2,-0.2f,0);
+            if(!player.isInEscapeLevel)
+            {
+                player.transform.SetParent(null);
+                transform.position = player.respawnPoint + new Vector3(2,-0.2f,0);
+            }
+            
         }
     }
 }

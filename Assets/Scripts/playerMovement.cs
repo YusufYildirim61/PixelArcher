@@ -80,6 +80,7 @@ public class playerMovement : MonoBehaviour
     [Header("Boss Level Settings")]
     public bool isInBossLevel = false;
     public bool isInSecondBossLevel = false;
+    public bool isInEscapeLevel = false;
     public bool isDamaged = false;
     public float bounceSpeed = 6f;
     public  bool hasKey = false;
@@ -472,7 +473,11 @@ public class playerMovement : MonoBehaviour
             myRigidbody.velocity = deathKick;
             SoundManagerScript.PlaySound("death");
             myImpulseSource.GenerateImpulse(1);
-            Invoke("Respawn",0.5f);
+            if(!isInEscapeLevel)
+            {
+                Invoke("Respawn",0.5f);
+            }
+            
 
         }
         if(isTouchedHazards)
@@ -485,7 +490,10 @@ public class playerMovement : MonoBehaviour
             myRigidbody.velocity = deathKick;
             SoundManagerScript.PlaySound("death");
             myImpulseSource.GenerateImpulse(1);
-            Invoke("Respawn",0.5f);
+            if(!isInEscapeLevel)
+            {
+                Invoke("Respawn",0.5f);
+            }
             
         }
        }
@@ -548,7 +556,7 @@ public class playerMovement : MonoBehaviour
     {
         isAlive = false;
         myAnimator.SetBool("Die",true);
-        myImpulseSource.GenerateImpulse(1);
+        //myImpulseSource.GenerateImpulse(1);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -711,6 +719,13 @@ public class playerMovement : MonoBehaviour
         {
             isTouchedHazards = true;
             Destroy(other.gameObject);
+        }
+        if(other.tag == "GiantBeetle")
+        {
+            isTouchedHazards = true;
+            myRigidbody.velocity = deathKick;
+            myAnimator.SetBool("Die",true);
+            myImpulseSource.GenerateImpulse(1);
         }
         if(other.tag == "Key")
         {

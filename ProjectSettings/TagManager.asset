@@ -24,6 +24,7 @@ TagManager:
   - IceBullet
   - PoisonBullet
   - StrongBullet
+  - Destroy
   layers:
   - Default
   - TransparentFX
@@ -84,6 +85,9 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 3159021049
+    locked: 0
+  - name: Boss
+    uniqueID: 674390437
     locked: 0
   - name: Player
     uniqueID: 3955395029
