@@ -12,6 +12,7 @@ public class LevelComplete : MonoBehaviour
     [SerializeField] TextMeshProUGUI killCountToText;
     [SerializeField] TextMeshProUGUI coinCountToText;
      int totalScore;
+     float[] highScore;
      int coinCount;
      int dieCount;
      int killCount;
@@ -20,16 +21,127 @@ public class LevelComplete : MonoBehaviour
      [SerializeField] int totalCoin;
      public Animator animator;
 
+    GameManager gameManager;
+    playerMovement player;
     
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>();
         transform.localScale = new Vector3(0,0,0);
-        totalScore = 0;
+        player = FindObjectOfType<playerMovement>();
+        //totalScore = 0;
         coinCount  = 0;
         dieCount   = 0;
         killCount  = 0;
     }
+    void Update() 
+    {
+        
+        saveHighScores();
+        //PlayerPrefs.SetFloat("HighScore",gameManager.highScores[currentSceneIndex]);
+        
+    }
+    void saveHighScores()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        gameManager.highScores[currentSceneIndex] = totalScore;
+        if(currentSceneIndex==1)
+        {
+            if(totalScore>=PlayerPrefs.GetFloat("Level1HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level1HS",totalScore);
 
+            }
+        }
+        if(currentSceneIndex==2)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level2HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level2HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==3)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level3HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level3HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==4)
+        {
+            if(totalScore>=PlayerPrefs.GetFloat("Level4HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level4HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==5)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level5HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level5HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==6)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level6HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level6HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==7)
+        {
+            if(totalScore>=PlayerPrefs.GetFloat("Level7HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level7HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==8)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level8HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level8HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==9)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level9HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level9HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==10)
+        {
+            if(totalScore>=PlayerPrefs.GetFloat("Level10HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level10HS",totalScore);
+
+            }
+        }
+        if(currentSceneIndex==11)
+        {
+            
+            if(totalScore>=PlayerPrefs.GetFloat("Level11HS") && player.isLevelFinished)
+            {
+                PlayerPrefs.SetFloat("Level11HS",totalScore);
+
+            }
+        }
+        
+    }
     public void AddCoinToScore(int coinPointToAdd)
     {
         coinCount++;

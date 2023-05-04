@@ -96,6 +96,7 @@ public class playerMovement : MonoBehaviour
         footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
         Application.targetFrameRate = 60;
+        Time.timeScale = 1;
         totalAmmo = FindObjectOfType<GameSession>().ammo;
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
@@ -110,7 +111,7 @@ public class playerMovement : MonoBehaviour
         platformController.SetActive(false);
         FindObjectOfType<GameSession>().poisonAmmo =  PlayerPrefs.GetInt("poisonAmmo",FindObjectOfType<GameSession>().poisonAmmo); // Ammo kaydetme
         FindObjectOfType<GameSession>().iceAmmo =  PlayerPrefs.GetInt("iceAmmo",FindObjectOfType<GameSession>().iceAmmo);
-        //FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
+        FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("SavedScene",currentSceneIndex);
 

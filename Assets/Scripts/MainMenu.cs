@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject settingsCanvas;
     private int sceneToContinue;
     public GameObject selectedSkin;
+    LevelLoader levelLoader;
 
     
     
@@ -26,7 +27,7 @@ public class MainMenu : MonoBehaviour
     void Start() 
     {
         //FindObjectOfType<GameSession>().enabled=false;
-        
+        levelLoader = FindObjectOfType<LevelLoader>();
         selectedSkin.SetActive(false);
         settingsCanvas.SetActive(false);
         chaptersCanvas.SetActive(false);
@@ -39,6 +40,19 @@ public class MainMenu : MonoBehaviour
     }
 
     
+    IEnumerator LoadAsynchronously(int sceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        
+
+        while(!operation.isDone)
+        {
+            float progess = Mathf.Clamp01(operation.progress/.9f);
+            levelLoader.slider.value = progess;
+            levelLoader.progressText.text = progess*100f +"%";
+            yield return null;
+        }
+    }
     public void playGame()
     {
         
@@ -46,18 +60,24 @@ public class MainMenu : MonoBehaviour
         sceneToContinue = PlayerPrefs.GetInt("SavedScene");
         if(sceneToContinue == SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(sceneToContinue-1);
-             Time.timeScale = 1;
+            levelLoader.loadingScreen.SetActive(true);
+            StartCoroutine(LoadAsynchronously(sceneToContinue-1));
+            //SceneManager.LoadScene(sceneToContinue-1);
+            Time.timeScale = 1;
         }
         if(sceneToContinue ==0)
         {
-            SceneManager.LoadScene(1);
+            levelLoader.loadingScreen.SetActive(true);
+            StartCoroutine(LoadAsynchronously(1));
+            //SceneManager.LoadScene(1);
             Time.timeScale = 1;
         }
         else
         {
-            SceneManager.LoadScene(sceneToContinue);
-             Time.timeScale = 1;
+            levelLoader.loadingScreen.SetActive(true);
+            StartCoroutine(LoadAsynchronously(sceneToContinue));
+            //SceneManager.LoadScene(sceneToContinue);
+            Time.timeScale = 1;
         }
         
         
