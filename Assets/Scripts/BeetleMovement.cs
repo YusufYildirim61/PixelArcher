@@ -39,7 +39,7 @@ public class BeetleMovement : MonoBehaviour
         {
             isInCameraRange = false;
         }
-        if(isFrozen)
+        if(isFrozen && beetleHealth>0)
         {
             return;
         }

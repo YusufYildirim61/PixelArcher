@@ -68,6 +68,7 @@ public class WhiteSkeleton : MonoBehaviour
             //myRigidbody.MovePosition(newPosition);
             if(/*Mathf.Abs(player.position.x-myRigidbody.position.x)<=walkRange && Mathf.Abs(player.position.y-myRigidbody.position.y)<=heightRange &&*/ fightAreaTrigger.isInFightArea)
             {
+                
                 myAnimator.SetBool("Walk",true);
                 myRigidbody.MovePosition(newPosition);
             }
@@ -104,6 +105,7 @@ public class WhiteSkeleton : MonoBehaviour
                 myAnimator.SetBool("Walk",false);
             }
         }
+        
         
     }
 

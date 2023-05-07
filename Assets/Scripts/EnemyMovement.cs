@@ -44,7 +44,7 @@ public class EnemyMovement : MonoBehaviour
         {
             isInCameraRange = false;
         }
-        if(isFrozen)
+        if(isFrozen && enemyHealth>0)
         {
             return;
         }

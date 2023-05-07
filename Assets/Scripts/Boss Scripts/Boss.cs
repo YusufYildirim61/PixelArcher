@@ -20,8 +20,10 @@ public class Boss : MonoBehaviour
     private Camera mainCamera;
     bool isInCameraRange = false;
     
+    
     void Start() 
     {
+        
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();

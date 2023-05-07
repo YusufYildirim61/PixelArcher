@@ -144,13 +144,13 @@ public class SkinManager : MonoBehaviour
         }
         isSkin1Sold = PlayerPrefs.GetInt("IsSkin1Sold");
         isSkin2Sold = PlayerPrefs.GetInt("IsSkin2Sold");
-        isSkin3Sold = PlayerPrefs.GetInt("isSkin3Sold");
-        isSkin4Sold = PlayerPrefs.GetInt("isSkin4Sold");
-        isSkin5Sold = PlayerPrefs.GetInt("isSkin5Sold");
-        isSkin6Sold = PlayerPrefs.GetInt("isSkin6Sold");
-        isSkin7Sold = PlayerPrefs.GetInt("isSkin7Sold");
+        isSkin3Sold = PlayerPrefs.GetInt("IsSkin3Sold");
+        isSkin4Sold = PlayerPrefs.GetInt("IsSkin4Sold");
+        isSkin5Sold = PlayerPrefs.GetInt("IsSkin5Sold");
+        isSkin6Sold = PlayerPrefs.GetInt("IsSkin6Sold");
+        isSkin7Sold = PlayerPrefs.GetInt("IsSkin7Sold");
         totalMoney = PlayerPrefs.GetInt("TotalMoney");
-        
+        Debug.Log(isSkin4Sold);
     }
     
 

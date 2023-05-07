@@ -45,7 +45,7 @@ public class IdleGoo : MonoBehaviour
         {
             isInCameraRange = false;
         }
-        if(isFrozen)
+        if(isFrozen && health>0)
         {
             return;
         }
@@ -55,6 +55,7 @@ public class IdleGoo : MonoBehaviour
             if(health<=0)
             {
                 StopCoroutine("poisonDamage");
+                
             }
             if(poisonDmgCount==3)
             {
@@ -62,7 +63,8 @@ public class IdleGoo : MonoBehaviour
                 poisonDmgCount = 0;
             }
         }
-        else
+       
+        if(health>0 && !isPoisoned && !isFrozen)
         {
             Invoke("attack",0.4f);
         }
