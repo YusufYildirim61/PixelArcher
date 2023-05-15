@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
     private int sceneToContinue;
     public GameObject selectedSkin;
     LevelLoader levelLoader;
+    AudioManager audioManager;
 
     
     
@@ -26,7 +27,7 @@ public class MainMenu : MonoBehaviour
 
     void Start() 
     {
-        //FindObjectOfType<GameSession>().enabled=false;
+        audioManager = FindObjectOfType<AudioManager>();
         levelLoader = FindObjectOfType<LevelLoader>();
         selectedSkin.SetActive(false);
         settingsCanvas.SetActive(false);
@@ -49,7 +50,7 @@ public class MainMenu : MonoBehaviour
         {
             float progess = Mathf.Clamp01(operation.progress/.9f);
             levelLoader.slider.value = progess;
-            levelLoader.progressText.text = progess*100f +"%";
+            levelLoader.progressText.text = (int)progess*100f +"%";
             yield return null;
         }
     }

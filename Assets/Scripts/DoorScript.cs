@@ -7,13 +7,15 @@ public class DoorScript : MonoBehaviour
     // Start is called before the first frame update
     playerMovement playerMovement;
     ControllablePlatform controllablePlatform;
-     Animator doorAnimator;
-     Rigidbody2D doorRB;
-     BoxCollider2D doorCollider;
+    Animator doorAnimator;
+    Rigidbody2D doorRB;
+    BoxCollider2D doorCollider;
     public GameObject key;
+    GameSession gameSession;
     
     void Start()
     {
+        gameSession = FindObjectOfType<GameSession>();
         controllablePlatform = FindObjectOfType<ControllablePlatform>();
         doorRB = GetComponent<Rigidbody2D>();
         doorCollider = GetComponent<BoxCollider2D>();
@@ -37,6 +39,7 @@ public class DoorScript : MonoBehaviour
             doorRB.constraints = RigidbodyConstraints2D.FreezeAll;
             doorAnimator.SetTrigger("OpenDoor");
             playerMovement.hasKey = false;
+            gameSession.KeyImage.SetActive(false);
             //Destroy(gameObject);
         }
         

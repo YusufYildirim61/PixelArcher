@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 307869606, guid: f5651b6844f98834eb86e649ccf991fa, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1210867250336280807, guid: f5651b6844f98834eb86e649ccf991fa, type: 3}
       propertyPath: redAudioButton
       value: 
@@ -101132,11 +101136,11 @@ PrefabInstance:
       objectReference: {fileID: 1420417990}
     - target: {fileID: 4223469001211333685, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.910004
+      value: -15.889999
       objectReference: {fileID: 0}
     - target: {fileID: 4223469001211333685, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.950001
+      value: 6.960001
       objectReference: {fileID: 0}
     - target: {fileID: 4223469001489507112, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_Follow
@@ -101144,11 +101148,11 @@ PrefabInstance:
       objectReference: {fileID: 1420417990}
     - target: {fileID: 4223469001489507113, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.910004
+      value: -15.889999
       objectReference: {fileID: 0}
     - target: {fileID: 4223469001489507113, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.950001
+      value: 6.960001
       objectReference: {fileID: 0}
     - target: {fileID: 4223469001489507126, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_BoundingShape2D
@@ -101212,11 +101216,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.806564
+      value: -10.9826355
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.8732967
+      value: 6.886244
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -101232,11 +101236,11 @@ PrefabInstance:
       objectReference: {fileID: 1420417990}
     - target: {fileID: 4223469003101154068, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.910004
+      value: -15.889999
       objectReference: {fileID: 0}
     - target: {fileID: 4223469003101154068, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.950001
+      value: 6.960001
       objectReference: {fileID: 0}
     - target: {fileID: 4223469003101154069, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_BoundingShape2D
@@ -101251,6 +101255,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6770717939295785166, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 534637949, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_GravityScale
       value: 3
@@ -101353,11 +101361,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193746295022379160, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -184.56
+      value: -184.54
       objectReference: {fileID: 0}
     - target: {fileID: 9193746295022379160, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.91
+      value: 19.92
       objectReference: {fileID: 0}
     - target: {fileID: 9193746295022379160, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_LocalPosition.z

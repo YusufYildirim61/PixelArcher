@@ -6,10 +6,11 @@ public class FightAreaTrigger : MonoBehaviour
 {
     public bool isInFightArea = false;
      Vector3 fightAreaStartPosition;
+     playerMovement player;
      
     void Start()
     {
-        
+        player = FindObjectOfType<playerMovement>();
         isInFightArea = false;
     }
 
@@ -23,8 +24,10 @@ public class FightAreaTrigger : MonoBehaviour
         if(other.tag == "Player")
         {
             isInFightArea = true;
+            
         }
     }
+    
     private void OnTriggerExit2D(Collider2D other) {
         if(other.tag == "Player")
         {

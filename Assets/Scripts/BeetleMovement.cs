@@ -74,8 +74,21 @@ public class BeetleMovement : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.tag=="Bullet" || other.tag =="StrongBullet")
+        if(other.tag=="Bullet")
         {
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
+            beetleHealth -=1;
+            
+        }
+        if(other.tag =="StrongBullet")
+        {
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             beetleHealth -=1;
             
         }
@@ -109,6 +122,10 @@ public class BeetleMovement : MonoBehaviour
             beetleHealth-=0.5f;
             poisonEffect = false;
             myAnimator.SetBool("Poison",true);
+            if(isInCameraRange)
+            {
+               SoundManagerScript.PlaySound("enemyHit");
+            }
             Invoke("stopPoisonEffect",0.2f);
             yield return new WaitForSeconds(0.8f);
             poisonEffect = true;

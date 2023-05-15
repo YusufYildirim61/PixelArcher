@@ -23,25 +23,30 @@ public class FanScript : MonoBehaviour
     }
 
     void OnTriggerStay2D(Collider2D other)
- {
-     if(other.tag=="Player" && isTurnedUp)
-     {
-        other.attachedRigidbody.AddForce(Vector2.up*fanSpeed*Time.deltaTime);
-     }
-     if(other.tag=="Player" && isTurnedRight)
-     {
-        other.attachedRigidbody.AddForce(Vector2.right*fanSpeed*Time.deltaTime);
-     }
-     if(other.tag=="Player" && isTurnedLeft)
-     {
-        other.attachedRigidbody.AddForce(Vector2.left*fanSpeed*Time.deltaTime);
-     }
-     if(other.tag=="Player" && isTurnedDown)
-     {
-        other.attachedRigidbody.AddForce(Vector2.down*fanSpeed*Time.deltaTime);
-     }
-     
-     
+    {
+      if(other.tag=="Player" && isTurnedUp)
+      {
+         other.attachedRigidbody.AddForce(Vector2.up*fanSpeed*Time.deltaTime);
+      }
+      if(other.tag=="Player" && isTurnedRight)
+      {
+         other.attachedRigidbody.AddForce(Vector2.right*fanSpeed*Time.deltaTime);
+      }
+      if(other.tag=="Player" && isTurnedLeft)
+      {
+         other.attachedRigidbody.AddForce(Vector2.left*fanSpeed*Time.deltaTime);
+      }
+      if(other.tag=="Player" && isTurnedDown)
+      {
+         other.attachedRigidbody.AddForce(Vector2.down*fanSpeed*Time.deltaTime);
+      }
  
- }
+    }
+   void OnTriggerEnter2D(Collider2D other) 
+    {
+      if(other.tag=="Player")
+      {
+         SoundManagerScript.PlaySound("arrowShot");
+      }
+    }
 }

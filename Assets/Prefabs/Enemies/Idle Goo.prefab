@@ -271,7 +271,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  player: {fileID: 0}
   myCollider: {fileID: 0}
   myRigidbody: {fileID: 0}
   attackOffset: {x: -0.13, y: -2.27, z: 0}
@@ -279,4 +278,4 @@ MonoBehaviour:
   attackMask:
     serializedVersion: 2
     m_Bits: 256
-  walkRange: 5
+  startTimeBetween: 0.7

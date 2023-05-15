@@ -10,14 +10,18 @@ public class bossLevelManager : MonoBehaviour
     [SerializeField] GameObject player;
     Rigidbody2D playerRB;
     Animator playerAnimator;
-    playerMovement playerMovement;
+    playerMovement PlayerMovement;
+    
     
     void Start()
     {
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
+        
+        
+        PlayerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<playerMovement>();
         playerRB = player.GetComponent<Rigidbody2D>();
         playerAnimator = player.GetComponent<Animator>();
         playerHealthText.text = playerHealth.ToString();
+        
     }
 
     // Update is called once per frame
@@ -29,7 +33,7 @@ public class bossLevelManager : MonoBehaviour
     {
         if(playerHealth<=0)
         {
-            playerMovement.dieAndReload();
+            PlayerMovement.dieAndReload();
             Invoke("reloadScene",1f);
             
         }

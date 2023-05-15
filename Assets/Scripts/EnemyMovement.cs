@@ -52,6 +52,7 @@ public class EnemyMovement : MonoBehaviour
         {
             if(isInCameraRange)
             {
+                
                 SoundManagerScript.PlaySound("enemyDeath"); 
             }
             FindObjectOfType<LevelComplete>().creatureKilled(100);
@@ -86,7 +87,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 if(isInCameraRange)
                 {
-                    SoundManagerScript.PlaySound("enemyHit");
+                    SoundManagerScript.PlaySound("bossHit");
                 }
                 Invoke("turntoNormalColor",0.3f);
                 
@@ -95,6 +96,10 @@ public class EnemyMovement : MonoBehaviour
         if(other.tag == "StrongBullet")
         {
             enemyHealth-=2;
+            if(isInCameraRange)
+            {
+                SoundManagerScript.PlaySound("bossHit");
+            }
             Instantiate(enemyBlood, transform.position,Quaternion.identity);
         }
         if(other.tag == "IceBullet")
@@ -127,6 +132,10 @@ public class EnemyMovement : MonoBehaviour
             enemyHealth-=0.5f;
             poisonEffect = false;
             myAnimator.SetBool("Poison",true);
+            if(isInCameraRange)
+            {
+               SoundManagerScript.PlaySound("enemyHit");
+            }
             Invoke("stopPoisonEffect",0.2f);
             yield return new WaitForSeconds(0.8f);
             poisonEffect = true;

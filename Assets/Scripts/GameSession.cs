@@ -30,6 +30,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] public GameObject poisonArrowButton;
     [SerializeField] public GameObject iceArrowButton;
     [SerializeField] public GameObject strongArrowButton;
+    [SerializeField] public GameObject KeyImage;
     public bool isOnPoisonArrow,isOnIceArrow,isOnStrongArrow = false;
     public bool isOnDefaultArrow;
 
@@ -65,6 +66,7 @@ public class GameSession : MonoBehaviour
 
     void Start()
     {
+        KeyImage.SetActive(false);
         getInButton.SetActive(false);
         totalMoney.SetActive(false);
         isOnDefaultArrow = true;

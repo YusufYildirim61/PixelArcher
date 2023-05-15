@@ -49,5 +49,9 @@ public class FallingPlatform : MonoBehaviour
         myAnimator.SetBool("isTouched",false);
         myboxCollider.enabled = true;
     }
+    void playFallingPlatformSFX()
+    {
+        SoundManagerScript.PlaySound("arrowShot");
+    }
     
 }

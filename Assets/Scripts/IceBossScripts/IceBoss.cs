@@ -23,10 +23,14 @@ public class IceBoss : MonoBehaviour
     public float attackRange = 1f;
     public LayerMask attackMask;
     FightAreaTrigger fightAreaTrigger;
+    FireBoss fireBoss;
+    DoorScript door;
     
     
     void Start()
     {
+        fireBoss = FindObjectOfType<FireBoss>();
+        door = FindObjectOfType<DoorScript>();
         fightAreaTrigger = GetComponentInParent<FightAreaTrigger>();
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
@@ -103,50 +107,40 @@ public class IceBoss : MonoBehaviour
     {
         if(other.tag=="Bullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             iceBossHealth--;
             iceBossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="StrongBullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             iceBossHealth-=2;
             iceBossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="IceBullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
-            
+            SoundManagerScript.PlaySound("bossHit");
         }
         if(other.tag == "PoisonBullet")
         {
-           if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
-           isPoisoned = true; 
+            SoundManagerScript.PlaySound("bossHit");
+            isPoisoned = true; 
         }
         if(iceBossHealth<=0)
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossDeath");
-            }
+            
+            SoundManagerScript.PlaySound("bossDeath");
             iceBossCollider.enabled = false;
             iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             iceBossAnimator.SetTrigger("Death");
+            
+        }
+        if(fireBoss.fireBossHealth<=0 && iceBossHealth<=0)
+        {
             FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+            door.openGates();
         }
     }
     IEnumerator poisonDamage()
@@ -162,14 +156,16 @@ public class IceBoss : MonoBehaviour
             if(iceBossHealth<=0)
             {
                 stopPoisonEffect();
-                if(isInCameraRange)
-                {
-                    SoundManagerScript.PlaySound("bossDeath");
-                }
+                
+                SoundManagerScript.PlaySound("bossDeath");
                 iceBossCollider.enabled = false;
                 iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
                 iceBossAnimator.SetTrigger("Death");
-                FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+                if(fireBoss.fireBossHealth<=0 && iceBossHealth<=0)
+                {
+                    FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+                    door.openGates();
+                }
             }
             yield return new WaitForSeconds(0.8f);
             poisonEffect = true;

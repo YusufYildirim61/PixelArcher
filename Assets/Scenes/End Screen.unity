@@ -160,7 +160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 63.6}
+  m_AnchoredPosition: {x: 0, y: 48}
   m_SizeDelta: {x: 90, y: 85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160818774
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You can replay levels and open more skins from the main menu
+  m_text: You can replay levels and unlock more skins from the main menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd78396c496169f418dbc44f1fdc9274, type: 2}
   m_sharedMaterial: {fileID: 8098379276796091580, guid: fd78396c496169f418dbc44f1fdc9274, type: 2}

@@ -14,9 +14,13 @@ public class ControllablePlatform : MonoBehaviour
     GameSession gameSession;
     public PolygonCollider2D myCollider;
     bool isPressedGetIn = false;
+    AudioSource audioSource;
+    AudioClip platformSFX;
     
     void Start()
     {
+        platformSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
+        audioSource = GetComponent<AudioSource>();
         gameSession = FindObjectOfType<GameSession>();
         gameSession.getInButton.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
@@ -123,24 +127,26 @@ public class ControllablePlatform : MonoBehaviour
     {
         if(movePlatformLeft)
         {
+            playPlatformSFX();
             rb.velocity = new Vector2(-ControlSpeed,0);
             //player.myRigidbody.velocity = new Vector2(0,0);
         }
         if(movePlatformRight)
         {
+            playPlatformSFX();
             rb.velocity = new Vector2(ControlSpeed,0);
             //player.myRigidbody.velocity = new Vector2(0,0);
         }
         if(movePlatformUp)
         {
-            
+            playPlatformSFX();
             rb.constraints =  RigidbodyConstraints2D.None;
             rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
             rb.velocity = new Vector2(rb.velocity.x,ControlSpeed);
         }
         if(movePlatformDown)
         {
-            
+            playPlatformSFX();
             player.myRigidbody.velocity = new Vector2(0,-ControlSpeed);
             rb.constraints =  RigidbodyConstraints2D.None;
             rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
@@ -166,17 +172,20 @@ public class ControllablePlatform : MonoBehaviour
     }
     public void stopMovingLeft()
     {
+        audioSource.Stop();
         movePlatformLeft = false;
         rb.velocity = new Vector2(0,0);
     }
     public void stopMovingRight()
     {
+        audioSource.Stop();
         movePlatformRight = false;
         rb.velocity = new Vector2(0,0);
     }
     public void stopMovingUp()
     {
         //player.transform.SetParent(transform);
+        audioSource.Stop();
         player.myRigidbody.velocity = new Vector2(0,-ControlSpeed);
         movePlatformUp = false;
         rb.velocity = new Vector2(rb.velocity.x,0);
@@ -187,8 +196,8 @@ public class ControllablePlatform : MonoBehaviour
     public void stopMovingDown()
     {
         //player.transform.SetParent(transform);
+        audioSource.Stop();
         movePlatformDown = false;
-        
         rb.velocity = new Vector2(rb.velocity.x,0);
         rb.constraints =  RigidbodyConstraints2D.FreezePositionY;
         rb.constraints =  RigidbodyConstraints2D.FreezeRotation;
@@ -204,6 +213,13 @@ public class ControllablePlatform : MonoBehaviour
                 transform.position = player.respawnPoint + new Vector3(2,-0.2f,0);
             }
             
+        }
+    }
+    void playPlatformSFX()
+    {
+        if(!audioSource.isPlaying && PlayerPrefs.GetInt("isAudioMuted")==0)
+        {
+            audioSource.PlayOneShot(platformSFX);
         }
     }
 }

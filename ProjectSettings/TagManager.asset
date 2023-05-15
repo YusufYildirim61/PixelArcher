@@ -25,6 +25,7 @@ TagManager:
   - PoisonBullet
   - StrongBullet
   - Destroy
+  - BossArea
   layers:
   - Default
   - TransparentFX

@@ -234,7 +234,10 @@ public class WhiteSkeleton : MonoBehaviour
       Vector3 pos = transform.position;
       pos+= transform.right*attackOffset.x;
       pos+=transform.up* attackOffset.y;
-
+      if(isInCameraRange)
+      {
+        SoundManagerScript.PlaySound("bossDeath");
+      }
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRangeRadius,attackMask);
       if(colInfo != null)
       {

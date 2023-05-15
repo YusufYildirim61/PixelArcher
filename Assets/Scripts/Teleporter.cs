@@ -23,6 +23,7 @@ public class Teleporter : MonoBehaviour
     {
         if(other.tag=="Player")
         {
+            SoundManagerScript.PlaySound("arrowShot");
             if(spawnToRightSide)
             {
                 player.transform.position = teleporter2.transform.position + new Vector3(spawnDistance,0,0);

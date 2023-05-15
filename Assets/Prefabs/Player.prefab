@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633364715192305563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: -0.166, z: 0}
+  m_LocalPosition: {x: 0.377, y: -0.166, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -131,7 +131,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -339572267
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: 1219590238, guid: 85ad7d98734bcde4eb172e13d1182129, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -234,12 +234,18 @@ MonoBehaviour:
   iceArrow: {fileID: 6615609714158121919, guid: 4bd6eec78e7e5e04791556fa1d793197, type: 3}
   strongArrow: {fileID: 7040918457673153173, guid: cef235809244a1844b8d54a8f02bb710, type: 3}
   gun: {fileID: 4019669804128995638}
+  myRigidbody: {fileID: 0}
   myBodyCollider: {fileID: 0}
   myFeetCollider: {fileID: 0}
+  gravityAtStart: 0
   isAlive: 1
   isStopped: 0
   respawnPoint: {x: 0, y: 0, z: 0}
   isLevelFinished: 0
+  moveLeft: 0
+  moveRight: 0
+  moveUp: 0
+  moveDown: 0
   levelCompleteScreen: {fileID: 0}
   tripleArrow: 0
   isTouchedHazards: 0
@@ -259,6 +265,9 @@ MonoBehaviour:
   pirateSkin: {fileID: 22100000, guid: 20b1de892b84c8c4fba2e812a38a2cc9, type: 2}
   robinSkin: {fileID: 22100000, guid: 3fae2d7503ce2f94fbd4daee268db3f8, type: 2}
   isInBossLevel: 0
+  isInSecondBossLevel: 0
+  isInEscapeLevel: 0
+  isDamaged: 0
   bounceSpeed: 6
   hasKey: 0
   isPressedBuy: 0
@@ -351,9 +360,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 16bda22619bf48247b5f585239f1fc34, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

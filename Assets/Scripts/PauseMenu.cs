@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject gameSession;
     
     playerMovement playerMovement;
+    AudioManager audioManager;
     int musicMuted;
     int audioMuted;
     void Start() 
@@ -19,6 +20,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         musicMuted = PlayerPrefs.GetInt("isMusicMuted");
         audioMuted = PlayerPrefs.GetInt("isAudioMuted");
         //PauseGame();
@@ -50,7 +52,11 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale=1;
         GameIsPaused = false;
         FindObjectOfType<playerMovement>().isStopped = false;
-        FindObjectOfType<AudioManager>().levelMusic.Play();
+        if(PlayerPrefs.GetInt("isMusicMuted")==0)
+        {
+            audioManager.levelMusic.Play();
+        }
+        
     }
     public void Pause()
     {
@@ -60,7 +66,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale=0;
         GameIsPaused = true;
         FindObjectOfType<playerMovement>().isStopped = true;
-        FindObjectOfType<AudioManager>().levelMusic.Pause();
+        audioManager.levelMusic.Pause();
     }
 
     public void restartLevel()

@@ -75,7 +75,11 @@ public class playerMovement : MonoBehaviour
     private RuntimeAnimatorController defaultSkin;
     
     [Header("Audio")]
-    AudioSource footsteps;
+    AudioSource audioSource;
+    AudioManager audioManager;
+    AudioClip ladderClimbSFX;
+    AudioClip walkSFX;
+    
 
     [Header("Boss Level Settings")]
     public bool isInBossLevel = false;
@@ -88,12 +92,20 @@ public class playerMovement : MonoBehaviour
     bool playerHasSpeed;
     bool isShooting = false;
 
+    
+
 
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        ladderClimbSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
+        walkSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
+        audioManager = FindObjectOfType<AudioManager>();
+        if(PlayerPrefs.GetInt("isMusicMuted")==0)
+        {
+            audioManager.GetComponent<AudioSource>().Play();
+        }
         gameSession = FindObjectOfType<GameSession>();
-        footsteps = GetComponent<AudioSource>();
         tripleArrow = false;
         Application.targetFrameRate = 60;
         Time.timeScale = 1;
@@ -114,6 +126,7 @@ public class playerMovement : MonoBehaviour
         FindObjectOfType<GameSession>().strongAmmo =  PlayerPrefs.GetInt("strongAmmo",FindObjectOfType<GameSession>().strongAmmo);
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         PlayerPrefs.SetInt("SavedScene",currentSceneIndex);
+        
 
         if(PlayerPrefs.GetInt("SelectedSkin")== 0)
         {
@@ -202,7 +215,11 @@ public class playerMovement : MonoBehaviour
         
         if(moveLeft)
         {
-            
+            playFootsteps();
+            if(isLevelFinished)
+            {
+                audioSource.Stop();
+            }
             myBodyCollider.sharedMaterial = frictionless;
             myFeetCollider.sharedMaterial = frictionless;
             myRigidbody.velocity = new Vector2(-runSpeed,myRigidbody.velocity.y);
@@ -220,7 +237,11 @@ public class playerMovement : MonoBehaviour
         }
         if(moveRight)
         {
-             
+            playFootsteps();
+            if(isLevelFinished)
+            {
+                audioSource.Stop();
+            }
             myBodyCollider.sharedMaterial = frictionless;
             myFeetCollider.sharedMaterial = frictionless;
             myRigidbody.velocity = new Vector2(runSpeed,myRigidbody.velocity.y);
@@ -247,6 +268,7 @@ public class playerMovement : MonoBehaviour
             if(moveUp)
             {
             Vector2 climbVelocity = new Vector2(0,climbspeed);
+            playClimbSound();
             myRigidbody.velocity = climbVelocity;
             myRigidbody.gravityScale = 0f;
             
@@ -267,6 +289,7 @@ public class playerMovement : MonoBehaviour
             {
                 
                 Vector2 climbVelocity = new Vector2(0,-climbspeed);
+                playClimbSound();
                 myRigidbody.velocity = climbVelocity;
                 myRigidbody.gravityScale = 0f;
                 
@@ -302,6 +325,7 @@ public class playerMovement : MonoBehaviour
     {
         if(isLevelFinished)
         {
+            audioSource.Stop();
             myRigidbody.velocity = new Vector2(runSpeed,myRigidbody.velocity.y);
             bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x)> Mathf.Epsilon;
             transform.localScale = new Vector2(1,1);
@@ -343,24 +367,25 @@ public class playerMovement : MonoBehaviour
         moveRight = false;
         myRigidbody.velocity = new Vector2(0,myRigidbody.velocity.y);
         transform.localScale = new Vector2(-1,1);
-        
+        audioSource.Stop();
         myAnimator.SetBool("isRunning",false);
    
     }
     public void StopMovingRight()
     {
-         myBodyCollider.sharedMaterial = friction;
+        myBodyCollider.sharedMaterial = friction;
         myFeetCollider.sharedMaterial = friction;
         moveLeft = false;
         moveRight = false;
         myRigidbody.velocity = new Vector2(0,myRigidbody.velocity.y);
-        
+        audioSource.Stop();
         transform.localScale = new Vector2(1,1);
         myAnimator.SetBool("isRunning",false);
  
     }
     public void StopClimbing()
     {
+        audioSource.Stop();
         moveUp = false;
         moveDown = false;
         myRigidbody.velocity = new Vector2(0,0);
@@ -732,12 +757,14 @@ public class playerMovement : MonoBehaviour
         {
             SoundManagerScript.PlaySound("confirm");
             hasKey = true;
+            gameSession.KeyImage.SetActive(true);
             Destroy(other.gameObject);  
         }
         if(other.tag == "Shop")
         {
             FindObjectOfType<GameSession>().totalMoney.SetActive(true);   
         }
+        
     
     }
     void OnTriggerExit2D(Collider2D other) 
@@ -757,16 +784,23 @@ public class playerMovement : MonoBehaviour
 
     void playFootsteps()
     {
-         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;
 
-         if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerHasHorizontalSpeed && !footsteps.isPlaying)
+        if (myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerHasHorizontalSpeed && !audioSource.isPlaying && PlayerPrefs.GetInt("isAudioMuted")==0)
         {
-            footsteps.Play();
+            audioSource.PlayOneShot(walkSFX);
         }
-        else if (!myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) || !playerHasHorizontalSpeed)
+        
+    }
+    void playClimbSound()
+    {
+        bool playerHasVerticalSpeed = Mathf.Abs(myRigidbody.velocity.y) > Mathf.Epsilon;
+
+        if(myFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) && playerHasVerticalSpeed  && !audioSource.isPlaying && PlayerPrefs.GetInt("isAudioMuted")==0)
         {
-            footsteps.Stop();
+            audioSource.PlayOneShot(ladderClimbSFX);
         }
+        
     }
     /*
     void FlipSprite() // Karakterin bastığın yöne göre dönmesi

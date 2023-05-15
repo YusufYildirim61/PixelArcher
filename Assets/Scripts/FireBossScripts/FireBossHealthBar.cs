@@ -45,7 +45,7 @@ public class FireBossHealthBar : MonoBehaviour
             {
                 bossText.text = "Gate is Now Open!";
                 bossText.color = Color.green;
-                door.openGates();
+                
                 
             }
         }

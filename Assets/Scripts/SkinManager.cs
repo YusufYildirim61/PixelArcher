@@ -150,7 +150,7 @@ public class SkinManager : MonoBehaviour
         isSkin6Sold = PlayerPrefs.GetInt("IsSkin6Sold");
         isSkin7Sold = PlayerPrefs.GetInt("IsSkin7Sold");
         totalMoney = PlayerPrefs.GetInt("TotalMoney");
-        Debug.Log(isSkin4Sold);
+        
     }
     
 
@@ -165,7 +165,7 @@ public class SkinManager : MonoBehaviour
             
         }
         sr.sprite = skins[selectedSkin];
-        Debug.Log(selectedSkin);
+        
     }
     public void BackOption()
     {
@@ -178,7 +178,7 @@ public class SkinManager : MonoBehaviour
             selectedSkin = skins.Count -1;
         }
         sr.sprite = skins[selectedSkin];
-        Debug.Log(selectedSkin);
+        
     }
     public void unlockSkin()
     {

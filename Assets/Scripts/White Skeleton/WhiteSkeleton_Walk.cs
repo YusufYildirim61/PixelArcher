@@ -32,6 +32,10 @@ public class WhiteSkeleton_Walk : StateMachineBehaviour
         }
         else
         {
+            if(whiteSkeleton.health<=0)
+            {
+                animator.SetTrigger("Death");
+            }
             whiteSkeleton.LookAtPlayer();
             if(Mathf.Abs(player.position.x-rb.position.x)<=attackRange && fightAreaTrigger.isInFightArea)
             {

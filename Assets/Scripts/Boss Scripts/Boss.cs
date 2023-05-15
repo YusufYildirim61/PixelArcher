@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
     int poisonDmgCount;
     bool poisonEffect = true;
     private Camera mainCamera;
-    bool isInCameraRange = false;
+    public bool isInCameraRange = false;
     
     
     void Start() 
@@ -91,20 +91,14 @@ public class Boss : MonoBehaviour
     {
         if(other.tag=="Bullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             bossHealth--;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="StrongBullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             bossHealth-=2;
             bossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
@@ -112,27 +106,18 @@ public class Boss : MonoBehaviour
         if(other.tag=="IceBullet")
         {
             isFrozen = true;
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             bossAnimator.SetBool("Freeze",true);
             Invoke("unFreezeBoss",1f);
         }
         if(other.tag == "PoisonBullet")
         {
-           if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
-           isPoisoned = true; 
+            SoundManagerScript.PlaySound("bossHit");
+            isPoisoned = true; 
         }
         if(bossHealth<=0)
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossDeath");
-            }
+            SoundManagerScript.PlaySound("bossDeath");
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             bossAnimator.SetTrigger("Death");
@@ -153,10 +138,7 @@ public class Boss : MonoBehaviour
             if(bossHealth<=0)
             {
                 stopPoisonEffect();
-                if(isInCameraRange)
-                {
-                    SoundManagerScript.PlaySound("bossDeath");
-                }
+                SoundManagerScript.PlaySound("bossDeath");
                 myCollider.enabled = false;
                 myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
                 bossAnimator.SetTrigger("Death");

@@ -24,10 +24,14 @@ public class FireBoss : MonoBehaviour
     public float attackRange = 1f;
     public LayerMask attackMask;
     FightAreaTrigger fightAreaTrigger;
+    IceBoss iceBoss;
+    DoorScript door;
     
     
     void Start()
     {
+        door = FindObjectOfType<DoorScript>();
+        iceBoss = FindObjectOfType<IceBoss>();
         fightAreaTrigger = GetComponentInParent<FightAreaTrigger>();
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
@@ -35,6 +39,8 @@ public class FireBoss : MonoBehaviour
         fireBossRigidbody = GetComponent<Rigidbody2D>();
         fireBossCollider = GetComponent<BoxCollider2D>();
         fireBossAnimator = GetComponent<Animator>();
+        
+        
         
     }
 
@@ -46,6 +52,7 @@ public class FireBoss : MonoBehaviour
         }
         if(fightAreaTrigger.isInFightArea)
         {
+           
             fireBossAnimator.SetBool("Walk",true);
         }
         else
@@ -104,20 +111,14 @@ public class FireBoss : MonoBehaviour
     {
         if(other.tag=="Bullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             fireBossHealth--;
             fireBossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
         }
         if(other.tag=="StrongBullet")
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             fireBossHealth-=2;
             fireBossAnimator.SetBool("Hit",true);
             Invoke("returnToNormalState",0.2f);
@@ -125,31 +126,28 @@ public class FireBoss : MonoBehaviour
         if(other.tag=="IceBullet")
         {
             isFrozen = true;
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
+            SoundManagerScript.PlaySound("bossHit");
             fireBossHealth-=2;
             fireBossAnimator.SetBool("Freeze",true);
             Invoke("unFreezeBoss",2f);
         }
         if(other.tag == "PoisonBullet")
         {
-           if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossHit");
-            }
-           isPoisoned = true; 
+            SoundManagerScript.PlaySound("bossHit");
+            isPoisoned = true; 
         }
         if(fireBossHealth<=0)
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossDeath");
-            }
+           
+            SoundManagerScript.PlaySound("bossDeath");
             fireBossCollider.enabled = false;
             fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             fireBossAnimator.SetTrigger("Death");
+            
+        }
+        if(fireBossHealth<=0 && iceBoss.iceBossHealth<=0)
+        {
+            door.openGates();
             FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
         }
     }
@@ -166,14 +164,15 @@ public class FireBoss : MonoBehaviour
             if(fireBossHealth<=0)
             {
                 stopPoisonEffect();
-                if(isInCameraRange)
-                {
-                    SoundManagerScript.PlaySound("bossDeath");
-                }
+                SoundManagerScript.PlaySound("bossDeath");
                 fireBossCollider.enabled = false;
                 fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
                 fireBossAnimator.SetTrigger("Death");
-                FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+                if(fireBossHealth<=0 && iceBoss.iceBossHealth<=0)
+                {
+                    door.openGates();
+                    FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+                }
             }
             yield return new WaitForSeconds(0.8f);
             poisonEffect = true;
@@ -195,13 +194,15 @@ public class FireBoss : MonoBehaviour
         isFrozen = false;
         if(fireBossHealth<=0)
         {
-            if(isInCameraRange)
-            {
-                SoundManagerScript.PlaySound("bossDeath");
-            }
+            SoundManagerScript.PlaySound("bossDeath");
             fireBossCollider.enabled = false;
             fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             fireBossAnimator.SetTrigger("Death");
+            if(fireBossHealth<=0 && iceBoss.iceBossHealth<=0)
+            {
+                    door.openGates();
+                    FindObjectOfType<AudioManager>().GetComponent<AudioSource>().Stop();
+            }
             
         }
         

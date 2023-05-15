@@ -45,11 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeba950474114c459b597e4a920d3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorSFX: {fileID: 8300000, guid: 7b611e440a9014d4cb203c1fb90d622f, type: 3}
-  errorSFX: {fileID: 8300000, guid: f175260f2f5b8c54fa82c0858556c65a, type: 3}
-  confirmSFX: {fileID: 8300000, guid: 6f7431d2138aba64a9ccce233f4ec609, type: 3}
   levelMusic: {fileID: 307869606}
-  isAudioMuted: 0
+  audioMuted: 0
   greenMusicButton: {fileID: 0}
   redMusicButton: {fileID: 0}
   greenAudioButton: {fileID: 0}
@@ -66,7 +63,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 717f9b20efc1dc64d833e3f1eaff31e4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0

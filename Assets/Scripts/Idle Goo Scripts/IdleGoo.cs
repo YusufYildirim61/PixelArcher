@@ -24,8 +24,12 @@ public class IdleGoo : MonoBehaviour
     bool poisonEffect = true;
     private Camera mainCamera;
     bool isInCameraRange = false;
+    bool attackSFX = false;
+
+   
     void Start()
     {
+        
         mainCamera = Camera.main;
         gameSession = FindObjectOfType<GameSession>();
         myCollider = GetComponent<PolygonCollider2D>();
@@ -63,15 +67,21 @@ public class IdleGoo : MonoBehaviour
                 poisonDmgCount = 0;
             }
         }
-       
+        
         if(health>0 && !isPoisoned && !isFrozen)
         {
-            Invoke("attack",0.4f);
+            Invoke("attack",0.7f);
+            
         }
+        if(!isInCameraRange)
+        {
+            attackSFX = false;
+        }
+        
             
         
     }
-
+   
     void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag=="Bullet")
@@ -173,7 +183,10 @@ public class IdleGoo : MonoBehaviour
       Vector3 pos = transform.position;
       pos+= transform.right*attackOffset.x;
       pos+=transform.up* attackOffset.y;
-
+      if(isInCameraRange)
+      {
+        SoundManagerScript.PlaySound("arrowShot");
+      }
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
       if(colInfo != null)
       {
@@ -193,5 +206,7 @@ public class IdleGoo : MonoBehaviour
     void attack()
     {
         myAnimator.SetTrigger("Attack");
+        
+        
     }
 }
