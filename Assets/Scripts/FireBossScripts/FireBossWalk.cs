@@ -30,20 +30,13 @@ public class FireBossWalk : StateMachineBehaviour
         if(fireBoss.isPoisoned)
         {
             fireBoss.LookAtPlayer();
-            
-                Debug.Log("asg");
-                Vector2 target = new Vector2(player.position.x, rb.position.y);
-                Vector2 newPosition =Vector2.MoveTowards(rb.position, target, speed*0.5f*Time.fixedDeltaTime);
-                rb.MovePosition(newPosition);
-                
-
-                if(Vector2.Distance(player.position, rb.position)<=attackRange)
-                {
-                    animator.SetTrigger("Attack");
-                }
-            
-            
-            
+            Vector2 target = new Vector2(player.position.x, rb.position.y);
+            Vector2 newPosition =Vector2.MoveTowards(rb.position, target, speed*0.5f*Time.fixedDeltaTime);
+            rb.MovePosition(newPosition);
+            if(Vector2.Distance(player.position, rb.position)<=attackRange)
+            {
+                animator.SetTrigger("Attack");
+            }
         }
         else
         {

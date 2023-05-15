@@ -212,7 +212,10 @@ public class FireBoss : MonoBehaviour
         Vector3 pos = transform.position;
         pos+= transform.right*attackOffset.x;
         pos+=transform.up* attackOffset.y;
-
+        if(isInCameraRange)
+        {
+            SoundManagerScript.PlaySound("arrowShot");
+        }
         Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
         if(colInfo != null)
         {

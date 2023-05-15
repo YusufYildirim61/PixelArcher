@@ -24,7 +24,7 @@ public class IdleGoo : MonoBehaviour
     bool poisonEffect = true;
     private Camera mainCamera;
     bool isInCameraRange = false;
-    bool attackSFX = false;
+    
 
    
     void Start()
@@ -73,10 +73,7 @@ public class IdleGoo : MonoBehaviour
             Invoke("attack",0.7f);
             
         }
-        if(!isInCameraRange)
-        {
-            attackSFX = false;
-        }
+        
         
             
         

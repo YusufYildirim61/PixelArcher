@@ -9,6 +9,7 @@ public class GiantBeetle : MonoBehaviour
     [SerializeField] TextMeshProUGUI runText;
     Rigidbody2D myRigidbody;
     playerMovement player;
+    AudioSource audioSource;
     
     
     void Start()
@@ -16,14 +17,15 @@ public class GiantBeetle : MonoBehaviour
         runText.text = "RUN!!";
         myRigidbody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<playerMovement>();
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     
     void Update()
     {
         myRigidbody.velocity = new Vector2(moveSpeed,0);
-       
+        playGiantSFX();
+
     }
     void OnTriggerEnter2D(Collider2D other) 
     {
@@ -37,4 +39,12 @@ public class GiantBeetle : MonoBehaviour
             runText.text = "";
         }
     }
+    void playGiantSFX()
+    {
+        if (!audioSource.isPlaying && PlayerPrefs.GetInt("isAudioMuted")==0)
+        {
+            audioSource.PlayDelayed(5f);
+        }
+    }
+
 }
