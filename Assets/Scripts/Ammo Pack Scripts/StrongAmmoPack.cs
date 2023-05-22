@@ -71,7 +71,7 @@ public class StrongAmmoPack : MonoBehaviour
         if(FindObjectOfType<GameManager>().money>=StrongPrice && playerMovement.isPressedBuy)
             {
                 
-                SoundManagerScript.PlaySound("confirm");
+                SoundManagerScript.PlaySound("buyAmmo");
                 wasCollectedAmmo = true;
                 FindObjectOfType<GameSession>().AddStrongAmmo(addedAmmo);
                 FindObjectOfType<GameManager>().money -= StrongPrice;

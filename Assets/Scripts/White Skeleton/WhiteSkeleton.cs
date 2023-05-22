@@ -173,7 +173,7 @@ public class WhiteSkeleton : MonoBehaviour
             FindObjectOfType<LevelComplete>().creatureKilled(200);
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossDeath");
+                SoundManagerScript.PlaySound("WSDeath");
             }
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -203,7 +203,7 @@ public class WhiteSkeleton : MonoBehaviour
                 FindObjectOfType<LevelComplete>().creatureKilled(200);
                 if(isInCameraRange)
                 {
-                    SoundManagerScript.PlaySound("bossDeath");
+                    SoundManagerScript.PlaySound("WSDeath");
                 }
                 myCollider.enabled = false;
                 myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -236,7 +236,7 @@ public class WhiteSkeleton : MonoBehaviour
       pos+=transform.up* attackOffset.y;
       if(isInCameraRange)
       {
-        SoundManagerScript.PlaySound("bossDeath");
+        SoundManagerScript.PlaySound("WSAttack");
       }
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRangeRadius,attackMask);
       if(colInfo != null)

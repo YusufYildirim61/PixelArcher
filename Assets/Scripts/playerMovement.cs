@@ -98,7 +98,7 @@ public class playerMovement : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        ladderClimbSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
+        ladderClimbSFX = Resources.Load<AudioClip>("ladderClimb2");
         walkSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
         audioManager = FindObjectOfType<AudioManager>();
         if(PlayerPrefs.GetInt("isMusicMuted")==0)
@@ -430,7 +430,7 @@ public class playerMovement : MonoBehaviour
                 gameSession.removePoisonAmmo();
                 myAnimator.SetTrigger("isShooting");
                 PlayerPrefs.SetInt("poisonAmmo",gameSession.poisonAmmo);
-                SoundManagerScript.PlaySound("arrowShot");
+                SoundManagerScript.PlaySound("poisonShot");
                 Instantiate(poisonArrow, gun.position,transform.rotation);
                 isShooting = true;
                 Invoke("rateOfFire",0.5f);
@@ -441,7 +441,7 @@ public class playerMovement : MonoBehaviour
                 gameSession.removeIceAmmo();
                 myAnimator.SetTrigger("isShooting");
                 PlayerPrefs.SetInt("iceAmmo",gameSession.iceAmmo);
-                SoundManagerScript.PlaySound("arrowShot");
+                SoundManagerScript.PlaySound("iceShot");
                 Instantiate(iceArrow, gun.position,transform.rotation);
                 isShooting = true;
                 Invoke("rateOfFire",0.5f);
@@ -459,7 +459,7 @@ public class playerMovement : MonoBehaviour
                     myAnimator.SetBool("ShootHit",false);
                 }
                 PlayerPrefs.SetInt("strongAmmo",gameSession.strongAmmo);
-                SoundManagerScript.PlaySound("arrowShot");
+                SoundManagerScript.PlaySound("strongShot");
                 Instantiate(strongArrow, gun.position,transform.rotation);
                 isShooting = true;
                 Invoke("rateOfFire",0.5f);

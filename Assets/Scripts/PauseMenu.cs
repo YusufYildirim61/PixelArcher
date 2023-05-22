@@ -67,6 +67,7 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
         FindObjectOfType<playerMovement>().isStopped = true;
         audioManager.levelMusic.Pause();
+        FindObjectOfType<SoundManagerScript>().GetComponent<AudioSource>().Stop();
     }
 
     public void restartLevel()

@@ -67,7 +67,7 @@ public class poisonAmmoPack : MonoBehaviour
         if(FindObjectOfType<GameManager>().money>=poisonPrice && playerMovement.isPressedBuy)
             {
                 
-                SoundManagerScript.PlaySound("confirm");
+                SoundManagerScript.PlaySound("buyAmmo");
                 wasCollectedAmmo = true;
                 FindObjectOfType<GameSession>().AddPoisonAmmo(addedAmmo);
                 FindObjectOfType<GameManager>().money -= poisonPrice;

@@ -161,7 +161,7 @@ public class Goo : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossDeath");
+                SoundManagerScript.PlaySound("gooDeath");
             }
             FindObjectOfType<LevelComplete>().creatureKilled(200);
             myCollider.enabled = false;
@@ -184,7 +184,7 @@ public class Goo : MonoBehaviour
                 stopPoisonEffect();
                 if(isInCameraRange)
                 {
-                    SoundManagerScript.PlaySound("bossDeath");
+                    SoundManagerScript.PlaySound("gooDeath");
                 }
                 FindObjectOfType<LevelComplete>().creatureKilled(200);
                 myCollider.enabled = false;
@@ -218,7 +218,7 @@ public class Goo : MonoBehaviour
       pos+=transform.up* attackOffset.y;
       if(isInCameraRange)
       {
-         SoundManagerScript.PlaySound("arrowShot");
+         SoundManagerScript.PlaySound("gooAttack");
       }
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
       if(colInfo != null)

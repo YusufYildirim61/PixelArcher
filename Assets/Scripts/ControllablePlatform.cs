@@ -19,7 +19,7 @@ public class ControllablePlatform : MonoBehaviour
     
     void Start()
     {
-        platformSFX = Resources.Load<AudioClip>("sfx_step_grass_r");
+        platformSFX = Resources.Load<AudioClip>("movingSpike");
         audioSource = GetComponent<AudioSource>();
         gameSession = FindObjectOfType<GameSession>();
         gameSession.getInButton.SetActive(false);

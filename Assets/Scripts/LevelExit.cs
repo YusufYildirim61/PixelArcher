@@ -25,7 +25,7 @@ public class LevelExit : MonoBehaviour
         if(other.tag=="Player" && FindObjectOfType<playerMovement>().isAlive==true)
         {
             FindObjectOfType<AudioManager>().levelMusic.Stop();
-            SoundManagerScript.PlaySound("arrowShot");
+            SoundManagerScript.PlaySound("levelComplete");
             //PlayerPrefs.SetInt("TotalMoney",FindObjectOfType<GameManager>().money); 
             PlayerPrefs.SetInt("SavedScene",nextSceneLoad);
             FindObjectOfType<LevelComplete>().ShowStatAnim();

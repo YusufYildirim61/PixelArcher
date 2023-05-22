@@ -121,7 +121,7 @@ public class IceBoss : MonoBehaviour
         }
         if(other.tag=="IceBullet")
         {
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("arrowBreak");
         }
         if(other.tag == "PoisonBullet")
         {
@@ -131,7 +131,7 @@ public class IceBoss : MonoBehaviour
         if(iceBossHealth<=0)
         {
             
-            SoundManagerScript.PlaySound("bossDeath");
+            SoundManagerScript.PlaySound("iceBossDeath");
             iceBossCollider.enabled = false;
             iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             iceBossAnimator.SetTrigger("Death");
@@ -157,7 +157,7 @@ public class IceBoss : MonoBehaviour
             {
                 stopPoisonEffect();
                 
-                SoundManagerScript.PlaySound("bossDeath");
+                SoundManagerScript.PlaySound("iceBossDeath");
                 iceBossCollider.enabled = false;
                 iceBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
                 iceBossAnimator.SetTrigger("Death");
@@ -189,7 +189,7 @@ public class IceBoss : MonoBehaviour
         pos+=transform.up* attackOffset.y;
         if(isInCameraRange)
         {
-            SoundManagerScript.PlaySound("arrowShot");
+            SoundManagerScript.PlaySound("iceBossAttack");
         }
         Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
         if(colInfo != null)

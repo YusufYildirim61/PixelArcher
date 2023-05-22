@@ -84,6 +84,7 @@ public class GameSession : MonoBehaviour
         poisonAmmoText.text = poisonAmmo.ToString();
         iceAmmoText.text = iceAmmo.ToString();
         strongAmmoText.text = strongAmmo.ToString();
+        playerMovement = FindObjectOfType<playerMovement>();
         
         
     }
@@ -128,6 +129,7 @@ public class GameSession : MonoBehaviour
 
     public void changeArrowToPoison()
     {
+        SoundManagerScript.PlaySound("poisonChange");
         isOnPoisonArrow = true;
         isOnDefaultArrow = false;
         poisonArrowButton.SetActive(true);
@@ -139,6 +141,7 @@ public class GameSession : MonoBehaviour
     }
     public void changeArrowToIce()
     {
+        SoundManagerScript.PlaySound("iceChange");
         isOnPoisonArrow = false;
         isOnIceArrow = true;
         poisonArrowButton.SetActive(false);
@@ -150,6 +153,7 @@ public class GameSession : MonoBehaviour
     }
     public void changeArrowToStrong()
     {
+        SoundManagerScript.PlaySound("strongChange");
         isOnIceArrow = false;
         isOnStrongArrow = true;
         iceArrowButton.SetActive(false);
@@ -161,6 +165,7 @@ public class GameSession : MonoBehaviour
     }
     public void changeArrowToDefault()
     {
+        SoundManagerScript.PlaySound("defaultChange");
         isOnStrongArrow = false;
         isOnDefaultArrow = true;
         strongArrowButton.SetActive(false);

@@ -39,7 +39,7 @@ public class CannonTrap : MonoBehaviour
             Instantiate(fireBall,barrel.position,barrel.rotation);
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("arrowShot");
+                SoundManagerScript.PlaySound("fireTrap");
             }
             timeBetween = startTimeBetween;
         }

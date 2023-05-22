@@ -126,7 +126,7 @@ public class IdleGoo : MonoBehaviour
             myAnimator.SetTrigger("Death");
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossDeath");
+                SoundManagerScript.PlaySound("gooDeath");
             }
             myCollider.enabled = false;
             myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -150,7 +150,7 @@ public class IdleGoo : MonoBehaviour
                 FindObjectOfType<LevelComplete>().creatureKilled(150);
                 if(isInCameraRange)
                 {
-                    SoundManagerScript.PlaySound("bossDeath");
+                    SoundManagerScript.PlaySound("gooDeath");
                 }
                 myCollider.enabled = false;
                 myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -182,7 +182,7 @@ public class IdleGoo : MonoBehaviour
       pos+=transform.up* attackOffset.y;
       if(isInCameraRange)
       {
-        SoundManagerScript.PlaySound("arrowShot");
+        SoundManagerScript.PlaySound("idleGooAttack");
       }
       Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
       if(colInfo != null)

@@ -51,7 +51,7 @@ public class FallingPlatform : MonoBehaviour
     }
     void playFallingPlatformSFX()
     {
-        SoundManagerScript.PlaySound("arrowShot");
+        SoundManagerScript.PlaySound("fallingPlatform");
     }
     
 }

@@ -69,7 +69,7 @@ public class IceAmmoPack : MonoBehaviour
         if(FindObjectOfType<GameManager>().money>=icePrice && playerMovement.isPressedBuy)
             {
                 
-                SoundManagerScript.PlaySound("confirm");
+                SoundManagerScript.PlaySound("buyAmmo");
                 wasCollectedAmmo = true;
                 FindObjectOfType<GameSession>().AddIceAmmo(addedAmmo);
                 FindObjectOfType<GameManager>().money -= icePrice;

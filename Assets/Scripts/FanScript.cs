@@ -10,6 +10,7 @@ public class FanScript : MonoBehaviour
     [SerializeField] bool isTurnedLeft;
     [SerializeField] bool isTurnedUp;
     [SerializeField] bool isTurnedDown;
+    bool isSoundPlaying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,9 +45,16 @@ public class FanScript : MonoBehaviour
     }
    void OnTriggerEnter2D(Collider2D other) 
     {
-      if(other.tag=="Player")
+      if(other.tag=="Player" && !isSoundPlaying)
       {
-         SoundManagerScript.PlaySound("arrowShot");
+         SoundManagerScript.PlaySound("wind");
+         isSoundPlaying = true;
+         Invoke("enableSound",1.2f);
       }
     }
+   
+   void enableSound()
+   {
+      isSoundPlaying = false;
+   }
 }

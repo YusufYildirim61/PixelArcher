@@ -139,7 +139,7 @@ public class FireBoss : MonoBehaviour
         if(fireBossHealth<=0)
         {
            
-            SoundManagerScript.PlaySound("bossDeath");
+            SoundManagerScript.PlaySound("fireBossDeath");
             fireBossCollider.enabled = false;
             fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             fireBossAnimator.SetTrigger("Death");
@@ -164,7 +164,7 @@ public class FireBoss : MonoBehaviour
             if(fireBossHealth<=0)
             {
                 stopPoisonEffect();
-                SoundManagerScript.PlaySound("bossDeath");
+                SoundManagerScript.PlaySound("fireBossDeath");
                 fireBossCollider.enabled = false;
                 fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
                 fireBossAnimator.SetTrigger("Death");
@@ -194,7 +194,7 @@ public class FireBoss : MonoBehaviour
         isFrozen = false;
         if(fireBossHealth<=0)
         {
-            SoundManagerScript.PlaySound("bossDeath");
+            SoundManagerScript.PlaySound("fireBossDeath");
             fireBossCollider.enabled = false;
             fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             fireBossAnimator.SetTrigger("Death");
@@ -214,7 +214,7 @@ public class FireBoss : MonoBehaviour
         pos+=transform.up* attackOffset.y;
         if(isInCameraRange)
         {
-            SoundManagerScript.PlaySound("arrowShot");
+            SoundManagerScript.PlaySound("fireBossAttack");
         }
         Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
         if(colInfo != null)

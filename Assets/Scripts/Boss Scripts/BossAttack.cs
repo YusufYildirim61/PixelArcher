@@ -20,7 +20,7 @@ public class BossAttack : MonoBehaviour
     pos+=transform.up* attackOffset.y;
     if(boss.isInCameraRange)
     {
-      SoundManagerScript.PlaySound("bossDeath");
+      SoundManagerScript.PlaySound("bossAttack");
     }
     Collider2D colInfo = Physics2D.OverlapCircle(pos,attackRange,attackMask);
     if(colInfo != null)
