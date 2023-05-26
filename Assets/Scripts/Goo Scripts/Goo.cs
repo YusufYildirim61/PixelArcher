@@ -144,7 +144,7 @@ public class Goo : MonoBehaviour
             isFrozen = true;
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("iceImpact");
             }
             myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeGoo",1f);
@@ -153,7 +153,7 @@ public class Goo : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("poisonImpact");
             }
             isPoisoned = true; 
         }
@@ -209,6 +209,10 @@ public class Goo : MonoBehaviour
     {
         myAnimator.SetBool("Freeze",false);
         isFrozen = false;
+        if(health<=0)
+        {
+            myAnimator.SetTrigger("Death");
+        }
     }
 
     public void Attack()

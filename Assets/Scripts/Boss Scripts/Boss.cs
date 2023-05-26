@@ -106,13 +106,13 @@ public class Boss : MonoBehaviour
         if(other.tag=="IceBullet")
         {
             isFrozen = true;
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("iceImpact");
             bossAnimator.SetBool("Freeze",true);
             Invoke("unFreezeBoss",1f);
         }
         if(other.tag == "PoisonBullet")
         {
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("poisonImpact");
             isPoisoned = true; 
         }
         if(bossHealth<=0)
@@ -163,6 +163,10 @@ public class Boss : MonoBehaviour
     {
         bossAnimator.SetBool("Freeze",false);
         isFrozen = false;
+        if(bossHealth<=0)
+        {
+            bossAnimator.SetTrigger("Death");
+        }
     }
     
 }

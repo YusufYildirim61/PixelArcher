@@ -48,7 +48,7 @@ public class IceBoss : MonoBehaviour
             return;
         }
         if(fightAreaTrigger.isInFightArea)
-        {
+        {            
             iceBossAnimator.SetBool("Walk",true);
         }
         else
@@ -125,7 +125,7 @@ public class IceBoss : MonoBehaviour
         }
         if(other.tag == "PoisonBullet")
         {
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("poisonImpact");
             isPoisoned = true; 
         }
         if(iceBossHealth<=0)

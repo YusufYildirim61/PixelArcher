@@ -154,7 +154,7 @@ public class WhiteSkeleton : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("iceImpact");
             }
             isFrozen = true;
             myAnimator.SetBool("Freeze",true);
@@ -164,7 +164,7 @@ public class WhiteSkeleton : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("poisonImpact");
             }
            isPoisoned = true; 
         }
@@ -227,6 +227,10 @@ public class WhiteSkeleton : MonoBehaviour
     {
         myAnimator.SetBool("Freeze",false);
         isFrozen = false;
+        if(health<=0)
+        {
+            myAnimator.SetTrigger("Death");
+        }
     }
 
     public void Attack()

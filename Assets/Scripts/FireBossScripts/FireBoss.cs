@@ -126,20 +126,22 @@ public class FireBoss : MonoBehaviour
         if(other.tag=="IceBullet")
         {
             isFrozen = true;
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("iceImpact");
             fireBossHealth-=2;
             fireBossAnimator.SetBool("Freeze",true);
             Invoke("unFreezeBoss",2f);
         }
         if(other.tag == "PoisonBullet")
         {
-            SoundManagerScript.PlaySound("bossHit");
+            SoundManagerScript.PlaySound("poisonImpact");
             isPoisoned = true; 
         }
         if(fireBossHealth<=0)
         {
-           
-            SoundManagerScript.PlaySound("fireBossDeath");
+            if(!isFrozen)
+            {
+             SoundManagerScript.PlaySound("fireBossDeath");
+            }
             fireBossCollider.enabled = false;
             fireBossRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
             fireBossAnimator.SetTrigger("Death");

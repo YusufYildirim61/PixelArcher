@@ -106,7 +106,7 @@ public class EnemyMovement : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("enemyHit");
+                SoundManagerScript.PlaySound("iceImpact");
             }
             myAnimator.SetBool("Freeze",true);
             myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -117,7 +117,7 @@ public class EnemyMovement : MonoBehaviour
         {
            if(isInCameraRange)
            {
-               SoundManagerScript.PlaySound("enemyHit");
+               SoundManagerScript.PlaySound("poisonImpact");
            }
            isPoisoned = true; 
         }

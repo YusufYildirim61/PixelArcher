@@ -7,7 +7,7 @@ public class SoundManagerScript : MonoBehaviour
     public static AudioClip cursorSFX, errorSFX, confirmSFX, ammoPickUpSFX, beetleDeathSFX, checkpointSFX, coinPickupSFX, enemyHitSFX,enemyDeathSFX,
     deathSFX,arrowShotSFX,jumpSFX,bossDamagedSFX,bossDeathSFX,gateSFX,footstepsSFX,levelCompleteSFX,poisonChangeSFX,iceChangeSFX,strongChangeSFX,defaultChangeSFX,
     poisonShotSFX,iceShotSFX,strongShotSFX,buyAmmoSFX,fireTrapSFX,windSFX,idleGooAttackSFX,gooDeathSFX,gooAttackSFX,WSAttackSFX,WSDeathSFX,bossAttackSFX,
-    fallingPlatformSFX,teleporterSFX,fireBossAttackSFX,fireBossDeathSFX,iceBossAttackSFX,iceBossDeathSFX,arrowBreakSFX;
+    fallingPlatformSFX,teleporterSFX,fireBossAttackSFX,fireBossDeathSFX,iceBossAttackSFX,iceBossDeathSFX,arrowBreakSFX,iceImpactSFX,poisonImpactSFX;
     public static AudioSource audioSrc;
     void Start()
     {
@@ -51,6 +51,8 @@ public class SoundManagerScript : MonoBehaviour
         iceBossAttackSFX = Resources.Load<AudioClip>("iceBossAttack");
         iceBossDeathSFX = Resources.Load<AudioClip>("iceBossDeath");
         arrowBreakSFX = Resources.Load<AudioClip>("arrowBreak1");
+        iceImpactSFX = Resources.Load<AudioClip>("iceImpact");
+        poisonImpactSFX = Resources.Load<AudioClip>("poisonImpact");
         
         audioSrc = GetComponent<AudioSource>();
     }
@@ -185,6 +187,12 @@ public class SoundManagerScript : MonoBehaviour
                 break;
             case "arrowBreak":
                 audioSrc.PlayOneShot(arrowBreakSFX);
+                break;
+            case "iceImpact":
+                audioSrc.PlayOneShot(iceImpactSFX);
+                break;
+            case "poisonImpact":
+                audioSrc.PlayOneShot(poisonImpactSFX);
                 break;                        
         }
         }

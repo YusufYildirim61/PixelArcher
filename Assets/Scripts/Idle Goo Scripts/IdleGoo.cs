@@ -49,7 +49,7 @@ public class IdleGoo : MonoBehaviour
         {
             isInCameraRange = false;
         }
-        if(isFrozen && health>0)
+        if(isFrozen)
         {
             return;
         }
@@ -106,7 +106,7 @@ public class IdleGoo : MonoBehaviour
             isFrozen = true;
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("iceImpact");
             }
             myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeIdleGoo",1f);
@@ -116,11 +116,11 @@ public class IdleGoo : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("bossHit");
+                SoundManagerScript.PlaySound("poisonImpact");
             }
            isPoisoned = true; 
         }
-        if(health<=0)
+        if(health<=0 ||(health<=0 && isFrozen))
         {
             FindObjectOfType<LevelComplete>().creatureKilled(150);
             myAnimator.SetTrigger("Death");
@@ -173,6 +173,10 @@ public class IdleGoo : MonoBehaviour
     {
         myAnimator.SetBool("Freeze",false);
         isFrozen = false;
+        if(health<=0)
+        {
+            myAnimator.SetTrigger("Death");
+        }
     }
 
     public void Attack()
@@ -202,7 +206,15 @@ public class IdleGoo : MonoBehaviour
     }
     void attack()
     {
-        myAnimator.SetTrigger("Attack");
+        if(health>0)
+        {
+            myAnimator.SetTrigger("Attack");
+        }
+        else if(health<=0)
+        {
+            myAnimator.SetTrigger("Death");
+        }
+        
         
         
     }

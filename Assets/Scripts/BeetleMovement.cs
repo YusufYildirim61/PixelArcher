@@ -96,7 +96,7 @@ public class BeetleMovement : MonoBehaviour
         {
             if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("enemyHit");
+                SoundManagerScript.PlaySound("iceImpact");
             }
             myAnimator.SetBool("Freeze",true);
             myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY;
@@ -108,7 +108,7 @@ public class BeetleMovement : MonoBehaviour
         {
           if(isInCameraRange)
             {
-                SoundManagerScript.PlaySound("enemyHit");
+                SoundManagerScript.PlaySound("poisonImpact");
             }
            isPoisoned = true; 
         }       
@@ -122,10 +122,6 @@ public class BeetleMovement : MonoBehaviour
             beetleHealth-=0.5f;
             poisonEffect = false;
             myAnimator.SetBool("Poison",true);
-            if(isInCameraRange)
-            {
-               SoundManagerScript.PlaySound("enemyHit");
-            }
             Invoke("stopPoisonEffect",0.2f);
             yield return new WaitForSeconds(0.8f);
             poisonEffect = true;
