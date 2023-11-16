@@ -66876,6 +66876,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Loader
       objectReference: {fileID: 0}
+    - target: {fileID: 4687534162716797164, guid: 6b3ae425b1e2c5d4ebd11fd5df63e01d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b3ae425b1e2c5d4ebd11fd5df63e01d, type: 3}
 --- !u!4 &1149388686 stripped
@@ -98676,7 +98680,7 @@ CompositeCollider2D:
   m_GameObject: {fileID: 1977411604}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -100383,7 +100387,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -100828,6 +100832,10 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 4480817743119492438, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e1fc036d97c8a42bf491760d40bf7e, type: 3}
 --- !u!1 &1472043250650036367 stripped
@@ -101244,11 +101252,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.987625
+      value: -11.48819
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0963173
+      value: 7.103842
       objectReference: {fileID: 0}
     - target: {fileID: 4223469002802507590, guid: 17f1f5a94abf98440a730397de4a9e4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -101287,6 +101295,10 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 534637949, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
     - target: {fileID: 534637949, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_GravityScale
       value: 3
@@ -101344,31 +101356,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 408140973}
     - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_Size.x
-      value: 0.46411133
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_Size.y
-      value: 0.053014755
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: e96820cfdae378b4183dd488e9373ce5, type: 2}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.03215027
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.47349262
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
       propertyPath: m_AutoTiling
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}
-      propertyPath: m_EdgeRadius
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4801094090449144721, guid: 05a549b33236f9943a0c57f0a2d72a29, type: 3}

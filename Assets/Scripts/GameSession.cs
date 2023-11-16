@@ -68,7 +68,7 @@ public class GameSession : MonoBehaviour
     {
         KeyImage.SetActive(false);
         getInButton.SetActive(false);
-        totalMoney.SetActive(false);
+        //totalMoney.SetActive(false);
         isOnDefaultArrow = true;
         poisonArrowButton.SetActive(false);
         iceArrowButton.SetActive(false);

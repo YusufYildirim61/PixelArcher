@@ -141,11 +141,11 @@ public class Goo : MonoBehaviour
         }
         if(other.tag=="IceBullet")
         {
-            isFrozen = true;
             if(isInCameraRange)
             {
                 SoundManagerScript.PlaySound("iceImpact");
             }
+            isFrozen = true;
             myAnimator.SetBool("Freeze",true);
             Invoke("unFreezeGoo",1f);
         }

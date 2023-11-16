@@ -43,10 +43,7 @@ public class IceBoss : MonoBehaviour
 
     void Update()
     {
-        if(iceBossHealth<=0)
-        {
-            return;
-        }
+        
         if(fightAreaTrigger.isInFightArea)
         {            
             iceBossAnimator.SetBool("Walk",true);

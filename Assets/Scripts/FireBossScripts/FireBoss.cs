@@ -46,10 +46,7 @@ public class FireBoss : MonoBehaviour
 
     void Update()
     {
-        if(fireBossHealth<=0)
-        {
-            return;
-        }
+        
         if(fightAreaTrigger.isInFightArea)
         {
            

@@ -480,8 +480,10 @@ public class playerMovement : MonoBehaviour
             {
                 return; // Yere inmeden zıplamayı engelleme
             }
+            float newVelocityY = Mathf.Min(myRigidbody.velocity.y + jumpSpeed, jumpSpeed);
             SoundManagerScript.PlaySound("jump");
-            myRigidbody.velocity += new Vector2(0f,jumpSpeed);        
+            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, newVelocityY);
+            //myRigidbody.velocity += new Vector2(0f,jumpSpeed);        
     }
  
     public void Die() 
@@ -760,21 +762,11 @@ public class playerMovement : MonoBehaviour
             gameSession.KeyImage.SetActive(true);
             Destroy(other.gameObject);  
         }
-        if(other.tag == "Shop")
-        {
-            FindObjectOfType<GameSession>().totalMoney.SetActive(true);   
-        }
+        
         
     
     }
-    void OnTriggerExit2D(Collider2D other) 
-    {
-        if(other.tag == "Shop")
-        {
-            FindObjectOfType<GameSession>().totalMoney.SetActive(false);
-            
-        } 
-    }
+    
     public void buyAmmoPacks()
     {
         isPressedBuy = true;

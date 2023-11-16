@@ -30,16 +30,17 @@ public class Goo_Walk : StateMachineBehaviour
         }
         else
         {
-            goo.LookAtPlayer();
-            if(Mathf.Abs(player.position.x-rb.position.x)<=attackRange && fightAreaTrigger.isInFightArea)
-            {
-                animator.SetTrigger("Attack");
-            }
             if(goo.health<=0)
             {
                 animator.SetTrigger("Death");
                 return;
             }
+            goo.LookAtPlayer();
+            if(Mathf.Abs(player.position.x-rb.position.x)<=attackRange && fightAreaTrigger.isInFightArea)
+            {
+                animator.SetTrigger("Attack");
+            }
+            
         }
         
     }
